@@ -292,3 +292,6 @@ html { scroll-padding-top: var(--gh-header-h); }
 .gh-service:hover .gh-link svg { transform: translateX(4px); }
 .gh-service:hover .gh-h4 { color: var(--accent-text); }
 @media (prefers-reduced-motion: reduce) { .gh-service, .gh-service .gh-photo > * { transition: none; } .gh-service:hover { transform: none; } .gh-service:hover .gh-photo > * { transform: none; } }
+
+/* Process without numbering */
+.gh-method-plain li::before { content: none; display: none; }

@@ -5,7 +5,9 @@ import re, os, sys, html, json, datetime
 ROOT = sys.argv[1]
 SITE = "https://grandhillcorp.com"
 EMAIL = "info@grandhillcorp.com"          # TODO: confirm public inbox
-PHONE = "[Phone number to be added]"      # TODO: add real phone (also in footer + contact)
+PHONE = None                              # TODO: set the real phone number; it then appears in footer + contact
+SHOW_PROJECTS = False                     # set True once there are real projects: adds Projects to menu, footer, sitemap
+SHOW_PROOF = False                        # set True once there is a real featured project and a real, authorized testimonial on the home page
 OG = "/assets/img/og-image.png"
 
 ARROW = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h16M14 6l6 6-6 6"/></svg>'
@@ -29,7 +31,7 @@ SVC_PHOTOS = {
 }
 
 CRUMB = {"/services/":"Services","/services/painting/":"Painting","/services/finishes-and-surface-care/":"Finishes and surface care","/services/interiors-and-flooring/":"Interiors and flooring","/projects/":"Projects","/about/":"About","/contact/":"Contact"}
-NAV = [("Services", "/services/"), ("Projects", "/projects/"), ("About", "/about/"), ("Contact", "/contact/")]
+NAV = [("Services", "/services/")] + ([("Projects", "/projects/")] if SHOW_PROJECTS else []) + [("About", "/about/"), ("Contact", "/contact/")]
 
 
 # ---------------------------------------------------------------- SERVICES
@@ -110,9 +112,9 @@ def footer():
     <div class="gh-footer-top">
       <div><a class="gh-footer-logo" href="/" aria-label="Grand Hill, home"><img src="/assets/logo/grand-hill-logo-reversed-transparent.svg" alt="Grand Hill" width="189" height="40"></a>
         <p class="gh-footer-tag">Precision in Every Finish.</p></div>
-      <div><h4>Contact</h4><ul><li>{PHONE}</li><li><a href="mailto:{EMAIL}">{EMAIL}</a></li></ul></div>
+      <div><h4>Contact</h4><ul>{("<li>" + PHONE + "</li>") if PHONE else ""}<li><a href="mailto:{EMAIL}">{EMAIL}</a></li></ul></div>
       <div><h4>Services</h4><ul><li><a href="/services/painting/">Painting</a></li><li><a href="/services/finishes-and-surface-care/">Finishes &amp; surface care</a></li><li><a href="/services/interiors-and-flooring/">Interiors &amp; flooring</a></li><li>Serving Florida</li></ul></div>
-      <div><h4>Company</h4><ul><li><a href="/services/">Services</a></li><li><a href="/projects/">Projects</a></li><li><a href="/about/">About</a></li><li><a href="/contact/">Contact</a></li></ul></div>
+      <div><h4>Company</h4><ul><li><a href="/services/">Services</a></li>{'<li><a href="/projects/">Projects</a></li>' if SHOW_PROJECTS else ""}<li><a href="/about/">About</a></li><li><a href="/contact/">Contact</a></li></ul></div>
     </div>
     <div class="gh-footer-bottom"><span>&copy; 2026 Grand Hill, LLC. All rights reserved.</span><span class="gh-footer-legal">Grand Hill, LLC</span></div>
   </div>
@@ -207,6 +209,32 @@ home_hero = f'''<section class="gh-hero gh-inverse gh-on-image">
   </div>
 </section>'''
 
+proof_html = f'''<section class="gh-section" aria-labelledby="feat-h"><div class="gh-container">
+  <div class="gh-section-head"><p class="gh-eyebrow">Featured project</p><h2 class="gh-h2" id="feat-h">Recent work.</h2></div>
+  <div class="gh-featured" data-placeholder="featured-project">
+    <a href="/projects/" class="gh-project" aria-label="View projects"><div class="gh-photo">{SLOT}<span class="gh-photo-caption">Photo placeholder</span></div></a>
+    <div>
+      <p class="gh-label">Location &middot; Scope</p>
+      <h3 class="gh-h3">Featured project name</h3>
+      <p>Short description of the project, the finish challenge and the result.</p>
+      <ul class="gh-meta-list"><li><span>Client</span><span>To be added</span></li><li><span>Scope</span><span>To be added</span></li><li><span>Credit</span><span>To be added</span></li></ul>
+      <a class="gh-link" href="/projects/">All projects {ARROW}</a>
+      <p class="gh-placeholder-note">Placeholder. Replace with the first real project, with photos, scope and credit, before launch.</p>
+    </div>
+  </div>
+</div></section>
+
+<section class="gh-section gh-section-alt" aria-labelledby="test-h"><div class="gh-container">
+  <h2 class="gh-label" id="test-h" style="margin-bottom:24px">Testimonials</h2>
+  <figure class="gh-testimonial" data-placeholder="testimonial" style="margin:0">
+    <div class="gh-testimonial-rule"></div>
+    <blockquote>Client quote goes here.</blockquote>
+    <figcaption><span class="gh-name">Client name</span><span class="gh-role">Title, company</span></figcaption>
+    <p class="gh-placeholder-note">Placeholder. Use only a real quote, with the client's written permission, before launch.</p>
+  </figure>
+</div></section>
+''' if SHOW_PROOF else ""
+
 home_main = f'''<main id="main">
 <section class="gh-section" aria-labelledby="who-h"><div class="gh-container"><div class="gh-two-col">
   <div><p class="gh-eyebrow">Who we are</p><h2 class="gh-h2" id="who-h" style="margin-top:16px">A finishing partner for commercial and residential work.</h2></div>
@@ -232,39 +260,16 @@ home_main = f'''<main id="main">
   </div>
 </div></section>
 
-<section class="gh-section gh-inverse" aria-labelledby="process-h"><div class="gh-container">
+<section class="gh-section" aria-labelledby="process-h"><div class="gh-container">
   <div class="gh-section-head"><p class="gh-eyebrow">Our process</p><h2 class="gh-h2" id="process-h">How we deliver every project.</h2></div>
-  <ol class="gh-method" aria-label="How every project runs">
+  <ol class="gh-method gh-method-plain" aria-label="How every project runs">
     <li><h3>Prepare</h3><p>Surfaces are cleaned, repaired and primed to specification.</p></li>
     <li><h3>Document</h3><p>Conditions, products and sign-offs are recorded.</p></li>
     <li><h3>Inspect</h3><p>Each scope is checked against the specification before handoff.</p></li>
   </ol>
 </div></section>
 
-<section class="gh-section" aria-labelledby="feat-h"><div class="gh-container">
-  <div class="gh-section-head"><p class="gh-eyebrow">Featured project</p><h2 class="gh-h2" id="feat-h">Recent work.</h2></div>
-  <div class="gh-featured" data-placeholder="featured-project">
-    <a href="/projects/" class="gh-project" aria-label="View projects"><div class="gh-photo">{SLOT}<span class="gh-photo-caption">Photo placeholder</span></div></a>
-    <div>
-      <p class="gh-label">Location &middot; Scope</p>
-      <h3 class="gh-h3">Featured project name</h3>
-      <p>Short description of the project, the finish challenge and the result.</p>
-      <ul class="gh-meta-list"><li><span>Client</span><span>To be added</span></li><li><span>Scope</span><span>To be added</span></li><li><span>Credit</span><span>To be added</span></li></ul>
-      <a class="gh-link" href="/projects/">All projects {ARROW}</a>
-      <p class="gh-placeholder-note">Placeholder. Replace with the first real project, with photos, scope and credit, before launch.</p>
-    </div>
-  </div>
-</div></section>
-
-<section class="gh-section gh-section-alt" aria-labelledby="test-h"><div class="gh-container">
-  <h2 class="gh-label" id="test-h" style="margin-bottom:24px">Testimonials</h2>
-  <figure class="gh-testimonial" data-placeholder="testimonial" style="margin:0">
-    <div class="gh-testimonial-rule"></div>
-    <blockquote>Client quote goes here.</blockquote>
-    <figcaption><span class="gh-name">Client name</span><span class="gh-role">Title, company</span></figcaption>
-    <p class="gh-placeholder-note">Placeholder. Use only a real quote, with the client's written permission, before launch.</p>
-  </figure>
-</div></section>
+{proof_html}
 </main>
 {quote_band()}'''
 
@@ -388,7 +393,8 @@ projects_body = f'''<main id="main">
 </div></section>
 </main>
 {quote_band()}'''
-page("/projects/", "Painting & Finishes Projects in Florida | Grand Hill", "Selected commercial and residential painting and finishes projects completed by Grand Hill across Florida.", projects_body, current="/projects/")
+if SHOW_PROJECTS:
+    page("/projects/", "Painting & Finishes Projects in Florida | Grand Hill", "Selected commercial and residential painting and finishes projects completed by Grand Hill across Florida.", projects_body, current="/projects/")
 
 project_detail = f'''<main id="main">
 <section class="gh-page-head"><div class="gh-container">
@@ -406,7 +412,8 @@ project_detail = f'''<main id="main">
 </div>
 </main>
 {quote_band()}'''
-page("/projects/sample-project/", "Project name | Grand Hill", "Project detail template.", project_detail, current="/projects/", noindex=True)
+if SHOW_PROJECTS:
+    page("/projects/sample-project/", "Project name | Grand Hill", "Project detail template.", project_detail, current="/projects/", noindex=True)
 
 # ---------------------------------------------------------------- ABOUT
 about_body = f'''<main id="main">
@@ -472,7 +479,7 @@ contact_body = f'''<main id="main">
   <aside class="gh-contact-side" aria-label="Contact details">
     <h2 class="gh-h3">Contact</h2>
     <dl>
-      <dt class="gh-label">Phone</dt><dd>{PHONE}</dd>
+      {('<dt class="gh-label">Phone</dt><dd>' + PHONE + "</dd>") if PHONE else ""}
       <dt class="gh-label">Email</dt><dd><a href="mailto:{EMAIL}">{EMAIL}</a></dd>
       <dt class="gh-label">Service area</dt><dd>Florida</dd>
     </dl>
@@ -503,7 +510,7 @@ nf = f'''<main id="main">
 page("/404.html", "Page not found | Grand Hill", "Page not found.", nf, noindex=True)
 
 # ---------------------------------------------------------------- robots + sitemap
-urls = ["/", "/services/"] + [x["path"] for x in SERVICES] + ["/projects/", "/about/", "/contact/"]
+urls = ["/", "/services/"] + [x["path"] for x in SERVICES] + (["/projects/"] if SHOW_PROJECTS else []) + ["/about/", "/contact/"]
 with open(os.path.join(ROOT, "sitemap.xml"), "w") as f:
     f.write('<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'
             + "".join(f"  <url><loc>{SITE}{u}</loc><lastmod>{datetime.date.today().isoformat()}</lastmod></url>\n" for u in urls) + "</urlset>\n")

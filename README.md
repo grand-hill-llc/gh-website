@@ -57,3 +57,11 @@ python3 tools/gen.py .
 ```
 
 Do not edit the generated `.html` files by hand: the next run overwrites them. Styles live in `assets/css/` and scripts in `assets/js/`.
+
+## Launch switches (top of `tools/gen.py`)
+
+- `PHONE`: set the real number and it appears in the footer and on the contact page. Until then it is hidden.
+- `SHOW_PROJECTS`: set to `True` once there are real projects. It adds Projects to the menu, footer and sitemap, and builds the Projects pages.
+- `SHOW_PROOF`: set to `True` once there is a real featured project and a real, authorized testimonial for the home page.
+
+After changing a switch, run `python3 tools/gen.py .`
