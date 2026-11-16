@@ -1,0 +1,512 @@
+#!/usr/bin/env python3
+"""Generates the static pages for the Grand Hill site. Usage: gen.py <site_dir>"""
+import re, os, sys, html, json, datetime
+
+ROOT = sys.argv[1]
+SITE = "https://grandhillcorp.com"
+EMAIL = "info@grandhillcorp.com"          # TODO: confirm public inbox
+PHONE = "[Phone number to be added]"      # TODO: add real phone (also in footer + contact)
+OG = "/assets/img/og-image.png"
+
+ARROW = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h16M14 6l6 6-6 6"/></svg>'
+ARROW_UR = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17L17 7M8 7h9v9"/></svg>'
+CHECK = '<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M8 12.5l3 3 5-6"/></svg>'
+
+SLOT = ('<div class="gh-photo-slot" aria-hidden="true"><svg viewBox="0 0 400 300" preserveAspectRatio="xMidYMid slice">'
+        '<rect class="pl" width="400" height="300"/>'
+        '<path class="ln" d="M40 260h320M70 260V90h120v170M190 260V60h140v200M90 120h80M90 160h80M90 200h80M210 100h100M210 140h100M210 180h100M210 220h100"/>'
+        '</svg></div>')
+
+def svc_photo(key, label, alt, cls="gh-service-photo"):
+    """Placeholder until /assets/img/services/<key>.webp (1600x1200) exists; the real photo then covers it."""
+    return (f'<div class="gh-photo {cls}">{SLOT}<span class="gh-photo-caption">Photo placeholder &middot; {label}</span>'
+            f'<img class="gh-photo-img" src="/assets/img/services/{key}.webp" alt="{alt}" width="1600" height="1200" loading="lazy" decoding="async" onerror="this.remove()"></div>')
+
+SVC_PHOTOS = {
+  "painting": ("Painting", "Painters finishing the exterior of a commercial building"),
+  "finishes": ("Finishes", "Close view of a finished stucco wall on a commercial building"),
+  "interiors": ("Interiors", "Retail interior with new flooring and installed fixtures"),
+}
+
+CRUMB = {"/services/":"Services","/services/painting/":"Painting","/services/finishes-and-surface-care/":"Finishes and surface care","/services/interiors-and-flooring/":"Interiors and flooring","/projects/":"Projects","/about/":"About","/contact/":"Contact"}
+NAV = [("Services", "/services/"), ("Projects", "/projects/"), ("About", "/about/"), ("Contact", "/contact/")]
+
+
+# ---------------------------------------------------------------- SERVICES
+SERVICES = [
+  dict(slug="painting", key="painting", name="Painting", path="/services/painting/",
+       title="Interior & Exterior Painting in Florida | Grand Hill",
+       desc="Commercial and residential painting contractor in Florida: surface preparation, interior and exterior coats, and scheduling around occupied buildings.",
+       h1="Commercial and residential painting.",
+       short="Interior and exterior painting for homes, offices, retail, multifamily and institutional buildings.",
+       lede="Every project starts with a walkthrough and a written scope. Surfaces are prepared, documented and inspected before the final coat, and the work is sequenced around the people using the building.",
+       items=["Interior painting", "Exterior painting", "Surface preparation and repair", "Scheduling around occupied buildings"],
+       stype="Painting"),
+  dict(slug="finishes-and-surface-care", key="finishes", name="Finishes & surface care", path="/services/finishes-and-surface-care/",
+       title="Stucco, EIFS, Pressure Washing & Coatings | Grand Hill",
+       desc="Stucco and EIFS repair and installation, pressure washing, caulking, protective coatings and wallcoverings for commercial and residential projects across Florida.",
+       h1="Stucco and coatings that stand up to Florida.",
+       short="Stucco and EIFS, pressure washing, protective coatings and wallcoverings, applied to the architect's intent.",
+       lede="Finishes are what people see and what the weather tests. We prepare each surface so the finish lasts, and we specify and apply it with attention to material, color and the architect's intent.",
+       items=["Stucco and EIFS repair and installation", "Pressure washing", "Caulking and sealing", "Protective and specialty coatings", "Wallcoverings"],
+       stype="Architectural finishes and surface care"),
+  dict(slug="interiors-and-flooring", key="interiors", name="Interiors & flooring", path="/services/interiors-and-flooring/",
+       title="Commercial Flooring & Interior Repairs | Grand Hill",
+       desc="Flooring, interior repairs and store fixture installs for retail and commercial spaces in Florida, scheduled around opening hours with one point of contact.",
+       h1="Flooring and interiors, ready for opening day.",
+       short="Commercial flooring, interior wall and fixture repairs, and fixture installs, scheduled around your operations.",
+       lede="Flooring and interior work for retail and commercial spaces, planned around opening hours and delivered with one point of contact at Grand Hill. Repairs and installs are documented and inspected before handoff.",
+       items=["Flooring: VCT, LVP, carpet tile, ceramic tile and welded-seam sheet vinyl", "Interior wall and fixture repairs", "Cashwrap and fixture installation", "Fixture and component roll-outs"],
+       stype="Commercial flooring and interior repairs"),
+]
+
+
+def header(current, transparent=False, here=""):
+    logo = "reversed-transparent" if transparent else "primary"
+    cls = "gh-header gh-header-transparent" if transparent else "gh-header"
+    chev = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>'
+    def sub():
+        items = '<a href="/services/"%s>All services</a>' % (' aria-current="page"' if here == "/services/" else "")
+        items += "".join('<a href="%s"%s>%s</a>' % (x["path"], ' aria-current="page"' if x["path"] == here else "", x["name"].replace("&", "&amp;")) for x in SERVICES)
+        return ('<div class="gh-subnav" id="sub-services"><div class="gh-subnav-panel">' + items + '</div></div>')
+    parts = []
+    for t, h in NAV:
+        a = '<a href="%s"%s>%s</a>' % (h, ' aria-current="page"' if h == current else "", t)
+        if h == "/services/":
+            a = ('<div class="gh-nav-item has-sub">' + a +
+                 '<button class="gh-sub-toggle" type="button" aria-expanded="false" aria-controls="sub-services" aria-label="Services menu">' + chev + '</button>' + sub() + '</div>')
+        parts.append(a)
+    links = "".join(parts)
+    return f'''<header class="{cls}">
+  <div class="gh-container">
+    <div class="gh-header-bar">
+      <a class="gh-logo" href="/" aria-label="Grand Hill, home"><img src="/assets/logo/grand-hill-logo-{logo}.svg" alt="Grand Hill" width="170" height="36"></a>
+      <nav class="gh-nav" id="site-nav" aria-label="Main">{links}<a class="gh-btn gh-btn-primary gh-btn-sm gh-nav-cta" href="/contact/">Request a quote</a></nav>
+      <div class="gh-header-actions">
+        <a class="gh-btn gh-btn-primary gh-btn-sm" href="/contact/">Request a quote</a>
+        <button class="gh-menu-btn" type="button" aria-expanded="false" aria-controls="site-nav" aria-label="Open menu">
+          <svg class="i-menu" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 7h18M3 12h18M3 17h18"/></svg>
+          <svg class="i-close" viewBox="0 0 24 24" aria-hidden="true" hidden><path d="M5 5l14 14M19 5L5 19"/></svg>
+        </button>
+      </div>
+    </div>
+  </div>
+</header>'''
+
+
+def quote_band():
+    return f'''<section class="gh-cta-band" aria-labelledby="cta-h">
+  <div class="gh-container"><div class="gh-cta-band-inner">
+    <div><p class="gh-eyebrow">Request a quote</p><h2 class="gh-h1" id="cta-h">Tell us about your project.</h2>
+    <p>Share the scope, location and timeline. We respond within one business day.</p></div>
+    <a class="gh-btn gh-btn-primary" href="/contact/">Request a quote {ARROW}</a>
+  </div></div>
+</section>'''
+
+
+def footer():
+    return f'''<footer class="gh-footer">
+  <div class="gh-container">
+    <div class="gh-footer-top">
+      <div><a class="gh-footer-logo" href="/" aria-label="Grand Hill, home"><img src="/assets/logo/grand-hill-logo-reversed-transparent.svg" alt="Grand Hill" width="189" height="40"></a>
+        <p class="gh-footer-tag">Precision in Every Finish.</p></div>
+      <div><h4>Contact</h4><ul><li>{PHONE}</li><li><a href="mailto:{EMAIL}">{EMAIL}</a></li></ul></div>
+      <div><h4>Services</h4><ul><li><a href="/services/painting/">Painting</a></li><li><a href="/services/finishes-and-surface-care/">Finishes &amp; surface care</a></li><li><a href="/services/interiors-and-flooring/">Interiors &amp; flooring</a></li><li>Serving Florida</li></ul></div>
+      <div><h4>Company</h4><ul><li><a href="/services/">Services</a></li><li><a href="/projects/">Projects</a></li><li><a href="/about/">About</a></li><li><a href="/contact/">Contact</a></li></ul></div>
+    </div>
+    <div class="gh-footer-bottom"><span>&copy; 2026 Grand Hill, LLC. All rights reserved.</span><span class="gh-footer-legal">Grand Hill, LLC</span></div>
+  </div>
+</footer>'''
+
+
+def page(path, title, desc, body, current="", transparent=False, noindex=False, extra_head="", scripts=True):
+    url = SITE + path
+    crumbs = ""
+    if not noindex and path != "/":
+        label = CRUMB.get(path, title.split("|")[0].strip())
+        trail = [("Home", SITE+"/")]
+        if path.startswith("/services/") and path != "/services/":
+            trail.append(("Services", SITE+"/services/"))
+        trail.append((label, url))
+        crumbs = ('<script type="application/ld+json">' + json.dumps({"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[
+            {"@type":"ListItem","position":i+1,"name":n,"item":u} for i,(n,u) in enumerate(trail)]}, separators=(",",":")) + '</script>\n')
+        extra_head = crumbs + extra_head
+    robots = '<meta name="robots" content="noindex, nofollow">\n' if noindex else ""
+    doc = f'''<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{html.escape(title)}</title>
+<meta name="description" content="{html.escape(desc, quote=True)}">
+{robots}<link rel="canonical" href="{url}">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="en_US">
+<meta property="og:site_name" content="Grand Hill">
+<meta property="og:title" content="{html.escape(title, quote=True)}">
+<meta property="og:description" content="{html.escape(desc, quote=True)}">
+<meta property="og:url" content="{url}">
+<meta property="og:image" content="{SITE}{OG}">
+<meta property="og:image:alt" content="Grand Hill, painting and finishes in Florida">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="{html.escape(title, quote=True)}">
+<meta name="twitter:description" content="{html.escape(desc, quote=True)}">
+<meta name="twitter:image" content="{SITE}{OG}">
+<meta name="theme-color" content="#262B33">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<script>document.documentElement.classList.add("js")</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@300;400;500;600;700&family=Inter:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="/assets/css/tokens.css">
+<link rel="stylesheet" href="/assets/css/components.css">
+<link rel="stylesheet" href="/assets/css/site.css">
+{extra_head}</head>
+<body class="gh">
+<a class="gh-skip" href="#main">Skip to content</a>
+{body[0] if transparent else header(current, here=path) + body}
+{footer()}
+<script src="/assets/js/site.js" defer></script>
+</body>
+</html>
+'''
+    out = os.path.join(ROOT, path.lstrip("/"))
+    if path.endswith("/"):
+        out = os.path.join(out, "index.html")
+    os.makedirs(os.path.dirname(out), exist_ok=True)
+    with open(out, "w") as f:
+        f.write(doc)
+
+
+def page_head(eyebrow, h1, lede):
+    return f'''<section class="gh-page-head"><div class="gh-container">
+  <p class="gh-eyebrow">{eyebrow}</p><h1 class="gh-h1">{h1}</h1><p class="gh-body-lg">{lede}</p>
+</div></section>'''
+
+
+
+
+
+# ---------------------------------------------------------------- HOME
+home_hero = f'''<section class="gh-hero gh-inverse gh-on-image">
+  <div class="gh-photo" aria-hidden="true"><img src="/assets/img/hero.webp" alt="" width="1920" height="1080" fetchpriority="high" onerror="this.parentNode.remove()"><div class="gh-hero-veil"></div></div>
+  <div class="gh-hero-inner">
+    {header("", transparent=True)}
+    <div class="gh-container gh-hero-wrap">
+      <div class="gh-hero-main">
+        <div class="gh-hero-body">
+          <p class="gh-eyebrow">Precision in every finish.</p>
+          <h1 class="gh-display">Commercial and residential painting in Florida.</h1>
+          <p class="gh-body-lg">Interior and exterior painting and finishes, planned around your schedule and inspected before handoff.</p>
+          <div class="gh-hero-actions"><a class="gh-btn gh-btn-primary" href="/contact/">Request a quote {ARROW}</a></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>'''
+
+home_main = f'''<main id="main">
+<section class="gh-section" aria-labelledby="who-h"><div class="gh-container"><div class="gh-two-col">
+  <div><p class="gh-eyebrow">Who we are</p><h2 class="gh-h2" id="who-h" style="margin-top:16px">A finishing partner for commercial and residential work.</h2></div>
+  <div class="gh-prose">
+    <p class="gh-body-lg">Grand Hill is a Florida company focused on painting and finishes for commercial and residential projects. We deliver the work from the first walkthrough to the final handoff, on schedule and inspected, and we answer for every surface.</p>
+    <p>Our team brings an architectural and engineering eye to material and color selection.</p>
+    <p><a class="gh-link" href="/services/">Our services {ARROW}</a> &nbsp; <a class="gh-link" href="/about/">About Grand Hill {ARROW}</a></p>
+  </div>
+</div></div></section>
+
+<section class="gh-section gh-section-alt" aria-labelledby="svc-h"><div class="gh-container">
+  <div class="gh-section-head"><p class="gh-eyebrow">Services</p><h2 class="gh-h2" id="svc-h">Painting and finishes for every project.</h2></div>
+  <div class="gh-cards-3">
+    <article class="gh-service is-featured">{svc_photo("painting", *SVC_PHOTOS["painting"])}<h3 class="gh-h4">Painting</h3>
+      <p>Commercial and residential interior and exterior painting. Our anchor service, planned around your schedule and the occupants of the building.</p>
+      <a class="gh-link" href="/services/painting/">Painting {ARROW}</a></article>
+    <article class="gh-service">{svc_photo("finishes", *SVC_PHOTOS["finishes"])}<h3 class="gh-h4">Finishes &amp; surface care</h3>
+      <p>Stucco and EIFS, pressure washing, protective coatings and wallcoverings, specified and applied to the architect's intent.</p>
+      <a class="gh-link" href="/services/finishes-and-surface-care/">Finishes {ARROW}</a></article>
+    <article class="gh-service">{svc_photo("interiors", *SVC_PHOTOS["interiors"])}<h3 class="gh-h4">Interiors &amp; flooring</h3>
+      <p>Commercial flooring, interior wall and fixture repairs, and fixture installs, scheduled around your operations.</p>
+      <a class="gh-link" href="/services/interiors-and-flooring/">Interiors {ARROW}</a></article>
+  </div>
+</div></section>
+
+<section class="gh-section gh-inverse" aria-labelledby="process-h"><div class="gh-container">
+  <div class="gh-section-head"><p class="gh-eyebrow">Our process</p><h2 class="gh-h2" id="process-h">How we deliver every project.</h2></div>
+  <ol class="gh-method" aria-label="How every project runs">
+    <li><h3>Prepare</h3><p>Surfaces are cleaned, repaired and primed to specification.</p></li>
+    <li><h3>Document</h3><p>Conditions, products and sign-offs are recorded.</p></li>
+    <li><h3>Inspect</h3><p>Each scope is checked against the specification before handoff.</p></li>
+  </ol>
+</div></section>
+
+<section class="gh-section" aria-labelledby="feat-h"><div class="gh-container">
+  <div class="gh-section-head"><p class="gh-eyebrow">Featured project</p><h2 class="gh-h2" id="feat-h">Recent work.</h2></div>
+  <div class="gh-featured" data-placeholder="featured-project">
+    <a href="/projects/" class="gh-project" aria-label="View projects"><div class="gh-photo">{SLOT}<span class="gh-photo-caption">Photo placeholder</span></div></a>
+    <div>
+      <p class="gh-label">Location &middot; Scope</p>
+      <h3 class="gh-h3">Featured project name</h3>
+      <p>Short description of the project, the finish challenge and the result.</p>
+      <ul class="gh-meta-list"><li><span>Client</span><span>To be added</span></li><li><span>Scope</span><span>To be added</span></li><li><span>Credit</span><span>To be added</span></li></ul>
+      <a class="gh-link" href="/projects/">All projects {ARROW}</a>
+      <p class="gh-placeholder-note">Placeholder. Replace with the first real project, with photos, scope and credit, before launch.</p>
+    </div>
+  </div>
+</div></section>
+
+<section class="gh-section gh-section-alt" aria-labelledby="test-h"><div class="gh-container">
+  <h2 class="gh-label" id="test-h" style="margin-bottom:24px">Testimonials</h2>
+  <figure class="gh-testimonial" data-placeholder="testimonial" style="margin:0">
+    <div class="gh-testimonial-rule"></div>
+    <blockquote>Client quote goes here.</blockquote>
+    <figcaption><span class="gh-name">Client name</span><span class="gh-role">Title, company</span></figcaption>
+    <p class="gh-placeholder-note">Placeholder. Use only a real quote, with the client's written permission, before launch.</p>
+  </figure>
+</div></section>
+</main>
+{quote_band()}'''
+
+
+HOME_SCHEMA = {"@context":"https://schema.org","@graph":[
+  {"@type":["HousePainter","LocalBusiness"],"@id":SITE+"/#business","name":"Grand Hill","legalName":"Grand Hill, LLC","url":SITE+"/",
+   "logo":SITE+"/assets/logo/grand-hill-logo-primary.svg","image":SITE+OG,
+   "description":"Painting and finishes for commercial and residential projects across Florida.",
+   "slogan":"Precision in every finish.","areaServed":{"@type":"State","name":"Florida"},
+   "knowsAbout":["Commercial painting","Residential painting","Exterior painting","Interior painting","Stucco","EIFS","Pressure washing","Protective coatings","Wallcoverings","Commercial flooring"]},
+  {"@type":"WebSite","@id":SITE+"/#website","url":SITE+"/","name":"Grand Hill","publisher":{"@id":SITE+"/#business"},"inLanguage":"en-US"}]}
+HOME_HEAD = ('<link rel="preload" as="image" href="/assets/img/hero.webp" fetchpriority="high">\n'
+             '<script type="application/ld+json">' + json.dumps(HOME_SCHEMA, separators=(",",":")) + '</script>\n')
+page("/", "Commercial & Residential Painting in Florida | Grand Hill",
+     "Commercial and residential painting and finishes across Florida. Planned around your schedule, inspected before handoff.",
+     (home_hero + home_main,), transparent=True,
+     extra_head=HOME_HEAD)
+
+PAINT_NAMES = {x["slug"]: x["name"] for x in SERVICES}
+
+DETAILS = {
+  "painting": [
+    ("Interior painting", "Offices, retail floors, common areas and residences, finished to one consistent standard."),
+    ("Exterior painting", "Exterior surfaces prepared and coated to stand up to Florida sun, humidity and rain."),
+    ("Surface preparation and repair", "Cleaning, patching and priming before any coat goes on."),
+    ("Occupied buildings", "Work sequenced around opening hours, tenants and residents."),
+  ],
+  "finishes-and-surface-care": [
+    ("Stucco and EIFS", "Repair and installation, with patches and new work matched to the existing finish."),
+    ("Pressure washing", "Exterior cleaning to prepare surfaces for coating or restore their appearance."),
+    ("Caulking and sealing", "Joints and openings sealed to keep water out and finishes intact."),
+    ("Protective and specialty coatings", "Coatings selected for moisture, wear and corrosion resistance."),
+    ("Wallcoverings", "Installed to specification, with seams and edges checked before handoff."),
+  ],
+  "interiors-and-flooring": [
+    ("Commercial flooring", "VCT, LVP, carpet tile, ceramic tile and welded-seam sheet vinyl, installed and repaired."),
+    ("Interior wall and fixture repairs", "Patching, refinishing and repair of walls and fixtures, ready for reopening."),
+    ("Cashwrap and fixture installation", "Counters, shelving and display fixtures installed and secured to plan."),
+    ("Fixture and component roll-outs", "Repeatable installs across multiple stores, scheduled and reported by location."),
+  ],
+}
+
+def svc_ld(x):
+    cat = {"@type":"OfferCatalog","name":x["name"].replace("&","and")+" services","itemListElement":[
+        {"@type":"Offer","itemOffered":{"@type":"Service","name":t,"description":d}} for t,d in DETAILS[x["slug"]]]}
+    return '<script type="application/ld+json">' + json.dumps({"@context":"https://schema.org","@type":"Service","name":x["name"].replace("&","and"),"serviceType":x["stype"],
+        "url":SITE+x["path"],"description":x["short"],"provider":{"@id":SITE+"/#business"},"areaServed":{"@type":"State","name":"Florida"},"hasOfferCatalog":cat}, separators=(",",":")) + '</script>\n'
+
+# Landing: short, scannable, every card leads to a detail page
+rows = "".join(f'''
+    <article class="gh-service{' is-featured' if i == 0 else ''}">{svc_photo(x["key"], *SVC_PHOTOS[x["key"]])}<h2 class="gh-h4">{x["name"].replace("&","&amp;")}</h2>
+      <p>{x["short"]}</p>
+      <a class="gh-link" href="{x["path"]}">{x["name"].replace("&","&amp;")} {ARROW}</a></article>''' for i, x in enumerate(SERVICES))
+services_body = f'''<main id="main" class="gh-services-landing">
+{page_head("Services", "Painting and finishes.", "Commercial and residential work, three services, one quality standard.")}
+<section class="gh-section" style="padding-top:0"><div class="gh-container">
+  <div class="gh-cards-3">{rows}
+  </div>
+</div></section>
+</main>
+{quote_band()}'''
+
+SVC_SCHEMA = {"@context":"https://schema.org","@type":"ItemList","name":"Grand Hill services","itemListElement":[
+    {"@type":"ListItem","position":i+1,"name":x["name"].replace("&","and"),"url":SITE+x["path"]} for i,x in enumerate(SERVICES)]}
+SVC_HEAD = '<script type="application/ld+json">' + json.dumps(SVC_SCHEMA, separators=(",",":")) + '</script>\n'
+page("/services/", "Painting, Finishes & Flooring Services | Grand Hill", "Commercial and residential painting; stucco, EIFS, pressure washing and coatings; and flooring and interior repairs across Florida.", services_body, current="/services/", extra_head=SVC_HEAD)
+
+# Detail pages
+for x in SERVICES:
+    others = "".join(f'''<a class="gh-link" href="{o["path"]}">{o["name"].replace("&","&amp;")} {ARROW}</a>''' for o in SERVICES if o is not x)
+    def _slug(t): return re.sub(r"[^a-z0-9]+", "-", t.lower()).strip("-")
+    caps = "".join(f'<article class="gh-capability">{svc_photo(x["key"] + "-" + _slug(t), t, t + " by Grand Hill", cls="gh-capability-photo")}<h3 class="gh-h4">{t}</h3><p>{d}</p></article>' for t, d in DETAILS[x["slug"]])
+    capcls = "gh-capabilities is-" + str(len(DETAILS[x["slug"]]))
+    hero = f'''<section class="gh-hero gh-hero-service gh-inverse gh-on-image">
+  <div class="gh-photo" aria-hidden="true">{SLOT}<img class="gh-photo-img" src="/assets/img/services/{x["key"]}.webp" alt="" width="1600" height="1200" fetchpriority="high" onerror="this.remove()"><div class="gh-hero-veil"></div></div>
+  <div class="gh-hero-inner">
+    {header("/services/", transparent=True, here=x["path"])}
+    <div class="gh-container gh-hero-wrap">
+      <div class="gh-hero-main">
+        <div class="gh-hero-body">
+          <p class="gh-eyebrow">{x["name"].replace("&","&amp;")}</p>
+          <h1 class="gh-display">{x["h1"]}</h1>
+          <p class="gh-body-lg">{x["short"]}</p>
+          <div class="gh-hero-actions"><a class="gh-btn gh-btn-primary" href="/contact/">Request a quote {ARROW}</a></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>'''
+    body = f'''{hero}<main id="main">
+<section class="gh-section"><div class="gh-container">
+  <div class="gh-two-col">
+    <div><p class="gh-eyebrow">Overview</p><h2 class="gh-h2" style="margin-top:16px">What this includes.</h2></div>
+    <div class="gh-prose"><p class="gh-body-lg">{x["lede"]}</p>
+    <p><a class="gh-link" href="/contact/">Request a quote {ARROW}</a></p></div>
+  </div>
+</div></section>
+<section class="gh-section gh-section-alt" aria-labelledby="cap-h"><div class="gh-container">
+  <div class="gh-section-head"><p class="gh-eyebrow">Scope</p><h2 class="gh-h2" id="cap-h">{x["name"].replace("&","&amp;")}, in detail.</h2></div>
+  <div class="{capcls}">{caps}</div>
+</div></section>
+<section class="gh-section"><div class="gh-container"><div class="gh-two-col">
+  <div><p class="gh-eyebrow">More services</p><h2 class="gh-h2" style="margin-top:16px">Explore the rest.</h2></div>
+  <div class="gh-prose gh-related">{others}<a class="gh-link" href="/services/">All services {ARROW}</a></div>
+</div></div></section>
+</main>
+{quote_band()}'''
+    page(x["path"], x["title"], x["desc"], (body,), current="/services/", transparent=True, extra_head=svc_ld(x))
+
+# ---------------------------------------------------------------- PROJECTS
+projects_body = f'''<main id="main">
+{page_head("Projects", "Selected work.", "Commercial and residential projects, and the finishes that define them.")}
+<section class="gh-section gh-section-alt" style="padding-top:64px"><div class="gh-container">
+  <div class="gh-projects-grid">
+    <a class="gh-project" href="/projects/sample-project/" data-placeholder="project-card">
+      <div class="gh-photo">{SLOT}<span class="gh-photo-caption">Photo placeholder</span></div>
+      <div class="gh-project-meta"><div><h2 class="gh-h4">Project name</h2><p class="gh-label">Location &middot; Scope</p></div><span class="gh-project-arrow">{ARROW_UR}</span></div>
+    </a>
+  </div>
+  <p class="gh-placeholder-note">Placeholder. Each project needs real photos, a short scope and the right credit (team experience, or the partner company with its authorization).</p>
+</div></section>
+</main>
+{quote_band()}'''
+page("/projects/", "Painting & Finishes Projects in Florida | Grand Hill", "Selected commercial and residential painting and finishes projects completed by Grand Hill across Florida.", projects_body, current="/projects/")
+
+project_detail = f'''<main id="main">
+<section class="gh-page-head"><div class="gh-container">
+  <p class="gh-eyebrow">Project</p><h1 class="gh-h1">Project name</h1>
+  <p class="gh-body-lg">Location &middot; Year &middot; Scope</p>
+</div></section>
+<div class="gh-container" style="padding-bottom:128px">
+  <div class="gh-photo" style="aspect-ratio:16/9">{SLOT}<span class="gh-photo-caption">Photo placeholder</span></div>
+  <div class="gh-two-col" style="margin-top:64px">
+    <ul class="gh-meta-list"><li><span>Client</span><span>To be added</span></li><li><span>Scope</span><span>To be added</span></li><li><span>Credit</span><span>To be added</span></li></ul>
+    <div class="gh-prose"><p class="gh-body-lg">Project description: the brief, the finish challenge and the result.</p>
+    <p class="gh-placeholder-note">Template page for project details. Duplicate this folder for each project. It is hidden from search engines until it holds real content.</p>
+    <p style="margin-top:32px"><a class="gh-link" href="/projects/">All projects {ARROW}</a></p></div>
+  </div>
+</div>
+</main>
+{quote_band()}'''
+page("/projects/sample-project/", "Project name | Grand Hill", "Project detail template.", project_detail, current="/projects/", noindex=True)
+
+# ---------------------------------------------------------------- ABOUT
+about_body = f'''<main id="main">
+{page_head("About", "A finishing company built on one standard.", "Direct, accountable and careful with every surface.")}
+<section class="gh-section gh-section-alt" style="padding-top:64px" aria-labelledby="how-h"><div class="gh-container">
+  <div class="gh-section-head"><p class="gh-eyebrow">How we work</p><h2 class="gh-h2" id="how-h">From walkthrough to handoff.</h2>
+  <p>Work is carried out by prequalified specialty crews that carry their own insurance, under Grand Hill's direction and inspection. We answer for the result.</p></div>
+  <ol class="gh-steps">
+    <li><h3>Scope</h3><p>We walk the site, confirm surfaces, substrates and finish specifications, and note access constraints.</p></li>
+    <li><h3>Estimate</h3><p>A clear written estimate with scope, exclusions and schedule. No surprises in the numbers.</p></li>
+    <li><h3>Execute</h3><p>A prequalified crew works to a schedule built around the building and its occupants.</p></li>
+    <li><h3>Inspect</h3><p>We inspect against the specification, correct anything that falls short and hand off.</p></li>
+  </ol>
+</div></section>
+
+<section class="gh-section" aria-labelledby="team-h"><div class="gh-container">
+  <div class="gh-section-head"><p class="gh-eyebrow">Leadership</p><h2 class="gh-h2" id="team-h">The people behind Grand Hill.</h2></div>
+  <div class="gh-cards-2">
+    <article class="gh-person"><h3>Julio Adiel Canelo</h3><p class="gh-label">Commercial Member</p><p>Brings projects and client relationships. Leads safety and supervises work in the field.</p></article>
+    <article class="gh-person"><h3>Adrian Gerig</h3><p class="gh-label">Administrative Member</p><p>Leads administration, project management and client communication.</p></article>
+  </div>
+</div></section>
+
+<section class="gh-section gh-section-alt" aria-labelledby="area-h"><div class="gh-container"><div class="gh-two-col">
+  <div><p class="gh-eyebrow">Service area</p><h2 class="gh-h2" id="area-h" style="margin-top:16px">Florida.</h2></div>
+  <div class="gh-prose"><p class="gh-body-lg">We are based in Central Florida and take on commercial and residential projects across the state.</p>
+  <p>Not sure whether your project is in range? <a href="/contact/" style="color:var(--ink);text-underline-offset:4px;text-decoration-color:var(--accent);text-decoration-thickness:2px">Ask us.</a></p></div>
+</div></div></section>
+</main>
+{quote_band()}'''
+page("/about/", "About Grand Hill | Florida Painting & Finishes Contractor", "Meet the team behind Grand Hill, a Florida painting and finishes contractor. See how we work from walkthrough to handoff and where we serve.", about_body, current="/about/")
+
+# ---------------------------------------------------------------- CONTACT
+def field(id_, label, kind="text", req=False, span2=False, autocomplete="", placeholder=""):
+    r = ' <span class="req" aria-hidden="true">*</span>' if req else ""
+    reqa = " required" if req else ""
+    ac = f' autocomplete="{autocomplete}"' if autocomplete else ""
+    ph = f' placeholder="{placeholder}"' if placeholder else ""
+    return f'''<div class="gh-field{' gh-span-2' if span2 else ''}"><label class="gh-field-label" for="{id_}">{label}{r}</label>
+<input class="gh-input" id="{id_}" name="{id_}" type="{kind}"{reqa}{ac}{ph}></div>'''
+
+contact_body = f'''<main id="main">
+{page_head("Contact", "Request a quote.", "Tell us about the project. We respond within one business day.")}
+<section class="gh-section gh-section-alt" style="padding-top:64px"><div class="gh-container"><div class="gh-contact">
+  <div>
+    <form id="quote-form" class="gh-form" name="quote" method="POST" action="/thank-you/" data-netlify="true" netlify-honeypot="bot-field" novalidate>
+      <input type="hidden" name="form-name" value="quote">
+      <p class="gh-hp" aria-hidden="true"><label>Leave this field empty <input name="bot-field" tabindex="-1" autocomplete="off"></label></p>
+      {field("name", "Name", req=True, autocomplete="name")}
+      {field("company", "Company", req=True, autocomplete="organization")}
+      {field("email", "Email", "email", req=True, autocomplete="email")}
+      {field("phone", "Phone", "tel", autocomplete="tel")}
+      <div class="gh-field"><label class="gh-field-label" for="service">Service</label>
+        <select class="gh-select" id="service" name="service"><option value="">Select a service</option><option>Painting: interior</option><option>Painting: exterior</option><option>Finishes and surface care</option><option>Interiors and flooring</option><option>Not sure yet</option></select></div>
+      {field("location", "Project location", autocomplete="address-level2", placeholder="City, Florida")}
+      <div class="gh-field gh-span-2"><label class="gh-field-label" for="details">Project details <span class="req" aria-hidden="true">*</span></label>
+        <textarea class="gh-textarea" id="details" name="details" required></textarea>
+        <p class="gh-help">Scope, approximate size, timeline and any plans or specifications you can share.</p></div>
+      <div class="gh-span-2"><button class="gh-btn gh-btn-primary" type="submit">Send request {ARROW}</button><div id="form-status" class="gh-form-status" aria-live="polite"></div></div>
+    </form>
+    <div id="form-success" class="gh-form-success" role="status" tabindex="-1" hidden>{CHECK}<div><strong>Request received.</strong><p>Thank you. We will respond within one business day.</p></div></div>
+  </div>
+  <aside class="gh-contact-side" aria-label="Contact details">
+    <h2 class="gh-h3">Contact</h2>
+    <dl>
+      <dt class="gh-label">Phone</dt><dd>{PHONE}</dd>
+      <dt class="gh-label">Email</dt><dd><a href="mailto:{EMAIL}">{EMAIL}</a></dd>
+      <dt class="gh-label">Service area</dt><dd>Florida</dd>
+    </dl>
+  </aside>
+</div></div></section>
+</main>'''
+page("/contact/", "Request a Painting Quote in Florida | Grand Hill", "Request a quote for a commercial or residential painting or finishes project in Florida. Grand Hill responds within one business day.", contact_body, current="/contact/")
+
+thanks = f'''<main id="main">
+{page_head("Thank you", "Request received.", "Thank you. We will respond within one business day.")}
+<div class="gh-container" style="padding-bottom:128px"><a class="gh-link" href="/">Back to home {ARROW}</a></div>
+</main>'''
+page("/thank-you/", "Thank you | Grand Hill", "Your request has been received.", thanks, noindex=True)
+
+# ---------------------------------------------------------------- INSIGHTS (built, hidden at launch)
+insights = f'''<main id="main">
+{page_head("Insights", "Insights.", "Notes on finishes, coatings and project planning.")}
+<div class="gh-container" style="padding-bottom:128px"><div class="gh-empty"><h2 class="gh-h4">No articles yet.</h2>
+<p class="gh-muted">This section is built but hidden at launch: it is not linked in the navigation or the sitemap, and it is marked noindex. To publish it, add the link to the header and footer, remove the noindex tag and add the URL to sitemap.xml.</p></div></div>
+</main>'''
+page("/insights/", "Insights | Grand Hill", "Insights from Grand Hill on finishes and coatings.", insights, noindex=True)
+
+# ---------------------------------------------------------------- 404
+nf = f'''<main id="main">
+{page_head("404", "Page not found.", "The page you are looking for does not exist or has moved.")}
+<div class="gh-container" style="padding-bottom:128px"><a class="gh-link" href="/">Back to home {ARROW}</a></div>
+</main>'''
+page("/404.html", "Page not found | Grand Hill", "Page not found.", nf, noindex=True)
+
+# ---------------------------------------------------------------- robots + sitemap
+urls = ["/", "/services/"] + [x["path"] for x in SERVICES] + ["/projects/", "/about/", "/contact/"]
+with open(os.path.join(ROOT, "sitemap.xml"), "w") as f:
+    f.write('<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'
+            + "".join(f"  <url><loc>{SITE}{u}</loc><lastmod>{datetime.date.today().isoformat()}</lastmod></url>\n" for u in urls) + "</urlset>\n")
+with open(os.path.join(ROOT, "robots.txt"), "w") as f:
+    f.write(f"User-agent: *\nAllow: /\n\nSitemap: {SITE}/sitemap.xml\n")
+print("ok")

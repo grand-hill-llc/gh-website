@@ -1,0 +1,11 @@
+{
+  "name": "grand-hill-website",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Static website for Grand Hill, LLC",
+  "type": "module",
+  "scripts": {
+    "start": "node scripts/dev-server.mjs",
+    "check:placeholders": "grep -rn 'data-placeholder\\|\\[Phone number' --include=*.html . || echo 'No placeholders left.'; for k in painting finishes interiors; do [ -f assets/img/services/$k.webp ] || echo \"Missing service photo: $k\"; done"
+  }
+}

@@ -1,0 +1,5 @@
+node_modules/
+.DS_Store
+.netlify/
+start-preview.command
+__pycache__/

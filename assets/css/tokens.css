@@ -1,0 +1,36 @@
+/* Grand Hill design tokens (converted from the design system's tokens.json). */
+:root, [data-theme="light"] {
+  --charcoal: #262b33; --charcoal-deep: #1c2026; --crimson: #c40d3c; --steel: #6e747c;
+  --stone: #f2f2f0; --border: #e4e5e7; --white: #ffffff;
+  --steel-ink: #60666e; --steel-light: #a3a9b1; --crimson-tint: #ff6b88;
+
+  --surface: var(--white); --surface-alt: var(--stone); --surface-raised: var(--white);
+  --surface-inverse: var(--charcoal); --surface-inverse-deep: var(--charcoal-deep);
+  --ink: var(--charcoal); --ink-muted: var(--steel-ink);
+  --ink-inverse: var(--white); --ink-inverse-muted: var(--steel-light);
+  --line: var(--border); --line-strong: var(--steel); --line-inverse: #3a414c;
+  --line-on-image: rgba(255, 255, 255, 0.32); --veil: rgba(28, 32, 38, 0.64);
+  --accent: var(--crimson); --accent-hover: #a30a31; --accent-text: var(--crimson);
+  --accent-text-inverse: var(--crimson-tint); --on-accent: var(--white);
+  --focus: var(--charcoal); --focus-inverse: var(--white);
+  --danger: var(--crimson); --success: #1e7a4f;
+
+  --font-display: "Inter Tight", "Inter", system-ui, sans-serif;
+  --font-sans: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
+
+  --space-half: 4px; --space-1: 8px; --space-2: 16px; --space-3: 24px; --space-4: 32px;
+  --space-5: 40px; --space-6: 48px; --space-8: 64px; --space-10: 80px; --space-12: 96px;
+  --space-16: 128px; --space-20: 160px;
+
+  --radius-none: 0px; --radius-max: 2px;
+  --stroke-hairline: 1px; --stroke-rule: 2px; --stroke-accent: 3px;
+  --container-max: 1240px; --grid-columns: 12; --grid-gutter: 24px; --page-margin: 64px; --header-height: 72px;
+}
+[data-theme="dark"] {
+  --surface: var(--charcoal); --surface-alt: var(--charcoal-deep); --surface-raised: #2e343d;
+  --surface-inverse: var(--charcoal-deep); --surface-inverse-deep: #16191e;
+  --ink: var(--white); --ink-muted: var(--steel-light);
+  --line: #3a414c; --line-strong: #80868f; --line-inverse: #343a44;
+  --accent-text: var(--crimson-tint); --focus: var(--white);
+  --danger: var(--crimson-tint); --success: #5cc08e;
+}
