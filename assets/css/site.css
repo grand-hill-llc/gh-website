@@ -305,3 +305,10 @@ html { scroll-padding-top: var(--gh-header-h); }
 @media (max-width: 1000px) { .gh-why { grid-template-columns: repeat(2, 1fr); } }
 @media (max-width: 600px) { .gh-why { grid-template-columns: 1fr; margin-top: var(--space-5); } }
 @media (min-width: 1001px) { .gh-why h3 { min-height: 2.4em; } }
+
+/* Why section icons: thin linear, steel, no container */
+.gh-why-icon { display: block; width: 32px; height: 32px; color: var(--steel-ink); margin: 0 0 var(--space-2); stroke-width: 1.1; }
+
+/* Home "Who we are": body copy matches the lede width, no orphan words, links set apart */
+.gh-who p { max-width: none; text-wrap: pretty; }
+.gh-who p:last-child { margin-top: var(--space-4); }
