@@ -313,3 +313,15 @@ html { scroll-padding-top: var(--gh-header-h); }
 /* Home "Who we are": body copy matches the lede width, no orphan words, links set apart */
 .gh-who p { max-width: none; text-wrap: pretty; }
 .gh-who p:last-child { margin-top: var(--space-4); }
+
+/* Home hero: optional background video (assets/video/hero.webm + hero.mp4), poster = hero.webp */
+.gh-hero-video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; transition: opacity .6s ease; }
+.gh-hero-video.is-playing { opacity: 1; }
+.gh-hero-pause { position: absolute; right: var(--page-margin, 64px); bottom: var(--space-3); z-index: 2; width: 44px; height: 44px; display: inline-flex; align-items: center; justify-content: center; background: transparent; color: var(--ink-inverse); border: var(--stroke-hairline) solid var(--line-on-image); border-radius: 0; cursor: pointer; }
+.gh-hero-pause:hover { border-color: var(--ink-inverse); }
+.gh-hero-pause:focus-visible { outline: var(--stroke-rule) solid var(--focus-inverse); outline-offset: 3px; }
+.gh-hero-pause .i-play { display: none; }
+.gh-hero-pause[aria-pressed="true"] .i-pause { display: none; }
+.gh-hero-pause[aria-pressed="true"] .i-play { display: inline; }
+@media (max-width: 900px) { .gh-hero-pause { right: 20px; } }
+@media (prefers-reduced-motion: reduce) { .gh-hero-video, .gh-hero-pause { display: none; } }

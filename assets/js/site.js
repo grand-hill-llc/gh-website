@@ -96,3 +96,33 @@
       });
   });
 })();
+
+/* Home hero background video: starts only for visitors who can take it (no reduced motion, no data saver, not a small screen); sources are never fetched otherwise. */
+(function () {
+  var video = document.querySelector('[data-hero-video]');
+  var btn = document.querySelector('[data-hero-pause]');
+  if (!video) return;
+  var conn = navigator.connection || {};
+  var skip = window.matchMedia('(prefers-reduced-motion: reduce)').matches ||
+    conn.saveData || /(^|-)2g$/.test(conn.effectiveType || '') ||
+    window.matchMedia('(max-width: 768px)').matches;
+  if (skip) { video.remove(); if (btn) btn.remove(); return; }
+  var drop = function () { video.remove(); if (btn) btn.remove(); };
+  var srcs = video.querySelectorAll('source');
+  if (srcs.length) srcs[srcs.length - 1].addEventListener('error', drop);
+  video.addEventListener('error', drop);
+  video.preload = 'auto';
+  video.load();
+  var p = video.play();
+  var started = function () {
+    video.classList.add('is-playing');
+    if (btn) btn.hidden = false;
+  };
+  if (p && p.then) p.then(started).catch(drop);
+  else started();
+  if (btn) btn.addEventListener('click', function () {
+    var paused = btn.getAttribute('aria-pressed') === 'true';
+    if (paused) { video.play(); btn.setAttribute('aria-pressed', 'false'); btn.setAttribute('aria-label', 'Pause background video'); }
+    else { video.pause(); btn.setAttribute('aria-pressed', 'true'); btn.setAttribute('aria-label', 'Play background video'); }
+  });
+})();

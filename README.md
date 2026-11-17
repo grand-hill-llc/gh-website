@@ -26,6 +26,9 @@ Run `npm run check:placeholders` to list what is left. Remaining:
 5. Netlify: add the form notification email (Site configuration, Forms, Form notifications) for the `quote` form.
 6. Leadership currently sits on About; move to Home if leadership decides so.
 
+## Hero background video
+The home hero can play a muted, looping background video: `assets/video/hero.mp4` (required) and `assets/video/hero.webm` (optional). Build both from source clips with `tools/make-hero-video.sh clip1.mp4 clip2.mp4` (needs ffmpeg). Footage must be real or licensed (area views, skylines, streets), never presented as a Grand Hill project. If the files are missing the hero shows the still image (`hero.webp`, also the video poster). The video is skipped for visitors with reduced motion, data saver, slow connections or small screens, and a pause button is shown while it plays (WCAG 2.2.2).
+
 ## Service photos
 
 Each service has a photo slot (home cards and Services page). Add the real shot as `assets/img/services/painting.webp`, `finishes.webp` and `interiors.webp` (4:3, 1600x1200, under about 200 KB). Until a file exists a placeholder is shown; once it exists the photo replaces it automatically. Write a specific `alt` in `gen.py` (`SVC_PHOTOS`) when you swap a photo, and check it matches the real image. `npm run check:placeholders` lists the service photos still missing.
