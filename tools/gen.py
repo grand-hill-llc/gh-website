@@ -248,7 +248,7 @@ home_main = f'''<main id="main">
 <section class="gh-section gh-section-alt" aria-labelledby="svc-h"><div class="gh-container">
   <div class="gh-section-head"><p class="gh-eyebrow">Services</p><h2 class="gh-h2" id="svc-h">Painting and finishes for every project.</h2></div>
   <div class="gh-cards-3">
-    <article class="gh-service is-featured">{svc_photo("painting", *SVC_PHOTOS["painting"])}<h3 class="gh-h4">Painting</h3>
+    <article class="gh-service">{svc_photo("painting", *SVC_PHOTOS["painting"])}<h3 class="gh-h4">Painting</h3>
       <p>Commercial and residential interior and exterior painting. Our anchor service, planned around your schedule and the occupants of the building.</p>
       <a class="gh-link" href="/services/painting/">Painting {ARROW}</a></article>
     <article class="gh-service">{svc_photo("finishes", *SVC_PHOTOS["finishes"])}<h3 class="gh-h4">Finishes &amp; surface care</h3>
@@ -330,7 +330,7 @@ def svc_ld(x):
 
 # Landing: short, scannable, every card leads to a detail page
 rows = "".join(f'''
-    <article class="gh-service{' is-featured' if i == 0 else ''}">{svc_photo(x["key"], *SVC_PHOTOS[x["key"]])}<h2 class="gh-h4">{x["name"].replace("&","&amp;")}</h2>
+    <article class="gh-service">{svc_photo(x["key"], *SVC_PHOTOS[x["key"]])}<h2 class="gh-h4">{x["name"].replace("&","&amp;")}</h2>
       <p>{x["short"]}</p>
       <a class="gh-link" href="{x["path"]}">{x["name"].replace("&","&amp;")} {ARROW}</a></article>''' for i, x in enumerate(SERVICES))
 services_body = f'''<main id="main" class="gh-services-landing">

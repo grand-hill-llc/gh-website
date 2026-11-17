@@ -149,7 +149,8 @@ html { scroll-padding-top: var(--gh-header-h); }
 
 /* Service cards: oversized numerals, lift on hover (no shadow) */
 .gh-service { transition: transform .25s ease, border-top-color .25s ease; }
-.gh-service:hover { transform: translateY(-4px); border-top-color: var(--accent); }
+@media (hover: hover) { .gh-service:hover { transform: translateY(-4px); border-top-color: var(--accent); } }
+@media (prefers-reduced-motion: reduce) { .gh-service { transition: none; } .gh-service:hover { transform: none; } }
 .gh-service-num { font-size: 64px; font-weight: 300; letter-spacing: -0.03em; line-height: 1; color: var(--ink); }
 @media (max-width: 768px) { .gh-service-num { font-size: 48px; } }
 
@@ -281,12 +282,12 @@ html { scroll-padding-top: var(--gh-header-h); }
 }
 
 /* Service cards: the whole card is the link (stretched link, one real <a> per card) */
-.gh-service { position: relative; cursor: pointer; transition: box-shadow .25s ease, transform .25s ease; }
+.gh-service { position: relative; cursor: pointer; transition: transform .25s ease, border-top-color .25s ease; }
 .gh-service .gh-link::after { content: ""; position: absolute; inset: 0; z-index: 1; }
 .gh-service .gh-link:focus-visible { outline: none; }
 .gh-service:focus-within { outline: 2px solid var(--accent); outline-offset: 2px; }
 .gh-service .gh-photo > * { transition: transform .4s ease; }
-.gh-service:hover { box-shadow: 0 12px 28px rgba(28, 32, 38, .12); transform: translateY(-2px); }
+.gh-service:hover { transform: translateY(-2px); }
 .gh-service:hover .gh-photo > * { transform: scale(1.03); }
 .gh-service:hover .gh-link { border-bottom-color: var(--accent); }
 .gh-service:hover .gh-link svg { transform: translateX(4px); }
