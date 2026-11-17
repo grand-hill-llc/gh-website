@@ -9,6 +9,7 @@ npm start        # http://localhost:8080  (Node 18+)
 The preview server accepts the quote form POST so the form flow can be tested locally. Real submissions are handled by Netlify Forms once deployed.
 
 ## Structure
+- `IMAGES.md` image brief (slots, sizes, style, honesty rule)
 - `index.html`, `services/`, `projects/`, `about/`, `contact/`, `thank-you/`, `404.html`
 - `insights/` is built but hidden (noindex, not linked, not in `sitemap.xml`)
 - `assets/css` (tokens, components, site), `assets/js/site.js`, `assets/logo` (GH logo set), `assets/img`

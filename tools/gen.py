@@ -352,7 +352,7 @@ page("/services/", "Painting, Finishes & Flooring Services | Grand Hill", "Comme
 for x in SERVICES:
     others = "".join(f'''<a class="gh-link" href="{o["path"]}">{o["name"].replace("&","&amp;")} {ARROW}</a>''' for o in SERVICES if o is not x)
     def _slug(t): return re.sub(r"[^a-z0-9]+", "-", t.lower()).strip("-")
-    caps = "".join(f'<article class="gh-capability">{svc_photo(x["key"] + "-" + _slug(t), t, t + " by Grand Hill", cls="gh-capability-photo")}<h3 class="gh-h4">{t}</h3><p>{d}</p></article>' for t, d in DETAILS[x["slug"]])
+    caps = "".join(f'<article class="gh-capability">{svc_photo(x["key"] + "-" + _slug(t), t, t, cls="gh-capability-photo")}<h3 class="gh-h4">{t}</h3><p>{d}</p></article>' for t, d in DETAILS[x["slug"]])
     capcls = "gh-capabilities is-" + str(len(DETAILS[x["slug"]]))
     hero = f'''<section class="gh-hero gh-hero-service gh-inverse gh-on-image">
   <div class="gh-photo" aria-hidden="true">{SLOT}<img class="gh-photo-img" src="/assets/img/services/{x["key"]}.webp" alt="" width="1600" height="1200" fetchpriority="high" onerror="this.remove()"><div class="gh-hero-veil"></div></div>
