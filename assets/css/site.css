@@ -14,8 +14,8 @@ html { scroll-padding-top: var(--gh-header-h); }
 .gh-header { position: sticky; top: 0; z-index: 50; transition: background-color .2s ease, box-shadow .2s ease; }
 .gh-header-transparent { position: fixed; left: 0; right: 0; }
 .gh-hero-inner { padding-top: var(--gh-header-h); }
-.gh-header.is-stuck { background: var(--surface); box-shadow: 0 1px 0 var(--line), 0 10px 28px rgba(28, 32, 38, .10); }
-.gh-header-transparent.is-stuck { background: var(--charcoal-deep); box-shadow: 0 1px 0 var(--line-on-image), 0 10px 28px rgba(0, 0, 0, .25); }
+.gh-header.is-stuck { background: var(--surface); box-shadow: 0 1px 0 var(--line), 0 .125rem .25rem rgba(0, 0, 0, .075); }
+.gh-header-transparent.is-stuck { background: var(--charcoal-deep); box-shadow: 0 1px 0 var(--line-on-image), 0 .125rem .25rem rgba(0, 0, 0, .075); }
 @media (prefers-reduced-motion: reduce) { .gh-header { transition: none; } }
 @media (max-width: 960px) {
   .gh-header-bar { flex-wrap: wrap; height: auto; min-height: 64px; }
@@ -257,8 +257,8 @@ html { scroll-padding-top: var(--gh-header-h); }
 .gh-sub-toggle[aria-expanded="true"] svg { transform: rotate(180deg); }
 .gh-sub-toggle:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
 .gh-subnav { position: absolute; top: 100%; left: -20px; min-width: 280px; padding-top: 14px; visibility: hidden; opacity: 0; transform: translateY(-4px); transition: opacity .15s ease, transform .15s ease, visibility .15s; z-index: 60; }
-.gh-subnav-panel { background: var(--surface); border: 1px solid var(--line); border-top: var(--stroke-accent) solid var(--accent); box-shadow: 0 16px 36px rgba(28, 32, 38, .14); padding: 8px 0; }
-.gh-header-transparent .gh-subnav-panel { background: var(--charcoal-deep); border-color: var(--line-on-image); border-top-color: var(--accent); box-shadow: 0 16px 36px rgba(0, 0, 0, .35); }
+.gh-subnav-panel { background: var(--surface); border: 1px solid var(--line); border-top: var(--stroke-accent) solid var(--accent); box-shadow: 0 .125rem .25rem rgba(0, 0, 0, .075); padding: 8px 0; }
+.gh-header-transparent .gh-subnav-panel { background: var(--charcoal-deep); border-color: var(--line-on-image); border-top-color: var(--accent); box-shadow: 0 .125rem .25rem rgba(0, 0, 0, .075); }
 .gh-nav .gh-subnav a { display: block; padding: 14px 20px; border-bottom: 0; white-space: nowrap; box-shadow: inset 0 0 0 transparent; transition: box-shadow .15s ease, background-color .15s ease; }
 .gh-nav .gh-subnav a:hover, .gh-nav .gh-subnav a:focus-visible { background: rgba(128, 128, 128, .10); box-shadow: inset 3px 0 0 var(--accent); border-bottom: 0; }
 .gh-nav .gh-subnav a[aria-current="page"] { box-shadow: inset 3px 0 0 var(--accent); }
