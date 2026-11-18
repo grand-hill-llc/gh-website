@@ -455,11 +455,11 @@ rows = "".join(f'''
       <a class="gh-link" href="{x["path"]}">View service {ARROW}</a></article>''' for i, x in enumerate(ALL))
 services_body = f'''<main id="main" class="gh-services-landing">
 <section class="gh-band gh-inverse gh-on-image" style="--band-img:url(/assets/img/services-bg.svg)"><div class="gh-container"><p class="gh-eyebrow">Services</p><h1 class="gh-h1">Painting and finishes.</h1><p class="gh-body-lg">Commercial and residential painting, finishes and flooring. One quality standard.</p></div></section>
-<section class="gh-section"><div class="gh-container">
+<section class="gh-section gh-section-alt"><div class="gh-container">
   <div class="gh-cards-4">{rows}
   </div>
 </div></section>
-<section class="gh-section gh-section-alt" aria-labelledby="proc-h"><div class="gh-container">
+<section class="gh-section" aria-labelledby="proc-h"><div class="gh-container">
   <div class="gh-section-head"><p class="gh-eyebrow">How we work</p><h2 class="gh-h2" id="proc-h">The same process on every project.</h2></div>
   <ol class="gh-steps">
     <li><h3>{ico('clipboard','gh-ico gh-ico-inline')}Scope</h3><p>We walk the site, confirm surfaces, substrates and finish specifications, and note access constraints.</p></li>

@@ -509,3 +509,7 @@ html { scroll-padding-top: var(--gh-header-h); }
 
 .gh-services-landing .gh-band + .gh-section { padding-top: 72px; padding-bottom: 88px; }
 .gh-services-landing .gh-band + .gh-section ~ .gh-section { padding-top: 88px; padding-bottom: 88px; }
+
+.gh-services-landing .gh-service { padding: var(--space-3) var(--space-3) var(--space-4); }
+.gh-services-landing .gh-service p { font-size: 15.5px; }
+.gh-services-landing .gh-service-photo { margin: calc(-1 * var(--space-3)) calc(-1 * var(--space-3)) var(--space-2); }
