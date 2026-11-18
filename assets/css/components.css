@@ -12,10 +12,10 @@ img { display: block; max-width: 100%; }
 /* Layout */
 .gh-container { max-width: calc(var(--container-max) + 2 * var(--page-margin)); margin: 0 auto; padding: 0 var(--page-margin); }
 .gh-grid { display: grid; grid-template-columns: repeat(12, 1fr); gap: var(--grid-gutter); }
-.gh-section { padding: var(--space-16) 0; }
+.gh-section { padding: var(--space-12) 0; }
 .gh-section-alt { background: var(--surface-alt); }
 .gh-inverse { background: var(--surface-inverse); color: var(--ink-inverse); }
-@media (max-width: 1024px) { .gh-container { padding: 0 32px; } .gh-section { padding: var(--space-12) 0; } }
+@media (max-width: 1024px) { .gh-container { padding: 0 32px; } .gh-section { padding: var(--space-10) 0; } }
 @media (max-width: 768px)  { .gh-container { padding: 0 20px; } .gh-section { padding: var(--space-8) 0; } .gh-grid { gap: 16px; } }
 
 /* Type */

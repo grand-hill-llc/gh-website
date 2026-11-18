@@ -507,8 +507,8 @@ html { scroll-padding-top: var(--gh-header-h); }
 .gh-featured .gh-h3 { margin-bottom: var(--space-2); }
 @media (max-width: 480px) { .gh-featured .gh-actions .gh-btn { width: 100%; } }
 
-.gh-services-landing .gh-band + .gh-section { padding-top: 72px; padding-bottom: 88px; }
-.gh-services-landing .gh-band + .gh-section ~ .gh-section { padding-top: 88px; padding-bottom: 88px; }
+.gh-services-landing .gh-band + .gh-section { padding-top: 72px; padding-bottom: 96px; }
+.gh-services-landing .gh-band + .gh-section ~ .gh-section { padding-top: 96px; padding-bottom: 96px; }
 
 .gh-services-landing .gh-service { padding: var(--space-3) var(--space-3) var(--space-4); }
 .gh-services-landing .gh-service p { font-size: 15.5px; }
@@ -517,3 +517,10 @@ html { scroll-padding-top: var(--gh-header-h); }
 .gh-who .gh-actions { align-items: center; column-gap: var(--space-6, 56px); row-gap: var(--space-3); }
 .gh-who .gh-link-quiet { border-bottom-color: var(--line, #d9d9d6); color: var(--ink-muted); }
 .gh-who .gh-link-quiet:hover { color: var(--ink); border-bottom-color: var(--ink); }
+
+.gh-contact-side .gh-side-photo { aspect-ratio: 4 / 3; }
+.gh-contact-side .gh-side-photo img { object-position: 50% 55%; }
+.gh-soc { width: 18px; height: 18px; flex: none; fill: none; stroke: currentColor; stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; }
+.gh-soc path[d^="M14 8.5"] { fill: currentColor; stroke: none; }
+.gh-soc-link { display: inline-flex; align-items: center; gap: 10px; }
+.gh-side-social { display: flex; flex-wrap: wrap; gap: var(--space-2) var(--space-4); }

@@ -14,6 +14,11 @@ SHOW_PROOF = False                        # set True once there is a real featur
 OG = "/assets/img/og-image.png"
 
 ARROW = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h16M14 6l6 6-6 6"/></svg>'
+SOC = {
+ "instagram": '<svg class="gh-soc" viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="3.5" width="17" height="17" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.2" cy="6.8" r=".6" fill="currentColor"/></svg>',
+ "facebook": '<svg class="gh-soc" viewBox="0 0 24 24" aria-hidden="true"><path d="M14 8.5h2.5V5H14c-2.2 0-3.5 1.5-3.5 3.6V11H8v3.4h2.5V21H14v-6.6h2.4l.5-3.4H14V9.1c0-.4.2-.6.6-.6z"/></svg>',
+ "mail": '<svg class="gh-soc" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5.5" width="18" height="13" rx="2"/><path d="M3.5 7l8.5 6 8.5-6"/></svg>',
+}
 ARROW_UR = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17L17 7M8 7h9v9"/></svg>'
 _ICONS = {
     "compass": '<circle cx="12" cy="12" r="9"/><path d="M15.5 8.5l-2 5-5 2 2-5z"/>',
@@ -223,7 +228,7 @@ def footer():
     <div class="gh-footer-top">
       <div><a class="gh-footer-logo" href="/" aria-label="Grand Hill, home"><img src="/assets/logo/grand-hill-logo-reversed-transparent.svg" alt="Grand Hill" width="189" height="40"></a>
         <p class="gh-footer-tag">Precision in Every Finish.</p></div>
-      <div><h4>Contact</h4><ul>{("<li>" + PHONE + "</li>") if PHONE else ""}<li><a href="mailto:{EMAIL}">{EMAIL}</a></li>{('<li><a href="' + INSTAGRAM + '" target="_blank" rel="noopener">Instagram</a></li>') if INSTAGRAM else ""}{('<li><a href="' + FACEBOOK + '" target="_blank" rel="noopener">Facebook</a></li>') if FACEBOOK else ""}</ul></div>
+      <div><h4>Contact</h4><ul>{("<li>" + PHONE + "</li>") if PHONE else ""}<li><a class="gh-soc-link" href="mailto:{EMAIL}">{SOC["mail"]}{EMAIL}</a></li>{('<li><a class="gh-soc-link" href="' + INSTAGRAM + '" target="_blank" rel="noopener">' + SOC["instagram"] + 'Instagram</a></li>') if INSTAGRAM else ""}{('<li><a class="gh-soc-link" href="' + FACEBOOK + '" target="_blank" rel="noopener">' + SOC["facebook"] + 'Facebook</a></li>') if FACEBOOK else ""}</ul></div>
       <div><h4>Services</h4><ul><li><a href="/services/commercial-painting/">Commercial painting</a></li><li><a href="/services/residential-painting/">Residential painting</a></li><li><a href="/services/finishes-and-surface-care/">Finishes &amp; surface care</a></li><li><a href="/services/interiors-and-flooring/">Interiors &amp; flooring</a></li><li>Serving Florida</li></ul></div>
       <div><h4>Company</h4><ul><li><a href="/services/">Services</a></li>{'<li><a href="/projects/">Projects</a></li>' if SHOW_PROJECTS else ""}<li><a href="/about/">About</a></li><li><a href="/contact/">Contact</a></li></ul></div>
     </div>
@@ -719,7 +724,7 @@ contact_body = f'''<main id="main">
     <div id="form-success" class="gh-form-success" role="status" tabindex="-1" hidden>{CHECK}<div><strong>Request received.</strong><p>Thank you. We will respond within one business day.</p></div></div>
   </div>
   <aside class="gh-contact-side" aria-label="Contact details">
-    <div class="gh-side-photo"><img src="/assets/img/projects/commercial-01.webp" alt="Commercial building with a tile roof, arched entrance and pale green and cream stucco" width="680" height="510" loading="lazy" decoding="async"></div>
+    <div class="gh-side-photo"><img src="/assets/img/projects/residential-02.webp" alt="Two-story white stucco home with red shutters and a brick paver driveway" width="600" height="800" loading="lazy" decoding="async"></div>
     <h2 class="gh-h4">What happens next</h2>
     <ol class="gh-next">
       <li><strong>We review your request.</strong> You hear from us within one business day.</li>
@@ -729,8 +734,8 @@ contact_body = f'''<main id="main">
     <h2 class="gh-h4">Direct contact</h2>
     <dl>
       {('<dt class="gh-label">Phone</dt><dd>' + PHONE + "</dd>") if PHONE else ""}
-      <dt class="gh-label">Email</dt><dd><a href="mailto:{EMAIL}">{EMAIL}</a></dd>
-      <dt class="gh-label">Follow</dt><dd class="gh-side-social">{('<a href="' + INSTAGRAM + '" target="_blank" rel="noopener">Instagram</a>') if INSTAGRAM else ""}{('<a href="' + FACEBOOK + '" target="_blank" rel="noopener">Facebook</a>') if FACEBOOK else ""}</dd>
+      <dt class="gh-label">Email</dt><dd><a class="gh-soc-link" href="mailto:{EMAIL}">{SOC["mail"]}{EMAIL}</a></dd>
+      <dt class="gh-label">Follow</dt><dd class="gh-side-social">{('<a class="gh-soc-link" href="' + INSTAGRAM + '" target="_blank" rel="noopener">' + SOC["instagram"] + 'Instagram</a>') if INSTAGRAM else ""}{('<a class="gh-soc-link" href="' + FACEBOOK + '" target="_blank" rel="noopener">' + SOC["facebook"] + 'Facebook</a>') if FACEBOOK else ""}</dd>
       <dt class="gh-label">Service area</dt><dd>Florida, commercial and residential</dd>
     </dl>
   </aside>
