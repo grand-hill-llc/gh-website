@@ -507,3 +507,7 @@ html { scroll-padding-top: var(--gh-header-h); }
 .gh-area .gh-title-plain { margin-bottom: var(--space-3); }
 
 .gh-about .gh-cards-2 { column-gap: clamp(32px, 6vw, 96px); row-gap: var(--space-5); }
+
+.gh-featured .gh-actions { display: flex; flex-wrap: wrap; gap: var(--space-3); margin-top: var(--space-5, 40px); }
+.gh-featured .gh-h3 { margin-bottom: var(--space-2); }
+@media (max-width: 480px) { .gh-featured .gh-actions .gh-btn { width: 100%; } }

@@ -401,7 +401,7 @@ home_main = f'''<main id="main">
       <p class="gh-label">Florida &middot; Commercial</p>
       <h3 class="gh-h3">Commercial exteriors that hold up.</h3>
       <p>Retail, offices and multifamily properties need a consistent finish that stands up to Florida sun and rain. We plan the work around your operations and inspect every area before handoff.</p>
-      <p><a class="gh-link" href="/services/commercial-painting/">Commercial painting {ARROW}</a> &nbsp; <a class="gh-link" href="/services/residential-painting/">Residential painting {ARROW}</a></p>
+      <div class="gh-actions"><a class="gh-btn gh-btn-primary" href="/services/commercial-painting/">Commercial painting {ARROW}</a><a class="gh-btn gh-btn-secondary" href="/services/residential-painting/">Residential painting</a></div>
     </div>
   </div>
 </div></section>
