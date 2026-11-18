@@ -1,7 +1,7 @@
 # Review and deploy: Grand Hill website
 
 ## 1. Review (before pushing)
-Run locally: `npm run build && npm run check && npm start`, then open http://localhost:8080.
+Run locally: `npm run gen && npm run check && npm start`, then open http://localhost:8080.
 
 Review at 1440 px and 375 px:
 - [ ] Home: hero carousel, 4 service cards, "Recent work", quote band

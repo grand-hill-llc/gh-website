@@ -18,7 +18,7 @@ The preview server accepts the quote form POST so the form flow can be tested lo
 
 ## Checks
 ```
-npm run build    # regenerate pages from tools/gen.py
+npm run gen    # regenerate pages from tools/gen.py
 npm run check    # links, assets, titles, descriptions, canonicals, alt text, sitemap
 ```
 Run both before every push. `npm run check:placeholders` lists service photo slots still empty.

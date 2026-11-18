@@ -645,11 +645,11 @@ contact_body = f'''<main id="main">
       <input type="hidden" name="form-name" value="quote">
       <p class="gh-hp" aria-hidden="true"><label>Leave this field empty <input name="bot-field" tabindex="-1" autocomplete="off"></label></p>
       {field("name", "Name", req=True, autocomplete="name")}
-      {field("company", "Company", req=True, autocomplete="organization")}
+      {field("company", "Company (optional)", autocomplete="organization")}
       {field("email", "Email", "email", req=True, autocomplete="email")}
       {field("phone", "Phone", "tel", autocomplete="tel")}
       <div class="gh-field"><label class="gh-field-label" for="service">Service</label>
-        <select class="gh-select" id="service" name="service"><option value="">Select a service</option><option>Painting: interior</option><option>Painting: exterior</option><option>Finishes and surface care</option><option>Interiors and flooring</option><option>Not sure yet</option></select></div>
+        <select class="gh-select" id="service" name="service"><option value="">Select a service</option><option>Commercial painting</option><option>Residential painting</option><option>Finishes and surface care</option><option>Interiors and flooring</option><option>Not sure yet</option></select></div>
       {field("location", "Project location", autocomplete="address-level2", placeholder="City, Florida")}
       <div class="gh-field gh-span-2"><label class="gh-field-label" for="details">Project details <span class="req" aria-hidden="true">*</span></label>
         <textarea class="gh-textarea" id="details" name="details" required></textarea>

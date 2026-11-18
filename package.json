@@ -8,6 +8,6 @@
     "start": "node scripts/dev-server.mjs",
     "check:placeholders": "node scripts/check-images.mjs",
     "check": "node scripts/check-site.mjs",
-    "build": "python3 tools/gen.py ."
+    "gen": "python3 tools/gen.py ."
   }
 }
