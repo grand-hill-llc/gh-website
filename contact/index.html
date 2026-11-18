@@ -52,10 +52,13 @@
   <p class="gh-eyebrow">Contact</p><h1 class="gh-h1">Request a quote.</h1><p class="gh-body-lg">Tell us about the project. We respond within one business day.</p>
 </div></section>
 <section class="gh-section gh-section-alt" style="padding-top:64px"><div class="gh-container"><div class="gh-contact">
-  <div>
+  <div class="gh-form-card">
+    <h2 class="gh-h3">Tell us about the project</h2>
+    <p class="gh-form-intro">Fields marked * are required. Plans or specifications help, but are not needed to start.</p>
     <form id="quote-form" class="gh-form" name="quote" method="POST" action="/thank-you/" data-netlify="true" netlify-honeypot="bot-field" novalidate>
       <input type="hidden" name="form-name" value="quote">
       <p class="gh-hp" aria-hidden="true"><label>Leave this field empty <input name="bot-field" tabindex="-1" autocomplete="off"></label></p>
+      <p class="gh-form-group gh-span-2">Your details</p>
       <div class="gh-field"><label class="gh-field-label" for="name">Name <span class="req" aria-hidden="true">*</span></label>
 <input class="gh-input" id="name" name="name" type="text" required autocomplete="name"></div>
       <div class="gh-field"><label class="gh-field-label" for="company">Company (optional)</label>
@@ -64,6 +67,7 @@
 <input class="gh-input" id="email" name="email" type="email" required autocomplete="email"></div>
       <div class="gh-field"><label class="gh-field-label" for="phone">Phone</label>
 <input class="gh-input" id="phone" name="phone" type="tel" autocomplete="tel"></div>
+      <p class="gh-form-group gh-span-2">The project</p>
       <div class="gh-field"><label class="gh-field-label" for="service">Service</label>
         <select class="gh-select" id="service" name="service"><option value="">Select a service</option><option>Commercial painting</option><option>Residential painting</option><option>Finishes and surface care</option><option>Interiors and flooring</option><option>Not sure yet</option></select></div>
       <div class="gh-field"><label class="gh-field-label" for="location">Project location</label>
@@ -76,11 +80,19 @@
     <div id="form-success" class="gh-form-success" role="status" tabindex="-1" hidden><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M8 12.5l3 3 5-6"/></svg><div><strong>Request received.</strong><p>Thank you. We will respond within one business day.</p></div></div>
   </div>
   <aside class="gh-contact-side" aria-label="Contact details">
-    <h2 class="gh-h3">Contact</h2>
+    <div class="gh-side-photo"><img src="/assets/img/projects/commercial-01.webp" alt="Commercial building with a tile roof, arched entrance and pale green and cream stucco" width="680" height="510" loading="lazy" decoding="async"></div>
+    <h2 class="gh-h4">What happens next</h2>
+    <ol class="gh-next">
+      <li><strong>We review your request.</strong> You hear from us within one business day.</li>
+      <li><strong>We walk the site.</strong> We confirm surfaces, access and finish specifications.</li>
+      <li><strong>You receive a written estimate.</strong> Scope, exclusions and schedule, in writing.</li>
+    </ol>
+    <h2 class="gh-h4">Direct contact</h2>
     <dl>
       
       <dt class="gh-label">Email</dt><dd><a href="mailto:info@grandhillcorp.com">info@grandhillcorp.com</a></dd>
-      <dt class="gh-label">Service area</dt><dd>Florida</dd>
+      <dt class="gh-label">Follow</dt><dd class="gh-side-social"><a href="https://www.instagram.com/grandhillcorp/" target="_blank" rel="noopener">Instagram</a><a href="https://www.facebook.com/grandhillcorp/" target="_blank" rel="noopener">Facebook</a></dd>
+      <dt class="gh-label">Service area</dt><dd>Florida, commercial and residential</dd>
     </dl>
   </aside>
 </div></div></section>

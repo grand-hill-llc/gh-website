@@ -108,7 +108,7 @@ html { scroll-padding-top: var(--gh-header-h); }
 /* Contact */
 .gh-contact { display: grid; grid-template-columns: 7fr 4fr; gap: var(--space-10); align-items: start; }
 @media (max-width: 960px) { .gh-contact { grid-template-columns: 1fr; gap: var(--space-6); } }
-.gh-contact-side h2 { margin: 0 0 var(--space-3); }
+.gh-contact-side h2 { margin: var(--space-6) 0 var(--space-2); }
 .gh-contact-side dl { margin: 0; }
 .gh-contact-side dt { margin-top: var(--space-3); }
 .gh-contact-side dd { margin: 6px 0 0; font-size: 17px; }
@@ -389,3 +389,24 @@ html { scroll-padding-top: var(--gh-header-h); }
 .gh-lightbox-prev { left: 16px; top: 50%; transform: translateY(-50%); }
 .gh-lightbox-next { right: 16px; top: 50%; transform: translateY(-50%); }
 @media (max-width: 600px) { .gh-lightbox-prev, .gh-lightbox-next { top: auto; bottom: 16px; transform: none; } .gh-lightbox-prev { left: 16px; } .gh-lightbox-next { right: 16px; } .gh-lightbox-fig img { max-height: 70vh; } }
+
+/* Home intro actions */
+.gh-who .gh-actions { display: flex; flex-wrap: wrap; gap: var(--space-3); margin-top: var(--space-5, 40px); }
+@media (max-width: 480px) { .gh-who .gh-actions .gh-btn { width: 100%; } }
+
+/* Contact page */
+.gh-form-card { background: var(--surface); border-top: var(--stroke-accent) solid var(--accent); padding: var(--space-6, 48px); }
+.gh-form-card > h2 { margin: 0 0 var(--space-1); }
+.gh-form-intro { margin: 0 0 var(--space-4); color: var(--ink-muted); font-size: 15px; }
+.gh-form-group { margin: var(--space-2) 0 0; padding-bottom: var(--space-1); border-bottom: var(--stroke-hairline) solid var(--line); font-size: 12px; font-weight: 600; letter-spacing: .14em; text-transform: uppercase; color: var(--ink-muted); }
+.gh-form .gh-form-group:first-of-type { margin-top: 0; }
+.gh-form .gh-btn-primary { min-width: 220px; }
+.gh-contact-side .gh-side-photo { aspect-ratio: 4 / 3; overflow: hidden; }
+.gh-contact-side .gh-side-photo img { display: block; width: 100%; height: 100%; object-fit: cover; }
+.gh-contact-side h2:first-of-type { margin-top: var(--space-4); }
+.gh-next { list-style: none; margin: 0; padding: 0; counter-reset: n; display: grid; gap: var(--space-3); }
+.gh-next li { counter-increment: n; position: relative; padding-left: 48px; font-size: 15px; line-height: 1.5; color: var(--ink-muted); }
+.gh-next li::before { content: "0" counter(n); position: absolute; left: 0; top: -2px; font-family: var(--font-display); font-weight: 300; font-size: 26px; letter-spacing: -0.02em; color: var(--accent-text); }
+.gh-next strong { display: block; color: var(--ink); font-weight: 500; margin-bottom: 2px; }
+.gh-side-social { display: flex; gap: var(--space-3); }
+@media (max-width: 640px) { .gh-form-card { padding: var(--space-3); } }

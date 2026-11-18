@@ -342,7 +342,7 @@ home_main = f'''<main id="main">
   <div class="gh-prose gh-who">
     <p class="gh-body-lg">Grand Hill is a Florida company focused on painting and finishes for commercial and residential projects. We deliver the work from the first walkthrough to the final handoff, on schedule and inspected, and we answer for every surface.</p>
     <p>Our team brings an architectural and engineering eye to material and color selection.</p>
-    <p><a class="gh-link" href="/services/">Our services {ARROW}</a> &nbsp; <a class="gh-link" href="/about/">About Grand Hill {ARROW}</a></p>
+    <div class="gh-actions"><a class="gh-btn gh-btn-primary" href="/services/">Our services {ARROW}</a><a class="gh-btn gh-btn-secondary" href="/about/">About Grand Hill</a></div>
   </div>
 </div></div></section>
 
@@ -640,14 +640,18 @@ def field(id_, label, kind="text", req=False, span2=False, autocomplete="", plac
 contact_body = f'''<main id="main">
 {page_head("Contact", "Request a quote.", "Tell us about the project. We respond within one business day.")}
 <section class="gh-section gh-section-alt" style="padding-top:64px"><div class="gh-container"><div class="gh-contact">
-  <div>
+  <div class="gh-form-card">
+    <h2 class="gh-h3">Tell us about the project</h2>
+    <p class="gh-form-intro">Fields marked * are required. Plans or specifications help, but are not needed to start.</p>
     <form id="quote-form" class="gh-form" name="quote" method="POST" action="/thank-you/" data-netlify="true" netlify-honeypot="bot-field" novalidate>
       <input type="hidden" name="form-name" value="quote">
       <p class="gh-hp" aria-hidden="true"><label>Leave this field empty <input name="bot-field" tabindex="-1" autocomplete="off"></label></p>
+      <p class="gh-form-group gh-span-2">Your details</p>
       {field("name", "Name", req=True, autocomplete="name")}
       {field("company", "Company (optional)", autocomplete="organization")}
       {field("email", "Email", "email", req=True, autocomplete="email")}
       {field("phone", "Phone", "tel", autocomplete="tel")}
+      <p class="gh-form-group gh-span-2">The project</p>
       <div class="gh-field"><label class="gh-field-label" for="service">Service</label>
         <select class="gh-select" id="service" name="service"><option value="">Select a service</option><option>Commercial painting</option><option>Residential painting</option><option>Finishes and surface care</option><option>Interiors and flooring</option><option>Not sure yet</option></select></div>
       {field("location", "Project location", autocomplete="address-level2", placeholder="City, Florida")}
@@ -659,11 +663,19 @@ contact_body = f'''<main id="main">
     <div id="form-success" class="gh-form-success" role="status" tabindex="-1" hidden>{CHECK}<div><strong>Request received.</strong><p>Thank you. We will respond within one business day.</p></div></div>
   </div>
   <aside class="gh-contact-side" aria-label="Contact details">
-    <h2 class="gh-h3">Contact</h2>
+    <div class="gh-side-photo"><img src="/assets/img/projects/commercial-01.webp" alt="Commercial building with a tile roof, arched entrance and pale green and cream stucco" width="680" height="510" loading="lazy" decoding="async"></div>
+    <h2 class="gh-h4">What happens next</h2>
+    <ol class="gh-next">
+      <li><strong>We review your request.</strong> You hear from us within one business day.</li>
+      <li><strong>We walk the site.</strong> We confirm surfaces, access and finish specifications.</li>
+      <li><strong>You receive a written estimate.</strong> Scope, exclusions and schedule, in writing.</li>
+    </ol>
+    <h2 class="gh-h4">Direct contact</h2>
     <dl>
       {('<dt class="gh-label">Phone</dt><dd>' + PHONE + "</dd>") if PHONE else ""}
       <dt class="gh-label">Email</dt><dd><a href="mailto:{EMAIL}">{EMAIL}</a></dd>
-      <dt class="gh-label">Service area</dt><dd>Florida</dd>
+      <dt class="gh-label">Follow</dt><dd class="gh-side-social">{('<a href="' + INSTAGRAM + '" target="_blank" rel="noopener">Instagram</a>') if INSTAGRAM else ""}{('<a href="' + FACEBOOK + '" target="_blank" rel="noopener">Facebook</a>') if FACEBOOK else ""}</dd>
+      <dt class="gh-label">Service area</dt><dd>Florida, commercial and residential</dd>
     </dl>
   </aside>
 </div></div></section>
