@@ -245,7 +245,7 @@ def footer():
   <div class="gh-container">
     <div class="gh-footer-top">
       <div><a class="gh-footer-logo" href="/" aria-label="Grand Hill, home"><img src="/assets/logo/grand-hill-logo-reversed-transparent.svg" alt="Grand Hill" width="189" height="40"></a>
-        <p class="gh-footer-tag">A Florida finishing company built on one standard: direct, accountable and careful with every surface.</p></div>
+        <p class="gh-footer-tag">Painting, finishes and flooring for commercial and residential projects across Florida. Direct, accountable and careful with every surface.</p></div>
       <div><h4>Contact</h4><ul>{("<li>" + PHONE + "</li>") if PHONE else ""}<li><a class="gh-soc-link" href="mailto:{EMAIL}">{SOC["mail"]}{EMAIL}</a></li>{('<li><a class="gh-soc-link" href="' + INSTAGRAM + '" target="_blank" rel="noopener">' + SOC["instagram"] + 'Instagram</a></li>') if INSTAGRAM else ""}{('<li><a class="gh-soc-link" href="' + FACEBOOK + '" target="_blank" rel="noopener">' + SOC["facebook"] + 'Facebook</a></li>') if FACEBOOK else ""}</ul></div>
       <div><h4>Services</h4><ul><li><a href="/services/commercial-painting/">Commercial painting</a></li><li><a href="/services/residential-painting/">Residential painting</a></li><li><a href="/services/finishes-and-surface-care/">Finishes &amp; surface care</a></li><li><a href="/services/interiors-and-flooring/">Interiors &amp; flooring</a></li><li>Serving Florida</li></ul></div>
       <div><h4>Company</h4><ul><li><a href="/services/">Services</a></li>{'<li><a href="/projects/">Projects</a></li>' if SHOW_PROJECTS else ""}<li><a href="/about/">About</a></li><li><a href="/contact/">Contact</a></li></ul></div>
