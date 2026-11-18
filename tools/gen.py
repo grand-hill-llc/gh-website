@@ -683,8 +683,8 @@ def field(id_, label, kind="text", req=False, span2=False, autocomplete="", plac
     return f'''<div class="gh-field{' gh-span-2' if span2 else ''}"><label class="gh-field-label" for="{id_}">{label}{r}</label>
 <input class="gh-input" id="{id_}" name="{id_}" type="{kind}"{reqa}{ac}{ph}></div>'''
 
-contact_body = f'''<main id="main" class="gh-compact-head">
-{page_head("Contact", "Request a quote.", "Tell us about the project. We respond within one business day.")}
+contact_body = f'''<main id="main">
+<section class="gh-band gh-inverse gh-on-image" style="--band-img:url(/assets/img/about-bg.svg)"><div class="gh-container"><p class="gh-eyebrow">Contact</p><h1 class="gh-h1">Request a quote.</h1><p class="gh-body-lg">Tell us about the project. We respond within one business day.</p></div></section>
 <section class="gh-section gh-section-alt gh-contact-section"><div class="gh-container"><div class="gh-contact">
   <div class="gh-form-card">
     <h2 class="gh-h3">Tell us about the project</h2>
