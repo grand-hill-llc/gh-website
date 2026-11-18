@@ -642,22 +642,19 @@ contact_body = f'''<main id="main">
 <section class="gh-section gh-section-alt" style="padding-top:64px"><div class="gh-container"><div class="gh-contact">
   <div class="gh-form-card">
     <h2 class="gh-h3">Tell us about the project</h2>
-    <p class="gh-form-intro">Fields marked * are required. Plans or specifications help, but are not needed to start.</p>
+    <p class="gh-form-intro">Six quick fields. We reply within one business day.</p>
     <form id="quote-form" class="gh-form" name="quote" method="POST" action="/thank-you/" data-netlify="true" netlify-honeypot="bot-field" novalidate>
       <input type="hidden" name="form-name" value="quote">
       <p class="gh-hp" aria-hidden="true"><label>Leave this field empty <input name="bot-field" tabindex="-1" autocomplete="off"></label></p>
-      <p class="gh-form-group gh-span-2">Your details</p>
       {field("name", "Name", req=True, autocomplete="name")}
-      {field("company", "Company (optional)", autocomplete="organization")}
       {field("email", "Email", "email", req=True, autocomplete="email")}
-      {field("phone", "Phone", "tel", autocomplete="tel")}
-      <p class="gh-form-group gh-span-2">The project</p>
-      <div class="gh-field"><label class="gh-field-label" for="service">Service</label>
-        <select class="gh-select" id="service" name="service"><option value="">Select a service</option><option>Commercial painting</option><option>Residential painting</option><option>Finishes and surface care</option><option>Interiors and flooring</option><option>Not sure yet</option></select></div>
-      {field("location", "Project location", autocomplete="address-level2", placeholder="City, Florida")}
+      {field("phone", "Phone (optional)", "tel", autocomplete="tel")}
+      <div class="gh-field"><label class="gh-field-label" for="service">Service <span class="req" aria-hidden="true">*</span></label>
+        <select class="gh-select" id="service" name="service" required><option value="">Select a service</option><option>Commercial painting</option><option>Residential painting</option><option>Finishes and surface care</option><option>Interiors and flooring</option><option>Not sure yet</option></select></div>
+      {field("location", "Project city", req=True, span2=True, autocomplete="address-level2", placeholder="City, Florida")}
       <div class="gh-field gh-span-2"><label class="gh-field-label" for="details">Project details <span class="req" aria-hidden="true">*</span></label>
-        <textarea class="gh-textarea" id="details" name="details" required></textarea>
-        <p class="gh-help">Scope, approximate size, timeline and any plans or specifications you can share.</p></div>
+        <textarea class="gh-textarea" id="details" name="details" required placeholder="Company (if any), what needs to be done, approximate size and timeline."></textarea>
+        <p class="gh-help">Plans or specifications help, but are not needed to start.</p></div>
       <div class="gh-span-2"><button class="gh-btn gh-btn-primary" type="submit">Send request {ARROW}</button><div id="form-status" class="gh-form-status" aria-live="polite"></div></div>
     </form>
     <div id="form-success" class="gh-form-success" role="status" tabindex="-1" hidden>{CHECK}<div><strong>Request received.</strong><p>Thank you. We will respond within one business day.</p></div></div>

@@ -54,27 +54,23 @@
 <section class="gh-section gh-section-alt" style="padding-top:64px"><div class="gh-container"><div class="gh-contact">
   <div class="gh-form-card">
     <h2 class="gh-h3">Tell us about the project</h2>
-    <p class="gh-form-intro">Fields marked * are required. Plans or specifications help, but are not needed to start.</p>
+    <p class="gh-form-intro">Six quick fields. We reply within one business day.</p>
     <form id="quote-form" class="gh-form" name="quote" method="POST" action="/thank-you/" data-netlify="true" netlify-honeypot="bot-field" novalidate>
       <input type="hidden" name="form-name" value="quote">
       <p class="gh-hp" aria-hidden="true"><label>Leave this field empty <input name="bot-field" tabindex="-1" autocomplete="off"></label></p>
-      <p class="gh-form-group gh-span-2">Your details</p>
       <div class="gh-field"><label class="gh-field-label" for="name">Name <span class="req" aria-hidden="true">*</span></label>
 <input class="gh-input" id="name" name="name" type="text" required autocomplete="name"></div>
-      <div class="gh-field"><label class="gh-field-label" for="company">Company (optional)</label>
-<input class="gh-input" id="company" name="company" type="text" autocomplete="organization"></div>
       <div class="gh-field"><label class="gh-field-label" for="email">Email <span class="req" aria-hidden="true">*</span></label>
 <input class="gh-input" id="email" name="email" type="email" required autocomplete="email"></div>
-      <div class="gh-field"><label class="gh-field-label" for="phone">Phone</label>
+      <div class="gh-field"><label class="gh-field-label" for="phone">Phone (optional)</label>
 <input class="gh-input" id="phone" name="phone" type="tel" autocomplete="tel"></div>
-      <p class="gh-form-group gh-span-2">The project</p>
-      <div class="gh-field"><label class="gh-field-label" for="service">Service</label>
-        <select class="gh-select" id="service" name="service"><option value="">Select a service</option><option>Commercial painting</option><option>Residential painting</option><option>Finishes and surface care</option><option>Interiors and flooring</option><option>Not sure yet</option></select></div>
-      <div class="gh-field"><label class="gh-field-label" for="location">Project location</label>
-<input class="gh-input" id="location" name="location" type="text" autocomplete="address-level2" placeholder="City, Florida"></div>
+      <div class="gh-field"><label class="gh-field-label" for="service">Service <span class="req" aria-hidden="true">*</span></label>
+        <select class="gh-select" id="service" name="service" required><option value="">Select a service</option><option>Commercial painting</option><option>Residential painting</option><option>Finishes and surface care</option><option>Interiors and flooring</option><option>Not sure yet</option></select></div>
+      <div class="gh-field gh-span-2"><label class="gh-field-label" for="location">Project city <span class="req" aria-hidden="true">*</span></label>
+<input class="gh-input" id="location" name="location" type="text" required autocomplete="address-level2" placeholder="City, Florida"></div>
       <div class="gh-field gh-span-2"><label class="gh-field-label" for="details">Project details <span class="req" aria-hidden="true">*</span></label>
-        <textarea class="gh-textarea" id="details" name="details" required></textarea>
-        <p class="gh-help">Scope, approximate size, timeline and any plans or specifications you can share.</p></div>
+        <textarea class="gh-textarea" id="details" name="details" required placeholder="Company (if any), what needs to be done, approximate size and timeline."></textarea>
+        <p class="gh-help">Plans or specifications help, but are not needed to start.</p></div>
       <div class="gh-span-2"><button class="gh-btn gh-btn-primary" type="submit">Send request <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h16M14 6l6 6-6 6"/></svg></button><div id="form-status" class="gh-form-status" aria-live="polite"></div></div>
     </form>
     <div id="form-success" class="gh-form-success" role="status" tabindex="-1" hidden><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M8 12.5l3 3 5-6"/></svg><div><strong>Request received.</strong><p>Thank you. We will respond within one business day.</p></div></div>
