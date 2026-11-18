@@ -21,17 +21,20 @@ SLOT = ('<div class="gh-photo-slot" aria-hidden="true"><svg viewBox="0 0 400 300
 
 def svc_photo(key, label, alt, cls="gh-service-photo"):
     """Placeholder until /assets/img/services/<key>.webp (1600x1200) exists; the real photo then covers it."""
-    return (f'<div class="gh-photo {cls}">{SLOT}<span class="gh-photo-caption">Photo placeholder &middot; {label}</span>'
-            f'<img class="gh-photo-img" src="/assets/img/services/{key}.webp" alt="{alt}" width="1600" height="1200" loading="lazy" decoding="async" onerror="this.remove()"></div>')
+    ext = "jpg" if os.path.exists(os.path.join(ROOT, "assets", "img", "services", key + ".jpg")) else "webp"
+    exists = os.path.exists(os.path.join(ROOT, "assets", "img", "services", key + "." + ext))
+    placeholder = "" if exists else SLOT + f'<span class="gh-photo-caption">Photo placeholder &middot; {label}</span>'
+    return (f'<div class="gh-photo {cls}">{placeholder}'
+            f'<img class="gh-photo-img" src="/assets/img/services/{key}.{ext}" alt="{alt}" width="1600" height="1200" loading="lazy" decoding="async" onerror="this.remove()"></div>')
 
 SVC_PHOTOS = {
-  "painting": ("Painting", "Painters finishing the exterior of a commercial building"),
-  "finishes": ("Finishes", "Close view of a finished stucco wall on a commercial building"),
+  "painting": ("Painting", "Warm-white Florida apartment exterior with crisp trim and dark windows"),
+  "finishes": ("Finishes", "Textured ivory stucco facade with a recessed control joint and crisp corner"),
   "interiors": ("Interiors", "Retail interior with new flooring and installed fixtures"),
 }
 
-CRUMB = {"/services/":"Services","/services/painting/":"Painting","/services/finishes-and-surface-care/":"Finishes and surface care","/services/interiors-and-flooring/":"Interiors and flooring","/projects/":"Projects","/about/":"About","/contact/":"Contact"}
-NAV = [("Services", "/services/")] + ([("Projects", "/projects/")] if SHOW_PROJECTS else []) + [("About", "/about/"), ("Contact", "/contact/")]
+CRUMB = {"/services/":"Services","/services/painting/":"Painting","/services/finishes-and-surface-care/":"Finishes and surface care","/services/interiors-and-flooring/":"Interiors and flooring","/commercial-painting/":"Commercial painting","/residential-painting/":"Residential painting","/projects/":"Projects","/about/":"About","/contact/":"Contact"}
+NAV = [("Services", "/services/"), ("Commercial", "/commercial-painting/"), ("Residential", "/residential-painting/")] + ([("Projects", "/projects/")] if SHOW_PROJECTS else []) + [("About", "/about/"), ("Contact", "/contact/")]
 
 
 # ---------------------------------------------------------------- SERVICES
@@ -114,7 +117,7 @@ def footer():
         <p class="gh-footer-tag">Precision in Every Finish.</p></div>
       <div><h4>Contact</h4><ul>{("<li>" + PHONE + "</li>") if PHONE else ""}<li><a href="mailto:{EMAIL}">{EMAIL}</a></li></ul></div>
       <div><h4>Services</h4><ul><li><a href="/services/painting/">Painting</a></li><li><a href="/services/finishes-and-surface-care/">Finishes &amp; surface care</a></li><li><a href="/services/interiors-and-flooring/">Interiors &amp; flooring</a></li><li>Serving Florida</li></ul></div>
-      <div><h4>Company</h4><ul><li><a href="/services/">Services</a></li>{'<li><a href="/projects/">Projects</a></li>' if SHOW_PROJECTS else ""}<li><a href="/about/">About</a></li><li><a href="/contact/">Contact</a></li></ul></div>
+      <div><h4>Company</h4><ul><li><a href="/services/">Services</a></li><li><a href="/commercial-painting/">Commercial</a></li><li><a href="/residential-painting/">Residential</a></li>{'<li><a href="/projects/">Projects</a></li>' if SHOW_PROJECTS else ""}<li><a href="/about/">About</a></li><li><a href="/contact/">Contact</a></li></ul></div>
     </div>
     <div class="gh-footer-bottom"><span>&copy; 2026 Grand Hill, LLC. All rights reserved.</span><span class="gh-footer-legal">Grand Hill, LLC</span></div>
   </div>
@@ -192,9 +195,17 @@ def page_head(eyebrow, h1, lede):
 
 
 # ---------------------------------------------------------------- HOME
-home_hero = f'''<section class="gh-hero gh-inverse gh-on-image">
-  <div class="gh-photo" aria-hidden="true"><img src="/assets/img/hero.webp" alt="" width="1920" height="1080" fetchpriority="high" onerror="this.parentNode.remove()"><video class="gh-hero-video" data-hero-video muted loop playsinline preload="none" poster="/assets/img/hero.webp" tabindex="-1"><source src="/assets/video/hero.webm" type="video/webm"><source src="/assets/video/hero.mp4" type="video/mp4"></video><div class="gh-hero-veil"></div></div>
-  <button class="gh-hero-pause" type="button" data-hero-pause hidden aria-pressed="false" aria-label="Pause background video"><svg class="gh-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path class="i-pause" d="M9 6v12M15 6v12"/><path class="i-play" d="M8 5l11 7-11 7z"/></svg></button>
+home_hero = f'''<section class="gh-hero gh-inverse gh-on-image" data-hero-carousel aria-label="Painting and finishes inspiration">
+  <div class="gh-photo" aria-hidden="true">
+    {''.join(f'<img class="gh-hero-slide{" is-active" if i == 0 else ""}" {"src" if i == 0 else "data-src"}="/assets/img/hero-{name}.jpg" alt="" width="1672" height="941" {"fetchpriority=high" if i == 0 else ""}>' for i, name in enumerate(["exterior", "craft", "interior", "detail"]))}
+    <div class="gh-hero-veil"></div>
+  </div>
+  <div class="gh-carousel-controls" hidden>
+    <div class="gh-carousel-dots" role="group" aria-label="Choose background image">
+      {''.join(f'<button type="button" data-hero-go="{i}" aria-label="Show {label}" aria-pressed="{"true" if i == 0 else "false"}"><span></span></button>' for i, label in enumerate(["building exterior", "painting detail", "commercial interior", "stucco detail"]))}
+    </div>
+    <button class="gh-carousel-pause" type="button" aria-label="Pause slideshow" aria-pressed="false">Pause</button>
+  </div>
   <div class="gh-hero-inner">
     {header("", transparent=True)}
     <div class="gh-container gh-hero-wrap">
@@ -202,7 +213,7 @@ home_hero = f'''<section class="gh-hero gh-inverse gh-on-image">
         <div class="gh-hero-body">
           <p class="gh-eyebrow">Precision in every finish.</p>
           <h1 class="gh-display">Commercial and residential painting in Florida.</h1>
-          <p class="gh-body-lg">Interior and exterior painting and finishes, planned around your schedule and inspected before handoff.</p>
+          <p class="gh-body-lg">Interior and exterior painting and finishes for retail, offices and multifamily properties, and for homes. Planned around your schedule and inspected before handoff.</p>
           <div class="gh-hero-actions"><a class="gh-btn gh-btn-primary" href="/contact/">Request a quote {ARROW}</a></div>
         </div>
       </div>
@@ -295,7 +306,7 @@ HOME_SCHEMA = {"@context":"https://schema.org","@graph":[
 HOME_HEAD = ('<link rel="preload" as="image" href="/assets/img/hero.webp" fetchpriority="high">\n'
              '<script type="application/ld+json">' + json.dumps(HOME_SCHEMA, separators=(",",":")) + '</script>\n')
 page("/", "Commercial & Residential Painting in Florida | Grand Hill",
-     "Commercial and residential painting and finishes across Florida. Planned around your schedule, inspected before handoff.",
+     "Commercial and residential painting and finishes across Florida, for retail, offices, multifamily and homes. Planned around your schedule, inspected before handoff.",
      (home_hero + home_main,), transparent=True,
      extra_head=HOME_HEAD)
 
@@ -354,8 +365,9 @@ for x in SERVICES:
     def _slug(t): return re.sub(r"[^a-z0-9]+", "-", t.lower()).strip("-")
     caps = "".join(f'<article class="gh-capability">{svc_photo(x["key"] + "-" + _slug(t), t, t, cls="gh-capability-photo")}<h3 class="gh-h4">{t}</h3><p>{d}</p></article>' for t, d in DETAILS[x["slug"]])
     capcls = "gh-capabilities is-" + str(len(DETAILS[x["slug"]]))
+    hero_ext = "jpg" if os.path.exists(os.path.join(ROOT, "assets", "img", "services", x["key"] + ".jpg")) else "webp"
     hero = f'''<section class="gh-hero gh-hero-service gh-inverse gh-on-image">
-  <div class="gh-photo" aria-hidden="true">{SLOT}<img class="gh-photo-img" src="/assets/img/services/{x["key"]}.webp" alt="" width="1600" height="1200" fetchpriority="high" onerror="this.remove()"><div class="gh-hero-veil"></div></div>
+  <div class="gh-photo" aria-hidden="true">{SLOT}<img class="gh-photo-img" src="/assets/img/services/{x["key"]}.{hero_ext}" alt="" width="1600" height="1200" fetchpriority="high" onerror="this.remove()"><div class="gh-hero-veil"></div></div>
   <div class="gh-hero-inner">
     {header("/services/", transparent=True, here=x["path"])}
     <div class="gh-container gh-hero-wrap">
@@ -389,6 +401,102 @@ for x in SERVICES:
 </main>
 {quote_band()}'''
     page(x["path"], x["title"], x["desc"], (body,), current="/services/", transparent=True, extra_head=svc_ld(x))
+
+# ---------------------------------------------------------------- AUDIENCE PAGES (commercial / residential)
+def _ico(p):
+    return f'<svg class="gh-icon gh-why-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">{p}</svg>'
+
+AUDIENCES = [
+  dict(path="/commercial-painting/", nav="Commercial", eyebrow="Commercial", img="hero-exterior.jpg",
+       title="Commercial Painting Contractor in Florida | Grand Hill",
+       desc="Commercial painting for retail, offices and multifamily properties across Florida. Work scheduled around your operations, documented and inspected before handoff.",
+       h1="Commercial painting, planned around your operations.",
+       short="Retail, offices and multifamily properties painted on schedule, with one point of contact from the first walkthrough to handoff.",
+       lede="Commercial properties cannot stop for a repaint. We plan each project around opening hours, tenants and access, put the scope in writing and inspect every area before handoff.",
+       cards_eyebrow="Who we work with", cards_h="Built for commercial properties.",
+       cards=[
+         ("Retail and store roll-outs", _ico('<path d="M3 9l1.5-5h15L21 9"/><path d="M4 9v11h16V9"/><path d="M9 20v-6h6v6"/>'), "One standard across every location, scheduled and reported store by store."),
+         ("Offices and common areas", _ico('<rect x="5" y="3" width="14" height="18"/><path d="M9 7h2M13 7h2M9 11h2M13 11h2M9 15h2M13 15h2"/>'), "Work sequenced around the people using the building, including after-hours scopes."),
+         ("Multifamily properties", _ico('<rect x="3" y="10" width="7" height="11"/><rect x="12" y="3" width="9" height="18"/><path d="M15 8h3M15 12h3M15 16h3M6 14h1M6 18h1"/>'), "Exteriors, common areas and unit turns planned around residents and tenants."),
+         ("Property managers and facility teams", _ico('<rect x="5" y="4" width="14" height="17"/><path d="M9 4V2h6v2"/><path d="M9 11h6M9 15h4"/>'), "A written scope, clear documentation and one team that answers for the work."),
+       ],
+       steps_h="How a commercial project runs.",
+       steps=[("Walk and scope", "We visit the site, confirm access and hours, and write the scope down."),
+              ("Sequence", "Work is planned around operations, tenants and deliveries."),
+              ("Prepare and coat", "Surfaces are cleaned, repaired and primed, then coated to specification."),
+              ("Inspect and hand off", "Each area is checked against the scope before it is handed back.")],
+       other=("/residential-painting/", "Residential painting"), stype="Commercial painting",
+       audience="Owners and managers of retail, office and multifamily properties"),
+  dict(path="/residential-painting/", nav="Residential", eyebrow="Residential", img="hero-detail.jpg",
+       title="Residential Painting in Florida | Grand Hill",
+       desc="Interior and exterior painting for homes in Florida: careful preparation, a clear written scope and a finish inspected before handoff.",
+       h1="Residential painting, done carefully.",
+       short="Interior and exterior painting for homes, with careful preparation, a clear written scope and a finish inspected before handoff.",
+       lede="A home repaint should be straightforward. We walk the property with you, write down the scope and colors, protect your space, prepare every surface and inspect the finish before we call it done.",
+       cards_eyebrow="What we paint", cards_h="Inside and out.",
+       cards=[
+         ("Interior painting", _ico('<rect x="4" y="3" width="14" height="6"/><path d="M18 6h2v5h-8v4"/><rect x="10" y="15" width="4" height="6"/>'), "Walls, ceilings and trim, finished to one consistent standard."),
+         ("Exterior and stucco", _ico('<path d="M3 11l9-8 9 8"/><path d="M5 10v11h14V10"/><path d="M10 21v-6h4v6"/>'), "Surfaces prepared and coated to stand up to Florida sun, humidity and rain."),
+         ("Cleaning and preparation", _ico('<path d="M12 3s6 6.5 6 11a6 6 0 0 1-12 0c0-4.5 6-11 6-11z"/>'), "Pressure washing, patching and priming before any coat goes on."),
+         ("Repairs and finishing details", _ico('<rect x="4" y="4" width="16" height="16"/><path d="M8 12l3 3 5-6"/>'), "Caulking, sealing and touch-ups checked before handoff."),
+       ],
+       steps_h="How a home project runs.",
+       steps=[("Walk and scope", "We walk the property with you and write down the scope and colors."),
+              ("Protect and prepare", "Floors and furniture are protected, and surfaces are cleaned, repaired and primed."),
+              ("Paint", "Coats are applied to specification, one area at a time."),
+              ("Final walkthrough", "We check the finish against the scope before handoff.")],
+       other=("/commercial-painting/", "Commercial painting"), stype="Residential painting",
+       audience="Homeowners in Florida"),
+]
+
+for a in AUDIENCES:
+    cards = "".join(f'<li>{ico}<h3>{t}</h3><p>{d}</p></li>' for t, ico, d in a["cards"])
+    steps = "".join(f'<li><h3>{t}</h3><p>{d}</p></li>' for t, d in a["steps"])
+    svc_links = "".join(f'<a class="gh-link" href="{o["path"]}">{o["name"].replace("&","&amp;")} {ARROW}</a>' for o in SERVICES)
+    img_ok = os.path.exists(os.path.join(ROOT, "assets", "img", a["img"]))
+    photo = (f'<img class="gh-photo-img" src="/assets/img/{a["img"]}" alt="" width="1672" height="941" fetchpriority="high" onerror="this.remove()">' if img_ok else "")
+    hero = f'''<section class="gh-hero gh-hero-service gh-inverse gh-on-image">
+  <div class="gh-photo" aria-hidden="true">{photo}<div class="gh-hero-veil"></div></div>
+  <div class="gh-hero-inner">
+    {header(a["path"], transparent=True, here=a["path"])}
+    <div class="gh-container gh-hero-wrap">
+      <div class="gh-hero-main">
+        <div class="gh-hero-body">
+          <p class="gh-eyebrow">{a["eyebrow"]}</p>
+          <h1 class="gh-display">{a["h1"]}</h1>
+          <p class="gh-body-lg">{a["short"]}</p>
+          <div class="gh-hero-actions"><a class="gh-btn gh-btn-primary" href="/contact/">Request a quote {ARROW}</a></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>'''
+    body = f'''{hero}<main id="main">
+<section class="gh-section"><div class="gh-container">
+  <div class="gh-two-col">
+    <div><p class="gh-eyebrow">Overview</p><h2 class="gh-h2" style="margin-top:16px">{a["eyebrow"]} painting.</h2></div>
+    <div class="gh-prose"><p class="gh-body-lg">{a["lede"]}</p>
+    <p><a class="gh-link" href="/contact/">Request a quote {ARROW}</a> &nbsp; <a class="gh-link" href="{a["other"][0]}">{a["other"][1]} {ARROW}</a></p></div>
+  </div>
+</div></section>
+<section class="gh-section gh-section-alt" aria-labelledby="aud-h"><div class="gh-container">
+  <div class="gh-section-head"><p class="gh-eyebrow">{a["cards_eyebrow"]}</p><h2 class="gh-h2" id="aud-h">{a["cards_h"]}</h2></div>
+  <ul class="gh-why">{cards}</ul>
+</div></section>
+<section class="gh-section" aria-labelledby="steps-h"><div class="gh-container">
+  <div class="gh-section-head"><p class="gh-eyebrow">Our process</p><h2 class="gh-h2" id="steps-h">{a["steps_h"]}</h2></div>
+  <ol class="gh-method gh-method-plain is-4" aria-label="{a["steps_h"]}">{steps}</ol>
+</div></section>
+<section class="gh-section gh-section-alt"><div class="gh-container"><div class="gh-two-col">
+  <div><p class="gh-eyebrow">Services</p><h2 class="gh-h2" style="margin-top:16px">What we can take on.</h2></div>
+  <div class="gh-prose gh-related">{svc_links}<a class="gh-link" href="/services/">All services {ARROW}</a></div>
+</div></div></section>
+</main>
+{quote_band()}'''
+    ld = '<script type="application/ld+json">' + json.dumps({"@context":"https://schema.org","@type":"Service","name":a["stype"],"serviceType":a["stype"],
+        "url":SITE+a["path"],"description":a["desc"],"provider":{"@id":SITE+"/#business"},"areaServed":{"@type":"State","name":"Florida"},
+        "audience":{"@type":"Audience","audienceType":a["audience"]}}, separators=(",",":")) + '</script>\n'
+    page(a["path"], a["title"], a["desc"], (body,), current=a["path"], transparent=True, extra_head=ld)
 
 # ---------------------------------------------------------------- PROJECTS
 projects_body = f'''<main id="main">
@@ -521,7 +629,7 @@ nf = f'''<main id="main">
 page("/404.html", "Page not found | Grand Hill", "Page not found.", nf, noindex=True)
 
 # ---------------------------------------------------------------- robots + sitemap
-urls = ["/", "/services/"] + [x["path"] for x in SERVICES] + (["/projects/"] if SHOW_PROJECTS else []) + ["/about/", "/contact/"]
+urls = ["/", "/services/"] + [x["path"] for x in SERVICES] + ["/commercial-painting/", "/residential-painting/"] + (["/projects/"] if SHOW_PROJECTS else []) + ["/about/", "/contact/"]
 with open(os.path.join(ROOT, "sitemap.xml"), "w") as f:
     f.write('<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'
             + "".join(f"  <url><loc>{SITE}{u}</loc><lastmod>{datetime.date.today().isoformat()}</lastmod></url>\n" for u in urls) + "</urlset>\n")

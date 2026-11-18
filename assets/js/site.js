@@ -97,7 +97,50 @@
   });
 })();
 
-/* Home hero background video: starts only for visitors who can take it (no reduced motion, no data saver, not a small screen); sources are never fetched otherwise. */
+/* Decorative hero backgrounds; text stays steady while photographs dissolve. */
+(function () {
+  var hero = document.querySelector('[data-hero-carousel]');
+  if (!hero) return;
+  var slides = Array.from(hero.querySelectorAll('.gh-hero-slide'));
+  var controls = hero.querySelector('.gh-carousel-controls');
+  var dots = Array.from(hero.querySelectorAll('[data-hero-go]'));
+  var pause = hero.querySelector('.gh-carousel-pause');
+  var motion = window.matchMedia('(prefers-reduced-motion: reduce)');
+  var connection = navigator.connection || {};
+  var paused = motion.matches || connection.saveData || /(^|-)2g$/.test(connection.effectiveType || '');
+  var current = 0, timer, request = 0;
+  function schedule() {
+    clearTimeout(timer);
+    if (!paused && !document.hidden) timer = setTimeout(function () { show((current + 1) % slides.length); }, 7000);
+  }
+  async function show(index) {
+    var ticket = ++request;
+    var image = slides[index];
+    if (!image.src) image.src = image.dataset.src;
+    try { await image.decode(); } catch (_) { schedule(); return; }
+    if (ticket !== request) return;
+    slides[current].classList.remove('is-active');
+    image.classList.add('is-active');
+    current = index;
+    dots.forEach(function (dot, i) { dot.setAttribute('aria-pressed', String(i === index)); });
+    schedule();
+  }
+  function updatePause() {
+    pause.textContent = paused ? 'Play' : 'Pause';
+    pause.setAttribute('aria-label', paused ? 'Play slideshow' : 'Pause slideshow');
+    pause.setAttribute('aria-pressed', String(paused));
+    schedule();
+  }
+  dots.forEach(function (dot, i) { dot.addEventListener('click', function () { paused = true; updatePause(); show(i); }); });
+  pause.addEventListener('click', function () { paused = !paused; updatePause(); });
+  hero.addEventListener('focusin', function (event) { if (event.target !== pause) { paused = true; updatePause(); } });
+  document.addEventListener('visibilitychange', schedule);
+  motion.addEventListener('change', function () { if (motion.matches) { paused = true; updatePause(); } });
+  controls.hidden = false;
+  updatePause();
+})();
+
+/* Optional legacy video support on other hero layouts. */
 (function () {
   var video = document.querySelector('[data-hero-video]');
   var btn = document.querySelector('[data-hero-pause]');

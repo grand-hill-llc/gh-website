@@ -1,5 +1,35 @@
 # Image brief for Grand Hill
 
+## Responsive image review — November 18, 2026
+
+Finishes category image now uses the textured stucco/control-joint photograph (`finishes-stucco-and-eifs.jpg`, also saved as `finishes.jpg`), replacing the pressure-washing lead. Pressure washing remains its own scope image. Occupied-building scope crops favor the right-hand protected work zone; commercial flooring crops favor the lower floor area.
+
+## Service detail images — completed November 2026
+
+All 13 service-detail images are generated with the built-in image model and installed as JPEGs in `assets/img/services/`. Exact scene prompts are recorded in `assets/img/services/generation-prompts.json`. Painting uses painted spaces, preparation and protected occupied spaces; finishes uses distinct material and joint details, cleaning, coatings and wallcovering; interiors uses carpet tiles, repaired shelf mounting, a cashwrap counter and repeated shelving bays. Images are optimized without stretching and remain illustrative ambient imagery. The three service-page headers now load the existing category JPEGs as well.
+
+## Homepage service images — completed November 2026
+
+The finishes image was subsequently replaced to distinguish it from the painting card at desktop size. Built-in image-model prompt: photorealistic 4:3 close-up of a pressure-washer lance cleaning a cool-gray exterior concrete walkway beside a pale stucco building; realistic fan spray centered within the wide-crop band; natural daylight; no people, logos, text or dramatic before/after line. Saved as `assets/img/services/finishes.jpg`; shared service imagery and alt text updated.
+
+Generated with the built-in image model and saved at 1600×1200 in `assets/img/services/painting.jpg`, `finishes.jpg`, and `interiors.jpg`. The generator uses these images for the homepage cards and shared service-page slots. These are illustrative scenes, not documented Grand Hill projects.
+
+Prompt set: single photorealistic 4:3 architectural editorial photographs; warm white, gray and charcoal palette; natural Florida daylight; straight verticals; main subjects kept within the central band for wide crops; no people, tools, branding, text or watermarks. Painting: freshly painted two-story Florida apartment exterior with warm-white stucco, taupe trim, crisp balconies and dark windows. Finishes: close facade detail with warm-white stucco, precise corner, sealed charcoal window and control joint. Interiors: finished empty retail space with pale oak-tone commercial flooring, minimal shelving and cashwrap counter.
+
+## Home carousel — November 2026
+
+Four illustrative images generated with the built-in image generation tool, stored in `assets/img/hero-{exterior,craft,interior,detail}.jpg`. These are ambient illustrations, not Grand Hill projects or employees.
+
+Prompt set: photorealistic architectural photographs, landscape 16:9, warm white / gray / charcoal palette, natural daylight, straight verticals, quiet space on the left for copy, no logos, text or watermarks. Scenes: (1) finished low-rise Florida commercial stucco exterior with restrained landscaping in morning light; (2) painter carefully rolling a wall beside a masked window, protected floor; (3) empty finished commercial interior with pale oak-tone flooring and windows on the right; (4) sunlit stucco corner and recessed charcoal window with geometric shadows.
+
+The home carousel uses a seven-second interval and 1.6-second opacity crossfade, manual image selection and pause/play. Reduced motion and data saving disable automatic playback initially. Images beyond the first load on demand. The previous still and optional video assets remain available but are no longer used by the home hero.
+
+Painter image edited with the built-in image model: add a fluorescent yellow-green mesh safety vest over the white shirt with silver reflective torso and shoulder bands; preserve the person, pose, room, lighting and composition. The illustration does not establish safety certification or legal compliance.
+
+Follow-up edit with the built-in image model: replace the gray baseball cap with a fitted white construction hard hat, preserving the reflective vest, identity, pose, lighting and room. Saved to `assets/img/hero-craft.jpg` for the carousel.
+
+The branding variation was rejected. The carousel uses the unbranded version with the white hard hat and reflective safety vest in `assets/img/hero-craft.jpg`.
+
 Context for whoever (or whatever tool) produces the remaining images. The site is built; every image below has a slot that fills itself when the file exists. No code changes are needed except the `alt` text (see "Alt text").
 
 ## Honesty rule (important)

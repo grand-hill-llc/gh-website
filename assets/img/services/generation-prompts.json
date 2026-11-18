@@ -1,0 +1,59 @@
+{
+  "model": "Built-in image generation",
+  "usage": "Illustrative ambient imagery, not documented Grand Hill work.",
+  "shared": "Photorealistic architectural editorial photograph; natural Florida daylight; restrained white, gray, charcoal and warm wood; defining detail in central crop band; no people, logos, text, watermark or collage.",
+  "images": [
+    {
+      "file": "painting-interior-painting.jpg",
+      "prompt": "An empty freshly painted office corridor, soft muted sage walls with crisp white doorframes, soft daylight, wall paint is focal point, no retail fixtures."
+    },
+    {
+      "file": "painting-exterior-painting.jpg",
+      "prompt": "Finished Florida low-rise commercial exterior, pale sand painted facade, deep charcoal trim, broad facade at oblique angle, blue sky and restrained palms, no close stucco detail."
+    },
+    {
+      "file": "painting-surface-preparation-and-repair.jpg",
+      "prompt": "Close view of an interior drywall wall being prepared: several neatly feathered pale joint-compound patches and a broad smooth primed area, grazing daylight showing surface flatness, tidy floor edge, no tools."
+    },
+    {
+      "file": "painting-occupied-buildings.jpg",
+      "prompt": "A clean furnished office lobby with reception desk, seating and a corridor, neatly protected adjacent work zone with clear temporary protective film over one chair and floor edge, finished neutral walls, no people or signs."
+    },
+    {
+      "file": "finishes-stucco-and-eifs.jpg",
+      "prompt": "Extreme architectural close-up of warm ivory textured stucco facade with precise recessed control joint and corner, tactile finish in grazing sunlight, no full building or windows."
+    },
+    {
+      "file": "finishes-pressure-washing.jpg",
+      "prompt": "Close view of pressure washer lance spraying a fan of water across exterior stone pavers beside a commercial entrance, visible wet texture and realistic restrained spray, no people."
+    },
+    {
+      "file": "finishes-caulking-and-sealing.jpg",
+      "prompt": "Macro architectural photo of a continuous neat gray silicone sealant bead between a charcoal aluminum window frame and pale masonry, joint runs diagonally through central frame, precise water-resistant finish, no tools."
+    },
+    {
+      "file": "finishes-protective-and-specialty-coatings.jpg",
+      "prompt": "Low-angle view across a finished satin light-gray protective epoxy floor in a clean small commercial utility room, subtle reflected daylight, neat coved wall-to-floor transition, no tools."
+    },
+    {
+      "file": "finishes-wallcoverings.jpg",
+      "prompt": "Close interior architectural view of installed charcoal-gray woven-texture wallcovering, precise seam and clean edge at warm wood doorway, natural side light reveals fabric grain, no furniture focus."
+    },
+    {
+      "file": "interiors-commercial-flooring.jpg",
+      "prompt": "Low-angle architectural view of installed alternating warm gray commercial carpet tiles in empty office, accurate seams and subtle textile texture, distant glass partitions, flooring dominates two thirds of frame."
+    },
+    {
+      "file": "interiors-interior-wall-and-fixture-repairs.jpg",
+      "prompt": "Close architectural view of a neatly repaired smooth off-white interior wall beside a securely installed brushed-metal display bracket and warm wood shelf, discreet feathered primer patch below shelf showing repair scope, no tools."
+    },
+    {
+      "file": "interiors-cashwrap-and-fixture-installation.jpg",
+      "prompt": "Medium architectural view centered on a newly installed freestanding retail cashwrap counter, oak veneer and white solid-surface top with precise joints, clean modest empty shop, no products or branding, counter dominates."
+    },
+    {
+      "file": "interiors-fixture-and-component-roll-outs.jpg",
+      "prompt": "Strong perspective view along a repeating row of identical installed modular retail shelving bays in an empty store, charcoal uprights and pale wood shelves, exact alignment and consistent spacing, no counter focus."
+    }
+  ]
+}

@@ -192,6 +192,8 @@ html { scroll-padding-top: var(--gh-header-h); }
 
 /* Service photos: slot until the real shot exists at /assets/img/services/<service>.webp */
 .gh-photo > .gh-photo-img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.gh-capability-photo img[src*="painting-occupied-buildings"] { object-position: 85% center; }
+.gh-capability-photo img[src*="interiors-commercial-flooring"] { object-position: center 65%; }
 .gh-service-photo { aspect-ratio: 2 / 1; margin: calc(-1 * var(--space-4)) calc(-1 * var(--space-4)) var(--space-2); }
 .gh-service-photo.is-row { margin: var(--space-4) 0 0; }
 .gh-service-photo .gh-photo-caption { left: 12px; right: 12px; letter-spacing: .14em; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
@@ -315,6 +317,18 @@ html { scroll-padding-top: var(--gh-header-h); }
 .gh-who p:last-child { margin-top: var(--space-4); }
 
 /* Home hero: optional background video (assets/video/hero.webm + hero.mp4), poster = hero.webp */
+.gh-hero .gh-photo .gh-hero-slide { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; transition: opacity 1.6s cubic-bezier(.2,.7,.2,1); }
+.gh-hero .gh-photo .gh-hero-slide.is-active { opacity: 1; }
+.gh-carousel-controls { position: absolute; right: max(var(--page-margin, 64px), calc((100% - var(--container-max, 1240px)) / 2)); margin-right: -8px; bottom: calc(var(--space-12) + 4px); z-index: 3; display: flex; align-items: center; gap: 16px; }
+.gh-carousel-controls[hidden] { display: none; }
+.gh-carousel-dots { display: flex; gap: 4px; }
+.gh-carousel-dots button, .gh-carousel-pause { min-width: 44px; min-height: 44px; padding: 8px; background: transparent; border: 0; color: white; cursor: pointer; }
+.gh-carousel-dots button span { display: block; width: 24px; height: 2px; background: rgba(255,255,255,.4); transition: background-color .25s ease; }
+.gh-carousel-dots button[aria-pressed="true"] span { background: white; }
+.gh-carousel-pause { font: inherit; font-size: 11px; font-weight: 600; letter-spacing: .18em; text-transform: uppercase; }
+.gh-carousel-controls button:focus-visible { outline: 2px solid white; outline-offset: 2px; }
+@media (max-width: 900px) { .gh-carousel-controls { right: 20px; bottom: 8px; } [data-hero-carousel] .gh-hero-main { padding-bottom: 80px; } }
+@media (prefers-reduced-motion: reduce) { .gh-hero .gh-photo .gh-hero-slide { transition: none; } }
 .gh-hero-video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; transition: opacity .6s ease; }
 .gh-hero-video.is-playing { opacity: 1; }
 .gh-hero-pause { position: absolute; right: var(--page-margin, 64px); bottom: var(--space-3); z-index: 2; width: 44px; height: 44px; display: inline-flex; align-items: center; justify-content: center; background: transparent; color: var(--ink-inverse); border: var(--stroke-hairline) solid var(--line-on-image); border-radius: 0; cursor: pointer; }
@@ -325,3 +339,12 @@ html { scroll-padding-top: var(--gh-header-h); }
 .gh-hero-pause[aria-pressed="true"] .i-play { display: inline; }
 @media (max-width: 900px) { .gh-hero-pause { right: 20px; } }
 @media (prefers-reduced-motion: reduce) { .gh-hero-video, .gh-hero-pause { display: none; } }
+
+/* Home hero: bottom padding matches the 96px gap above the eyebrow (desktop) */
+@media (min-width: 901px) { [data-hero-carousel] .gh-hero-main { padding-bottom: var(--space-12); } }
+
+/* Audience pages (commercial / residential): four-step process */
+.gh-method.is-4 { grid-template-columns: repeat(4, 1fr); gap: var(--space-4); }
+.gh-method.is-4 h3 { font-size: 24px; }
+@media (max-width: 1000px) { .gh-method.is-4 { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 768px) { .gh-method.is-4 { grid-template-columns: 1fr; } }
