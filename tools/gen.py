@@ -650,7 +650,7 @@ contact_body = f'''<main id="main">
       {field("email", "Email", "email", req=True, autocomplete="email")}
       {field("phone", "Phone (optional)", "tel", autocomplete="tel")}
       <div class="gh-field"><label class="gh-field-label" for="service">Service <span class="req" aria-hidden="true">*</span></label>
-        <select class="gh-select" id="service" name="service" required><option value="">Select a service</option><option>Commercial painting</option><option>Residential painting</option><option>Finishes and surface care</option><option>Interiors and flooring</option><option>Not sure yet</option></select></div>
+        <select class="gh-select" id="service" name="service" required><option value="">Select a service</option><option>Commercial painting</option><option>Residential painting</option><option>Finishes and surface care</option><option>Interiors and flooring</option><option>Other</option><option>Not sure yet</option></select></div>
       {field("location", "Project city", req=True, span2=True, autocomplete="address-level2", placeholder="City, Florida")}
       <div class="gh-field gh-span-2"><label class="gh-field-label" for="details">Project details <span class="req" aria-hidden="true">*</span></label>
         <textarea class="gh-textarea" id="details" name="details" required placeholder="Company (if any), what needs to be done, approximate size and timeline."></textarea>
