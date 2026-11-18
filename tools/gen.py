@@ -46,10 +46,7 @@ SLOT = ('<div class="gh-photo-slot" aria-hidden="true"><svg viewBox="0 0 400 300
         '<path class="ln" d="M40 260h320M70 260V90h120v170M190 260V60h140v200M90 120h80M90 160h80M90 200h80M210 100h100M210 140h100M210 180h100M210 220h100"/>'
         '</svg></div>')
 
-SVC_CARD_REAL = {
-  "finishes": ("residential-03.webp", "Stucco home with an arched entry and arched windows, freshly finished"),
-  "interiors": ("residential-04.webp", "Open living room with vaulted ceiling, skylights and freshly painted walls"),
-}
+SVC_CARD_REAL = {}   # real project photos for service cards go here once we have ones that show the work (finishes, flooring)
 
 def svc_photo(key, label, alt, cls="gh-service-photo"):
     """Placeholder until /assets/img/services/<key>.webp (1600x1200) exists; the real photo then covers it."""
