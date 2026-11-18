@@ -248,7 +248,7 @@ def footer():
       <div><h4>Services</h4><ul><li><a href="/services/commercial-painting/">Commercial painting</a></li><li><a href="/services/residential-painting/">Residential painting</a></li><li><a href="/services/finishes-and-surface-care/">Finishes &amp; surface care</a></li><li><a href="/services/interiors-and-flooring/">Interiors &amp; flooring</a></li></ul></div>
       <div><h4>Company</h4><ul><li><a href="/services/">Services</a></li>{'<li><a href="/projects/">Projects</a></li>' if SHOW_PROJECTS else ""}<li><a href="/about/">About</a></li><li><a href="/contact/">Contact</a></li><li><a href="{BACKOFFICE}" rel="nofollow noopener">Team login</a></li></ul></div>
     </div>
-    <div class="gh-footer-bottom"><span>&copy; 2026 Grand Hill, LLC. All rights reserved.</span><span class="gh-footer-legal">Grand Hill, LLC</span></div>
+    <div class="gh-footer-bottom"><span>&copy; 2026 Grand Hill, LLC. All rights reserved.</span><span class="gh-footer-legal"><a href="/privacy/">Privacy policy</a></span></div>
   </div>
 </footer>'''
 
@@ -788,8 +788,54 @@ nf = f'''<main id="main">
 </main>'''
 page("/404.html", "Page not found | Grand Hill", "Page not found.", nf, noindex=True)
 
+
+# ---------------------------------------------------------------- PRIVACY
+privacy = f'''<main id="main">
+{page_head("Legal", "Privacy policy.", "How Grand Hill, LLC handles the information you share with us. Effective November 18, 2026.")}
+<section class="gh-section"><div class="gh-container"><div class="gh-prose gh-legal-doc">
+<h2 class="gh-h3">Who we are</h2>
+<p>This website is operated by Grand Hill, LLC ("Grand Hill", "we", "us"), a Florida company. You can reach us at <a class="gh-link" href="mailto:{EMAIL}">{EMAIL}</a>.</p>
+
+<h2 class="gh-h3">What we collect</h2>
+<p><strong>Information you send us.</strong> When you request a quote, we receive your name, email address, project city, the service you are asking about, your project details, and your phone number if you choose to give it. We use it to respond to your request, prepare an estimate and manage the project if you hire us.</p>
+<p><strong>Information collected automatically.</strong> We use Google Analytics to understand how the site is used. It records things like the pages you visit, approximate location (city level), device and browser type, and how you arrived at the site. It uses cookies or similar technologies to do this. We do not use it to identify you personally.</p>
+<p><strong>Technical logs.</strong> Our hosting provider keeps standard server logs, such as IP address and request time, for security and reliability.</p>
+
+<h2 class="gh-h3">How we use it</h2>
+<p>We use the information to answer your inquiry, provide estimates and services, operate and improve the website, keep it secure, and meet legal and accounting obligations. We do not sell your personal information, and we do not use it for advertising profiles.</p>
+
+<h2 class="gh-h3">Who we share it with</h2>
+<p>We share information only with service providers that help us run the site and handle your request, such as website hosting and form processing (Netlify), analytics (Google), and email. We may also share what is needed to carry out your project, and where required by law. These providers may only use the information for the services they perform for us.</p>
+
+<h2 class="gh-h3">Cookies and analytics choices</h2>
+<p>You can block or delete cookies in your browser settings, and you can opt out of Google Analytics with the <a class="gh-link" href="https://tools.google.com/dlpage/gaoptout" target="_blank" rel="noopener">Google Analytics opt-out browser add-on</a>. The site works the same way if you do.</p>
+
+<h2 class="gh-h3">How long we keep it</h2>
+<p>We keep quote requests and project records for as long as needed to respond to you, complete any work and meet business and legal requirements, and then delete or anonymize them. Analytics data is kept for the period set in our Google Analytics account.</p>
+
+<h2 class="gh-h3">Your choices</h2>
+<p>You can ask us to tell you what personal information we hold about you, correct it, or delete it, by emailing <a class="gh-link" href="mailto:{EMAIL}">{EMAIL}</a>. We will respond within a reasonable time.</p>
+
+<h2 class="gh-h3">Security</h2>
+<p>The site is served over HTTPS and we limit access to the information you send us. No method of transmission or storage is completely secure, so we cannot guarantee absolute security.</p>
+
+<h2 class="gh-h3">Children</h2>
+<p>This site is intended for adults and businesses. We do not knowingly collect information from children under 13.</p>
+
+<h2 class="gh-h3">Other websites</h2>
+<p>Our pages link to other sites, such as Instagram and Facebook. Their privacy practices are their own, and this policy does not cover them.</p>
+
+<h2 class="gh-h3">Changes to this policy</h2>
+<p>If we change this policy, we will post the new version on this page and update the effective date above.</p>
+
+<h2 class="gh-h3">Contact</h2>
+<p>Questions about this policy? Email <a class="gh-link" href="mailto:{EMAIL}">{EMAIL}</a>.</p>
+</div></div></section>
+</main>'''
+page("/privacy/", "Privacy Policy | Grand Hill", "How Grand Hill, LLC collects, uses and protects the information you share through this website.", privacy)
+
 # ---------------------------------------------------------------- robots + sitemap
-urls = ["/", "/services/"] + [x["path"] for x in ALL] + (["/projects/"] if SHOW_PROJECTS else []) + ["/about/", "/contact/"]
+urls = ["/", "/services/"] + [x["path"] for x in ALL] + (["/projects/"] if SHOW_PROJECTS else []) + ["/about/", "/contact/", "/privacy/"]
 with open(os.path.join(ROOT, "sitemap.xml"), "w") as f:
     f.write('<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'
             + "".join(f"  <url><loc>{SITE}{u}</loc><lastmod>{datetime.date.today().isoformat()}</lastmod></url>\n" for u in urls) + "</urlset>\n")

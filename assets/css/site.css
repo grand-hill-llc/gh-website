@@ -533,3 +533,11 @@ html { scroll-padding-top: var(--gh-header-h); }
 .gh-contact-side .gh-side-photo { aspect-ratio: 16 / 9; }
 
 .gh-footer-tag { max-width: 34ch; line-height: 1.55; }
+
+/* Legal pages */
+.gh-legal-doc { max-width: 720px; }
+.gh-legal-doc h2 { margin: var(--space-8) 0 var(--space-3); }
+.gh-legal-doc h2:first-child { margin-top: 0; }
+.gh-legal-doc p { max-width: 68ch; }
+.gh-footer .gh-footer-legal a { color: inherit; text-decoration: none; }
+.gh-footer .gh-footer-legal a:hover { color: var(--ink-inverse); text-decoration: underline; }
