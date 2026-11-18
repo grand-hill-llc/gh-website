@@ -600,7 +600,23 @@ if SHOW_PROJECTS:
 # ---------------------------------------------------------------- ABOUT
 about_body = f'''<main id="main" class="gh-compact-head">
 {page_head("About", "A finishing company built on one standard.", "Direct, accountable and careful with every surface.")}
-<section class="gh-section gh-section-alt gh-contact-section" aria-labelledby="how-h"><div class="gh-container">
+<section class="gh-section gh-story" aria-labelledby="story-h"><div class="gh-container">
+  <div class="gh-two-col">
+    <div><p class="gh-eyebrow">Our story</p><h2 class="gh-h2" id="story-h" style="margin-top:16px">Four disciplines. One team.</h2></div>
+    <div class="gh-prose">
+      <p class="gh-body-lg">Grand Hill brings architecture, engineering, finance and operations into one team, so every project is planned, priced and delivered with the same care.</p>
+      <p>We met in Orlando and became friends over a shared passion for executing high-quality projects. That friendship is why we hold one another to the result, and why you deal with people who answer for it.</p>
+    </div>
+  </div>
+  <ul class="gh-disc" aria-label="What each discipline brings">
+    <li><h3>Architecture</h3><p>Experience leading large-scale projects, from design intent to completion.</p></li>
+    <li><h3>Engineering</h3><p>An eye for how a building is built and how finishes perform on it.</p></li>
+    <li><h3>Finance</h3><p>Clear estimates and honest numbers, with no surprises.</p></li>
+    <li><h3>Operations</h3><p>Systems and communication that keep you informed from walkthrough to handoff.</p></li>
+  </ul>
+</div></section>
+
+<section class="gh-section gh-section-alt" aria-labelledby="how-h"><div class="gh-container">
   <div class="gh-two-col gh-how">
     <figure class="gh-how-photo"><img src="/assets/img/projects/commercial-02.webp" alt="Side of a one-story commercial building with palms and large windows" width="680" height="510" loading="lazy" decoding="async"></figure>
     <div class="gh-prose"><p class="gh-eyebrow">How we work</p><h2 class="gh-h2" id="how-h" style="margin-top:16px">From walkthrough to handoff.</h2>

@@ -448,3 +448,12 @@ html { scroll-padding-top: var(--gh-header-h); }
 .gh-map-key i { width: 10px; height: 10px; border-radius: 50%; background: #fff; opacity: .75; display: inline-block; }
 .gh-map-key i.is-base { background: var(--accent); opacity: 1; }
 .gh-how .gh-prose h2 + p { margin-top: var(--space-3); }
+
+/* About: story and disciplines */
+.gh-story { padding-top: var(--space-6); }
+.gh-disc { list-style: none; margin: var(--space-8) 0 0; padding: 0; display: grid; grid-template-columns: repeat(4, 1fr); gap: var(--space-4); }
+.gh-disc li { border-top: var(--stroke-rule) solid var(--ink); padding-top: var(--space-3); }
+.gh-disc h3 { margin: 0 0 var(--space-1); font-family: var(--font-display); font-size: 24px; font-weight: 400; letter-spacing: -0.02em; }
+.gh-disc p { margin: 0; color: var(--ink-muted); font-size: 15px; line-height: 1.55; }
+@media (max-width: 900px) { .gh-disc { grid-template-columns: 1fr 1fr; margin-top: var(--space-6); } }
+@media (max-width: 560px) { .gh-disc { grid-template-columns: 1fr; } }
