@@ -524,3 +524,6 @@ html { scroll-padding-top: var(--gh-header-h); }
 .gh-soc path[d^="M14 8.5"] { fill: currentColor; stroke: none; }
 .gh-soc-link { display: inline-flex; align-items: center; gap: 10px; }
 .gh-side-social { display: flex; flex-wrap: wrap; gap: var(--space-2) var(--space-4); }
+
+.gh-service-photo .gh-photo-img { object-fit: cover; }
+.gh-cards-4 .gh-service:nth-child(2) .gh-photo-img { object-position: 50% 40%; }

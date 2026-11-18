@@ -46,8 +46,17 @@ SLOT = ('<div class="gh-photo-slot" aria-hidden="true"><svg viewBox="0 0 400 300
         '<path class="ln" d="M40 260h320M70 260V90h120v170M190 260V60h140v200M90 120h80M90 160h80M90 200h80M210 100h100M210 140h100M210 180h100M210 220h100"/>'
         '</svg></div>')
 
+SVC_CARD_REAL = {
+  "finishes": ("residential-03.webp", "Stucco home with an arched entry and arched windows, freshly finished"),
+  "interiors": ("residential-04.webp", "Open living room with vaulted ceiling, skylights and freshly painted walls"),
+}
+
 def svc_photo(key, label, alt, cls="gh-service-photo"):
     """Placeholder until /assets/img/services/<key>.webp (1600x1200) exists; the real photo then covers it."""
+    real = SVC_CARD_REAL.get(key)
+    if real and cls == "gh-service-photo":
+        return (f'<div class="gh-photo {cls}"><img class="gh-photo-img" src="/assets/img/projects/{real[0]}" alt="{real[1]}" '
+                f'width="800" height="600" loading="lazy" decoding="async"></div>')
     ext = "webp"
     exists = os.path.exists(os.path.join(ROOT, "assets", "img", "services", key + "." + ext))
     placeholder = "" if exists else SLOT + f'<span class="gh-photo-caption">Photo placeholder &middot; {label}</span>'
@@ -155,7 +164,16 @@ _CARD = {"finishes-and-surface-care": "Stucco, EIFS, pressure washing, coatings 
 for _x in SERVICES: _x["card_blurb"] = _CARD[_x["slug"]]
 ALL = AUDIENCES + SERVICES   # order shown in menus, footer and cards: commercial first
 
+AUD_CARD_REAL = {
+  "commercial-painting": ("commercial-01.webp", "Commercial building with a tile roof, arched entrance and pale green and cream stucco", 680, 510),
+  "residential-painting": ("residential-02.webp", "Two-story white stucco home with red shutters and a brick paver driveway", 600, 800),
+}
+
 def card_photo(x, heading_cls="gh-service-photo"):
+    real = AUD_CARD_REAL.get(x.get("slug"))
+    if real and heading_cls == "gh-service-photo":
+        return (f'<div class="gh-photo {heading_cls}"><img class="gh-photo-img" src="/assets/img/projects/{real[0]}" alt="{real[1]}" '
+                f'width="{real[2]}" height="{real[3]}" loading="lazy" decoding="async"></div>')
     if "img" in x:
         return f'<div class="gh-photo {heading_cls}"><img class="gh-photo-img" src="/assets/img/{x["img"]}" alt="" width="1672" height="941" loading="lazy" decoding="async" onerror="this.remove()"></div>'
     return svc_photo(x["key"], *SVC_PHOTOS[x["key"]])
