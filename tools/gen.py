@@ -619,10 +619,18 @@ about_body = f'''<main id="main">
   </div>
 </div></section>
 
-<section class="gh-section gh-section-alt" aria-labelledby="area-h"><div class="gh-container"><div class="gh-two-col">
-  <div><p class="gh-eyebrow">Service area</p><h2 class="gh-h2" id="area-h" style="margin-top:16px">Florida.</h2></div>
-  <div class="gh-prose"><p class="gh-body-lg">We are based in Central Florida and take on commercial and residential projects across the state.</p>
-  <p>Not sure whether your project is in range? <a href="/contact/" style="color:var(--ink);text-underline-offset:4px;text-decoration-color:var(--accent);text-decoration-thickness:2px">Ask us.</a></p></div>
+<section class="gh-section gh-section-alt" aria-labelledby="area-h"><div class="gh-container"><div class="gh-two-col gh-area">
+  <div class="gh-prose">
+    <p class="gh-eyebrow">Service area</p><h2 class="gh-h2" id="area-h" style="margin-top:16px">All of Florida.</h2>
+    <p class="gh-body-lg">We are based in Central Florida and take on commercial and residential projects across the state.</p>
+    <ul class="gh-regions" aria-label="Regions we serve"><li class="is-base">Central Florida <span>our base</span></li><li>North Florida</li><li>Panhandle</li><li>Tampa Bay</li><li>Southwest Florida</li><li>South Florida</li></ul>
+    <p>Not sure whether your project is in range? <a href="/contact/" style="color:var(--ink);text-underline-offset:4px;text-decoration-color:var(--accent);text-decoration-thickness:2px">Ask us.</a></p>
+  </div>
+  <figure class="gh-map"><svg viewBox="0 0 720 630" role="img" aria-labelledby="map-t"><title id="map-t">Map of Florida. Grand Hill serves the whole state and is based in Central Florida.</title>
+    <path class="gh-map-land" d="M41 26 L271 26 L283 55 L434 66 L517 69 L540 46 L576 53 L586 55 Q590 91 595 113 Q600 136 612 171 Q624 206 635 226 Q646 246 655 263 Q664 281 668 301 Q673 321 676 341 Q680 361 687 386 Q695 411 700 421 Q706 431 708 444 Q710 456 707 485 Q704 514 702 531 Q701 549 693 568 Q686 586 679 594 Q673 601 651 606 Q630 612 623 613 Q615 614 603 577 Q591 541 572 526 Q553 512 545 496 Q536 481 525 466 Q514 451 507 436 Q500 421 494 408 Q487 396 481 383 Q474 371 472 361 Q470 351 466 338 Q463 326 464 316 Q465 306 470 271 Q474 236 459 224 Q443 211 428 184 Q412 156 399 146 Q386 136 372 128 Q359 121 351 120 Q343 119 334 127 Q326 136 309 145 Q293 154 282 156 Q271 158 255 158 Q238 159 239 152 Q240 146 225 130 Q209 114 191 106 Q174 98 156 93 Q138 88 121 89 Q103 90 90 90 Q77 91 63 94 L48 98 Z"/>
+    <g class="gh-map-dots" aria-hidden="true"><circle cx="77" cy="81" r="5"/><circle cx="334" cy="82" r="5"/><circle cx="566" cy="93" r="5"/><circle cx="508" cy="161" r="5"/><circle cx="495" cy="331" r="5"/><circle cx="547" cy="462" r="5"/><circle cx="696" cy="541" r="5"/></g>
+    <g aria-hidden="true"><circle class="gh-map-halo" cx="591" cy="272" r="26"/><circle class="gh-map-base" cx="591" cy="272" r="9"/></g>
+  </svg></figure>
 </div></div></section>
 </main>
 {quote_band()}'''

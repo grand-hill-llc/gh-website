@@ -416,3 +416,16 @@ html { scroll-padding-top: var(--gh-header-h); }
 .gh-compact-head .gh-page-head .gh-container { padding-bottom: var(--space-2); }
 .gh-compact-head .gh-page-head .gh-body-lg { margin-top: var(--space-2); }
 .gh-contact-section { padding-top: var(--space-6); }
+
+/* About: service area map */
+.gh-area { align-items: center; }
+.gh-regions { list-style: none; margin: var(--space-4) 0; padding: 0; display: flex; flex-wrap: wrap; gap: var(--space-1) var(--space-1); }
+.gh-regions li { padding: 8px 14px; border: var(--stroke-hairline) solid var(--line-strong); font-size: 14px; background: var(--surface); }
+.gh-regions li.is-base { border-color: var(--accent); }
+.gh-regions li span { margin-left: 6px; font-size: 12px; letter-spacing: .08em; text-transform: uppercase; color: var(--accent-text); }
+.gh-map { margin: 0; display: flex; justify-content: center; }
+.gh-map svg { width: 100%; max-width: 460px; height: auto; display: block; }
+.gh-map-land { fill: var(--surface); stroke: var(--ink); stroke-width: 2.5; stroke-linejoin: round; }
+.gh-map-dots circle { fill: var(--ink); opacity: .55; }
+.gh-map-halo { fill: var(--accent); opacity: .18; }
+.gh-map-base { fill: var(--accent); }
