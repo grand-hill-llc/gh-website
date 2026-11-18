@@ -487,3 +487,10 @@ html { scroll-padding-top: var(--gh-header-h); }
 
 .gh-title-plain .gh-h2 { margin-top: var(--space-2); }
 .gh-how .gh-prose .gh-title-plain { margin-bottom: var(--space-3); }
+
+/* Contact: spacing */
+.gh-band-sm { padding: var(--space-8, 64px) 0; }
+.gh-contact-section { padding: var(--space-7, 56px) 0 var(--space-12, 96px); }
+.gh-contact-section .gh-contact { align-items: stretch; }
+.gh-contact-side .gh-side-photo { aspect-ratio: 16 / 9; }
+@media (max-width: 768px) { .gh-band-sm { padding: var(--space-6, 48px) 0; } .gh-contact-section { padding: var(--space-5, 40px) 0 var(--space-8, 64px); } }
