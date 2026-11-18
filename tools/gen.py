@@ -9,7 +9,7 @@ PHONE = None                              # TODO: set the real phone number; it 
 SHOW_PROJECTS = False                     # set True once there are real projects: adds Projects to menu, footer, sitemap
 INSTAGRAM = "https://www.instagram.com/grandhillcorp/"
 FACEBOOK = "https://www.facebook.com/grandhillcorp/"
-GOOGLE_TAG = "GTM-PP5QMSCD"                 # Google tag / Analytics ID; set to None to remove tracking from every page
+GOOGLE_TAG = "G-RNEM4HEZVY"                 # Google tag / Analytics ID; set to None to remove tracking from every page
 BACKOFFICE = "https://app.grandhillcorp.com"   # "Team login" link in the footer
 SHOW_PROOF = False                        # set True once there is a real featured project and a real, authorized testimonial on the home page
 OG = "/assets/img/og-image.png"
@@ -256,8 +256,9 @@ def footer():
 def gtag_snippet(path):
     if not GOOGLE_TAG:
         return ""
-    s = (f'<script async src="https://www.googletagmanager.com/gtm.js?id={GOOGLE_TAG}"></script>\n'
+    s = (f'<script async src="https://www.googletagmanager.com/gtag/js?id={GOOGLE_TAG}"></script>\n'
          '<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag("js",new Date());'
+         f'gtag("config","{GOOGLE_TAG}");'
          + ('gtag("event","generate_lead");' if path == "/thank-you/" else "") + '</script>\n')
     return s
 
