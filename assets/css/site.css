@@ -513,3 +513,7 @@ html { scroll-padding-top: var(--gh-header-h); }
 .gh-services-landing .gh-service { padding: var(--space-3) var(--space-3) var(--space-4); }
 .gh-services-landing .gh-service p { font-size: 15.5px; }
 .gh-services-landing .gh-service-photo { margin: calc(-1 * var(--space-3)) calc(-1 * var(--space-3)) var(--space-2); }
+
+.gh-who .gh-actions { align-items: center; column-gap: var(--space-6, 56px); row-gap: var(--space-3); }
+.gh-who .gh-link-quiet { border-bottom-color: var(--line, #d9d9d6); color: var(--ink-muted); }
+.gh-who .gh-link-quiet:hover { color: var(--ink); border-bottom-color: var(--ink); }
