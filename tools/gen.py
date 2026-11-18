@@ -136,6 +136,24 @@ def card_photo(x, heading_cls="gh-service-photo"):
         return f'<div class="gh-photo {heading_cls}"><img class="gh-photo-img" src="/assets/img/{x["img"]}" alt="" width="1672" height="941" loading="lazy" decoding="async" onerror="this.remove()"></div>'
     return svc_photo(x["key"], *SVC_PHOTOS[x["key"]])
 
+def more_services(current_path, cls="gh-section"):
+    """Photo cards for the other services, shown at the bottom of every service page."""
+    cards = ""
+    for o in ALL:
+        if o["path"] == current_path:
+            continue
+        nm = o["name"].replace("&", "&amp;")
+        cards += f'''
+    <article class="gh-service">{card_photo(o)}<h3 class="gh-h4">{nm}</h3>
+      <p>{o["card_blurb"]}</p>
+      <a class="gh-link" href="{o["path"]}">{nm} {ARROW}</a></article>'''
+    return f'''<section class="{cls}" aria-labelledby="more-h"><div class="gh-container">
+  <div class="gh-more-head"><div><p class="gh-eyebrow">More services</p><h2 class="gh-h2" id="more-h">Explore the rest.</h2></div>
+  <a class="gh-link" href="/services/">All services {ARROW}</a></div>
+  <div class="gh-cards-3">{cards}
+  </div>
+</div></section>'''
+
 def header(current, transparent=False, here=""):
     logo = "reversed-transparent" if transparent else "primary"
     cls = "gh-header gh-header-transparent" if transparent else "gh-header"
@@ -465,10 +483,7 @@ for x in SERVICES:
   <div class="gh-section-head"><p class="gh-eyebrow">Scope</p><h2 class="gh-h2" id="cap-h">{x["name"].replace("&","&amp;")}, in detail.</h2></div>
   <div class="{capcls}">{caps}</div>
 </div></section>
-<section class="gh-section"><div class="gh-container"><div class="gh-two-col">
-  <div><p class="gh-eyebrow">More services</p><h2 class="gh-h2" style="margin-top:16px">Explore the rest.</h2></div>
-  <div class="gh-prose gh-related">{others}<a class="gh-link" href="/services/">All services {ARROW}</a></div>
-</div></div></section>
+{more_services(x["path"])}
 </main>
 {quote_band()}'''
     page(x["path"], x["title"], x["desc"], (body,), current="/services/", transparent=True, extra_head=svc_ld(x))
@@ -536,10 +551,7 @@ for a in AUDIENCES:
   <div class="gh-section-head"><p class="gh-eyebrow">Our process</p><h2 class="gh-h2" id="steps-h">{a["steps_h"]}</h2></div>
   <ol class="gh-method gh-method-plain is-4" aria-label="{a["steps_h"]}">{steps}</ol>
 </div></section>
-<section class="{rel_cls}"><div class="gh-container"><div class="gh-two-col">
-  <div><p class="gh-eyebrow">More services</p><h2 class="gh-h2" style="margin-top:16px">Explore the rest.</h2></div>
-  <div class="gh-prose gh-related">{rel}</div>
-</div></div></section>
+{more_services(a["path"], rel_cls)}
 </main>
 {quote_band()}'''
     cat = {"@type":"OfferCatalog","name":a["name"]+" services","itemListElement":[

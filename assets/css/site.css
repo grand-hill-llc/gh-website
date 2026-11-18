@@ -49,6 +49,11 @@ html { scroll-padding-top: var(--gh-header-h); }
 
 .gh-cards-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--space-3); }
 .gh-cards-2 { display: grid; grid-template-columns: repeat(2, 1fr); gap: var(--space-3); }
+.gh-cards-3 .gh-service-photo { aspect-ratio: 3 / 2; }
+.gh-more-head { display: flex; justify-content: space-between; align-items: flex-end; gap: var(--space-4); margin-bottom: var(--space-6, 48px); }
+.gh-more-head .gh-h2 { margin-top: 16px; }
+@media (max-width: 960px) { .gh-cards-3 .gh-service-photo { aspect-ratio: 2 / 1; } }
+@media (max-width: 640px) { .gh-more-head { flex-direction: column; align-items: flex-start; } }
 .gh-cards-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: var(--space-3); }
 .gh-cards-4 .gh-service-photo { aspect-ratio: 4 / 3; }
 @media (max-width: 1100px) { .gh-cards-4 { grid-template-columns: repeat(2, 1fr); } .gh-cards-4 .gh-service-photo { aspect-ratio: 2 / 1; } }
