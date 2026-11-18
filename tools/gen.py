@@ -502,7 +502,7 @@ for a in AUDIENCES:
     work = a.get("work")
     work_html = ""
     if work:
-        figs = "".join(f'<figure><img src="/assets/img/projects/{f}" alt="{alt}" width="680" height="510" loading="lazy" decoding="async"><figcaption>{cap}</figcaption></figure>' for f, alt, cap in work)
+        figs = "".join(f'<figure><button type="button" class="gh-work-open" data-full="/assets/img/projects/{f}" data-caption="{cap}" aria-label="View larger: {alt}"><img src="/assets/img/projects/{f}" alt="{alt}" width="680" height="510" loading="lazy" decoding="async"></button><figcaption>{cap}</figcaption></figure>' for f, alt, cap in work)
         work_html = f'''<section class="gh-section gh-section-alt" aria-labelledby="work-h"><div class="gh-container">
   <div class="gh-section-head"><p class="gh-eyebrow">Recent work</p><h2 class="gh-h2" id="work-h">{a["work_h"]}</h2></div>
   <div class="gh-work">{figs}<div class="gh-work-cta"><h3 class="gh-h4">Planning a project?</h3><p>Share the scope, location and timeline. We respond within one business day.</p><a class="gh-link" href="/contact/">Request a quote {ARROW}</a></div></div>

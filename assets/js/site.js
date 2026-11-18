@@ -169,3 +169,47 @@
     else { video.pause(); btn.setAttribute('aria-pressed', 'true'); btn.setAttribute('aria-label', 'Play background video'); }
   });
 })();
+
+/* Recent work lightbox: native <dialog>, arrow keys, backdrop click, focus returns to the thumbnail. */
+(function () {
+  var openers = Array.prototype.slice.call(document.querySelectorAll('.gh-work-open'));
+  if (!openers.length || typeof HTMLDialogElement === 'undefined') return;
+  var dlg = document.createElement('dialog');
+  dlg.className = 'gh-lightbox';
+  dlg.setAttribute('aria-label', 'Image viewer');
+  dlg.innerHTML = '<button type="button" class="gh-lightbox-btn gh-lightbox-close" aria-label="Close">&times;</button>' +
+    '<button type="button" class="gh-lightbox-btn gh-lightbox-prev" aria-label="Previous image">&#8249;</button>' +
+    '<figure class="gh-lightbox-fig"><img alt=""><figcaption></figcaption></figure>' +
+    '<button type="button" class="gh-lightbox-btn gh-lightbox-next" aria-label="Next image">&#8250;</button>';
+  document.body.appendChild(dlg);
+  var img = dlg.querySelector('img'), cap = dlg.querySelector('figcaption');
+  var prev = dlg.querySelector('.gh-lightbox-prev'), next = dlg.querySelector('.gh-lightbox-next');
+  var cur = 0, opener = null;
+  var show = function (i) {
+    cur = (i + openers.length) % openers.length;
+    var o = openers[cur], t = o.querySelector('img');
+    img.src = o.getAttribute('data-full');
+    img.alt = t ? t.alt : '';
+    cap.textContent = o.getAttribute('data-caption') || '';
+  };
+  openers.forEach(function (o, i) {
+    o.addEventListener('click', function () {
+      opener = o; show(i);
+      prev.hidden = next.hidden = openers.length < 2;
+      dlg.showModal();
+      document.documentElement.style.overflow = 'hidden';
+    });
+  });
+  prev.addEventListener('click', function () { show(cur - 1); });
+  next.addEventListener('click', function () { show(cur + 1); });
+  dlg.querySelector('.gh-lightbox-close').addEventListener('click', function () { dlg.close(); });
+  dlg.addEventListener('click', function (e) { if (e.target === dlg) dlg.close(); });
+  dlg.addEventListener('keydown', function (e) {
+    if (e.key === 'ArrowLeft') { show(cur - 1); e.preventDefault(); }
+    else if (e.key === 'ArrowRight') { show(cur + 1); e.preventDefault(); }
+  });
+  dlg.addEventListener('close', function () {
+    document.documentElement.style.overflow = '';
+    if (opener) opener.focus();
+  });
+})();
