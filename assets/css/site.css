@@ -223,13 +223,8 @@ html { scroll-padding-top: var(--gh-header-h); }
 .gh-service-tile.is-featured { border-top: 0; padding-top: var(--space-6); }
 
 /* Services landing: compact so the three services fit one desktop screen without scrolling */
-.gh-services-landing .gh-page-head { padding: var(--space-6) 0 var(--space-4); }
-.gh-services-landing .gh-page-head .gh-container { padding-bottom: var(--space-2); }
-.gh-services-landing .gh-page-head .gh-body-lg { margin-top: var(--space-2); }
-.gh-services-landing .gh-section { padding-top: var(--space-3) !important; padding-bottom: var(--space-8); }
 .gh-services-landing .gh-service p { margin-bottom: var(--space-2); }
 .gh-services-landing .gh-service { gap: var(--space-1); }
-.gh-services-landing .gh-page-head { padding-top: var(--space-4); }
 
 /* Hero H1 carries the keyword phrase; slogan moved to the eyebrow. Sized so it sets in three lines. */
 .gh-hero .gh-display { font-size: clamp(40px, 5.6vw, 80px); max-width: 17ch; }
@@ -511,3 +506,6 @@ html { scroll-padding-top: var(--gh-header-h); }
 .gh-featured .gh-actions { display: flex; flex-wrap: wrap; gap: var(--space-3); margin-top: var(--space-5, 40px); }
 .gh-featured .gh-h3 { margin-bottom: var(--space-2); }
 @media (max-width: 480px) { .gh-featured .gh-actions .gh-btn { width: 100%; } }
+
+.gh-services-landing .gh-band + .gh-section { padding-top: 72px; padding-bottom: 88px; }
+.gh-services-landing .gh-band + .gh-section ~ .gh-section { padding-top: 88px; padding-bottom: 88px; }

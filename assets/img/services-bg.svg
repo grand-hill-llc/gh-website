@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 560" preserveAspectRatio="xMidYMid slice">
+<defs>
+<pattern id="g" width="40" height="40" patternUnits="userSpaceOnUse"><path d="M40 0H0V40" fill="none" stroke="#fff" stroke-opacity=".045" stroke-width="1"/></pattern>
+<radialGradient id="glow" cx="78%" cy="40%" r="60%"><stop offset="0" stop-color="#3a414c" stop-opacity=".55"/><stop offset="1" stop-color="#1c2026" stop-opacity="0"/></radialGradient>
+</defs>
+<rect width="1600" height="560" fill="#1c2026"/>
+<rect width="1600" height="560" fill="url(#glow)"/>
+<rect width="1600" height="560" fill="url(#g)"/>
+<g stroke-linejoin="round">
+<rect x="980" y="110" width="110" height="340" fill="#fff" fill-opacity=".05" stroke="#fff" stroke-opacity=".22" stroke-width="1.6"/>
+<rect x="1110" y="110" width="110" height="340" fill="#fff" fill-opacity=".09" stroke="#fff" stroke-opacity=".22" stroke-width="1.6"/>
+<rect x="1240" y="110" width="110" height="340" fill="#fff" fill-opacity=".14" stroke="#fff" stroke-opacity=".22" stroke-width="1.6"/>
+<rect x="1370" y="110" width="110" height="340" fill="#c40d3c" fill-opacity=".85"/>
+</g>
+<g stroke="#fff" stroke-opacity=".3" stroke-width="1.6" fill="none"><path d="M980 480H1480"/><path d="M980 472V488M1090 472V488M1110 472V488M1220 472V488M1240 472V488M1350 472V488M1370 472V488M1480 472V488"/></g>
+<g fill="none" stroke="#fff" stroke-opacity=".07" stroke-width="1.5"><circle cx="170" cy="470" r="210"/><circle cx="170" cy="470" r="140"/><circle cx="170" cy="470" r="70"/></g>
+</svg>
