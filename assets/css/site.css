@@ -429,3 +429,22 @@ html { scroll-padding-top: var(--gh-header-h); }
 .gh-map-dots circle { fill: var(--ink); opacity: .55; }
 .gh-map-halo { fill: var(--accent); opacity: .18; }
 .gh-map-base { fill: var(--accent); }
+
+/* About: photo beside the "How we work" intro */
+.gh-how { grid-template-columns: 5fr 6fr; align-items: center; margin-bottom: var(--space-8); }
+.gh-how-photo { margin: 0; }
+.gh-how-photo img { display: block; width: 100%; height: auto; aspect-ratio: 4 / 3; object-fit: cover; }
+@media (max-width: 900px) { .gh-how { grid-template-columns: 1fr; margin-bottom: var(--space-6); } }
+.gh-map svg { max-width: 420px; }
+
+/* About: map as a dark panel */
+.gh-map { flex-direction: column; align-items: center; gap: var(--space-3); background: var(--surface-inverse); padding: var(--space-6, 48px) var(--space-4); border-top: var(--stroke-accent) solid var(--accent); }
+.gh-map svg { max-width: 400px; }
+.gh-map-land { fill: rgba(255, 255, 255, .07); stroke: rgba(255, 255, 255, .8); stroke-width: 2; }
+.gh-map-dots circle { fill: #fff; opacity: .75; }
+.gh-map-halo { opacity: .3; }
+.gh-map figcaption { display: flex; flex-wrap: wrap; justify-content: center; gap: var(--space-1) var(--space-4); color: var(--ink-inverse); font-size: 12px; letter-spacing: .12em; text-transform: uppercase; }
+.gh-map-key { display: inline-flex; align-items: center; gap: 8px; }
+.gh-map-key i { width: 10px; height: 10px; border-radius: 50%; background: #fff; opacity: .75; display: inline-block; }
+.gh-map-key i.is-base { background: var(--accent); opacity: 1; }
+.gh-how .gh-prose h2 + p { margin-top: var(--space-3); }
