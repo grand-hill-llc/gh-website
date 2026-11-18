@@ -10,22 +10,26 @@ The preview server accepts the quote form POST so the form flow can be tested lo
 
 ## Structure
 - `IMAGES.md` image brief (slots, sizes, style, honesty rule)
-- `index.html`, `services/`, `projects/`, `about/`, `contact/`, `thank-you/`, `404.html`
-- `insights/` is built but hidden (noindex, not linked, not in `sitemap.xml`)
-- `assets/css` (tokens, components, site), `assets/js/site.js`, `assets/logo` (GH logo set), `assets/img`
+- `index.html`, `services/` (commercial-painting, residential-painting, finishes-and-surface-care, interiors-and-flooring), `about/`, `contact/`, `thank-you/`, `404.html`
+- `projects/` is built only when `SHOW_PROJECTS = True`; `insights/` is built but hidden (noindex, not linked, not in `sitemap.xml`)
+- `assets/css` (tokens, components, site), `assets/js/site.js`, `assets/logo`, `assets/img` (`hero-*.jpg` carousel, `projects/` real photos, `services/`)
 - `netlify.toml`, `sitemap.xml`, `robots.txt`
+- `DEPLOY.md` review checklist and deploy steps
 
-## Hero photo
-The hero loads `assets/img/hero.webp` (1920x1080, under ~250 KB) under the design system's flat charcoal veil. If the file is missing, the hero falls back to plain charcoal. A stock photo (Unsplash License) is acceptable only as a stand-in: the brief calls for real project photography, so replace it with real work (credited) before launch.
+## Checks
+```
+npm run build    # regenerate pages from tools/gen.py
+npm run check    # links, assets, titles, descriptions, canonicals, alt text, sitemap
+```
+Run both before every push. `npm run check:placeholders` lists service photo slots still empty.
 
-## Before launch (open items)
-Run `npm run check:placeholders` to list what is left. Remaining:
-1. Real phone number and public email (footer and contact page; email currently `info@grandhillcorp.com`).
-2. First featured project: photos (WebP/AVIF with width/height), scope, credit. Home "Featured project" and `projects/`.
-3. A real, permitted testimonial (Home).
-4. Duplicate `projects/sample-project/` for each project, then add it to `sitemap.xml` and remove its noindex tag.
-5. Netlify: add the form notification email (Site configuration, Forms, Form notifications) for the `quote` form.
-6. Leadership currently sits on About; move to Home if leadership decides so.
+## Open items before launch
+1. Public email (currently `info@grandhillcorp.com`). Phone stays hidden on purpose (`PHONE = None`).
+2. Facebook Page URL (`FACEBOOK` in `tools/gen.py`). Instagram and the "Team login" link (`BACKOFFICE`) are already in the footer.
+3. Real hero photos for Commercial and Residential (current heroes are generated), plus project name, city and year for captions.
+4. A real, permitted testimonial (`SHOW_PROOF`).
+5. Attorney review of Privacy and Terms text.
+6. Netlify: add the form notification email for the `quote` form (see `DEPLOY.md`).
 
 ## Hero background video
 The home hero can play a muted, looping background video: `assets/video/hero.mp4` (required) and `assets/video/hero.webm` (optional). Build both from source clips with `tools/make-hero-video.sh clip1.mp4 clip2.mp4` (needs ffmpeg). Footage must be real or licensed (area views, skylines, streets), never presented as a Grand Hill project. If the files are missing the hero shows the still image (`hero.webp`, also the video poster). The video is skipped for visitors with reduced motion, data saver, slow connections or small screens, and a pause button is shown while it plays (WCAG 2.2.2).
