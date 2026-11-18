@@ -12,7 +12,7 @@ The preview server accepts the quote form POST so the form flow can be tested lo
 - `IMAGES.md` image brief (slots, sizes, style, honesty rule)
 - `index.html`, `services/` (commercial-painting, residential-painting, finishes-and-surface-care, interiors-and-flooring), `about/`, `contact/`, `thank-you/`, `404.html`
 - `projects/` is built only when `SHOW_PROJECTS = True`; `insights/` is built but hidden (noindex, not linked, not in `sitemap.xml`)
-- `assets/css` (tokens, components, site), `assets/js/site.js`, `assets/logo`, `assets/img` (`hero-*.jpg` carousel, `projects/` real photos, `services/`)
+- `assets/css` (tokens, components, site), `assets/js/site.js`, `assets/logo`, `assets/img` (`hero-*.webp` carousel, `projects/` real photos, `services/`)
 - `netlify.toml`, `sitemap.xml`, `robots.txt`
 - `DEPLOY.md` review checklist and deploy steps
 

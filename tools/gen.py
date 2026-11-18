@@ -24,7 +24,7 @@ SLOT = ('<div class="gh-photo-slot" aria-hidden="true"><svg viewBox="0 0 400 300
 
 def svc_photo(key, label, alt, cls="gh-service-photo"):
     """Placeholder until /assets/img/services/<key>.webp (1600x1200) exists; the real photo then covers it."""
-    ext = "jpg" if os.path.exists(os.path.join(ROOT, "assets", "img", "services", key + ".jpg")) else "webp"
+    ext = "webp"
     exists = os.path.exists(os.path.join(ROOT, "assets", "img", "services", key + "." + ext))
     placeholder = "" if exists else SLOT + f'<span class="gh-photo-caption">Photo placeholder &middot; {label}</span>'
     return (f'<div class="gh-photo {cls}">{placeholder}'
@@ -66,7 +66,7 @@ def _ico(p):
     return f'<svg class="gh-icon gh-why-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">{p}</svg>'
 
 AUDIENCES = [
-  dict(slug="commercial-painting", path="/services/commercial-painting/", name="Commercial painting", short_name="Commercial", eyebrow="Painting · Commercial", img="hero-exterior.jpg",
+  dict(slug="commercial-painting", path="/services/commercial-painting/", name="Commercial painting", short_name="Commercial", eyebrow="Painting · Commercial", img="hero-exterior.webp",
        card_blurb="Retail, offices and multifamily, planned around your operations.",
        title="Commercial Painting Contractor in Florida | Grand Hill",
        desc="Commercial painting for retail, offices and multifamily properties across Florida. Work scheduled around your operations, documented and inspected before handoff.",
@@ -91,10 +91,10 @@ AUDIENCES = [
              ("Surface preparation and repair", "Cleaning, patching and priming before any coat goes on.", "painting-surface-preparation-and-repair"),
              ("Occupied buildings", "Work sequenced around opening hours, tenants and residents.", "painting-occupied-buildings")],
        work_h="Commercial work in Florida.",
-       work=[("commercial-01.jpg", "Commercial building with a tile roof, arched entrance and pale green and cream stucco", "Commercial exterior."),
-             ("commercial-02.jpg", "Side of a one-story commercial building with palms and large windows", "Commercial exterior, side elevation.")],
+       work=[("commercial-01.webp", "Commercial building with a tile roof, arched entrance and pale green and cream stucco", "Commercial exterior."),
+             ("commercial-02.webp", "Side of a one-story commercial building with palms and large windows", "Commercial exterior, side elevation.")],
        stype="Commercial painting", audience="Owners and managers of retail, office and multifamily properties"),
-  dict(slug="residential-painting", path="/services/residential-painting/", name="Residential painting", short_name="Residential", eyebrow="Painting · Residential", img="hero-detail.jpg",
+  dict(slug="residential-painting", path="/services/residential-painting/", name="Residential painting", short_name="Residential", eyebrow="Painting · Residential", img="hero-detail.webp",
        card_blurb="Interior and exterior painting for homes, inspected before handoff.",
        title="Residential Painting in Florida | Grand Hill",
        desc="Interior and exterior painting for homes in Florida: careful preparation, a clear written scope and a finish inspected before handoff.",
@@ -114,11 +114,11 @@ AUDIENCES = [
               ("Paint", "Coats are applied to specification, one area at a time."),
               ("Final walkthrough", "We check the finish against the scope before handoff.")],
        related=["/services/finishes-and-surface-care/"], sibling="/services/commercial-painting/",
-       caps=[("Interior painting", "Walls, ceilings and trim in the rooms you live in, finished to one consistent standard.", "residential-04.jpg", "Open living room with vaulted ceiling, skylights and freshly painted walls"),
-             ("Exterior painting", "Home exteriors prepared and coated to stand up to Florida sun, humidity and rain.", "residential-03.jpg", "Pink stucco home with arched entry and white trim"),
-             ("Surface preparation and repair", "Cleaning, patching and priming before any coat goes on.", "residential-05.jpg", "Covered stucco entry with double front door and brick paver walkway")],
-       work=[("residential-01.jpg", "Two-story gray stucco home with dark shutters and landscaped grounds", "Residential exterior."),
-             ("residential-02.jpg", "Two-story white stucco home with red shutters and a brick paver driveway", "Residential exterior.")],
+       caps=[("Interior painting", "Walls, ceilings and trim in the rooms you live in, finished to one consistent standard.", "residential-04.webp", "Open living room with vaulted ceiling, skylights and freshly painted walls"),
+             ("Exterior painting", "Home exteriors prepared and coated to stand up to Florida sun, humidity and rain.", "residential-03.webp", "Pink stucco home with arched entry and white trim"),
+             ("Surface preparation and repair", "Cleaning, patching and priming before any coat goes on.", "residential-05.webp", "Covered stucco entry with double front door and brick paver walkway")],
+       work=[("residential-01.webp", "Two-story gray stucco home with dark shutters and landscaped grounds", "Residential exterior."),
+             ("residential-02.webp", "Two-story white stucco home with red shutters and a brick paver driveway", "Residential exterior.")],
        work_h="Residential work in Florida.",
        stype="Residential painting", audience="Homeowners in Florida"),
 ]
@@ -268,7 +268,7 @@ def page_head(eyebrow, h1, lede):
 # ---------------------------------------------------------------- HOME
 home_hero = f'''<section class="gh-hero gh-inverse gh-on-image" data-hero-carousel aria-label="Painting and finishes inspiration">
   <div class="gh-photo" aria-hidden="true">
-    {''.join(f'<img class="gh-hero-slide{" is-active" if i == 0 else ""}" {"src" if i == 0 else "data-src"}="/assets/img/hero-{name}.jpg" alt="" width="1672" height="941" {"fetchpriority=high" if i == 0 else ""}>' for i, name in enumerate(["exterior", "craft", "interior", "detail"]))}
+    {''.join(f'<img class="gh-hero-slide{" is-active" if i == 0 else ""}" {"src" if i == 0 else "data-src"}="/assets/img/hero-{name}.webp" alt="" width="1672" height="941" {"fetchpriority=high" if i == 0 else ""}>' for i, name in enumerate(["exterior", "craft", "interior", "detail"]))}
     <div class="gh-hero-veil"></div>
   </div>
   <div class="gh-carousel-controls" hidden>
@@ -359,7 +359,7 @@ home_main = f'''<main id="main">
 <section class="gh-section gh-section-alt" aria-labelledby="feat-h"><div class="gh-container">
   <div class="gh-section-head"><p class="gh-eyebrow">Recent work</p><h2 class="gh-h2" id="feat-h">Finished to one standard.</h2></div>
   <div class="gh-featured">
-    <a href="/services/commercial-painting/" class="gh-project" aria-label="Commercial painting"><div class="gh-photo"><img class="gh-photo-img" src="/assets/img/projects/commercial-01.jpg" alt="Commercial building with a tile roof, arched entrance and pale green and cream stucco" width="680" height="510" loading="lazy" decoding="async"></div></a>
+    <a href="/services/commercial-painting/" class="gh-project" aria-label="Commercial painting"><div class="gh-photo"><img class="gh-photo-img" src="/assets/img/projects/commercial-01.webp" alt="Commercial building with a tile roof, arched entrance and pale green and cream stucco" width="680" height="510" loading="lazy" decoding="async"></div></a>
     <div>
       <p class="gh-label">Florida &middot; Commercial</p>
       <h3 class="gh-h3">Commercial exteriors that hold up.</h3>
@@ -381,7 +381,7 @@ HOME_SCHEMA = {"@context":"https://schema.org","@graph":[
    "slogan":"Precision in every finish.","sameAs":[u for u in (INSTAGRAM, FACEBOOK) if u],"areaServed":{"@type":"State","name":"Florida"},
    "knowsAbout":["Commercial painting","Residential painting","Exterior painting","Interior painting","Stucco","EIFS","Pressure washing","Protective coatings","Wallcoverings","Commercial flooring"]},
   {"@type":"WebSite","@id":SITE+"/#website","url":SITE+"/","name":"Grand Hill","publisher":{"@id":SITE+"/#business"},"inLanguage":"en-US"}]}
-HOME_HEAD = ('<link rel="preload" as="image" href="/assets/img/hero-exterior.jpg" fetchpriority="high">\n'
+HOME_HEAD = ('<link rel="preload" as="image" href="/assets/img/hero-exterior.webp" fetchpriority="high">\n'
              '<script type="application/ld+json">' + json.dumps(HOME_SCHEMA, separators=(",",":")) + '</script>\n')
 page("/", "Commercial & Residential Painting in Florida | Grand Hill",
      "Commercial and residential painting and finishes across Florida, for retail, offices, multifamily and homes. Planned around your schedule, inspected before handoff.",
@@ -436,7 +436,7 @@ for x in SERVICES:
     def _slug(t): return re.sub(r"[^a-z0-9]+", "-", t.lower()).strip("-")
     caps = "".join(f'<article class="gh-capability">{svc_photo(x["key"] + "-" + _slug(t), t, t, cls="gh-capability-photo")}<h3 class="gh-h4">{t}</h3><p>{d}</p></article>' for t, d in DETAILS[x["slug"]])
     capcls = "gh-capabilities is-" + str(len(DETAILS[x["slug"]]))
-    hero_ext = "jpg" if os.path.exists(os.path.join(ROOT, "assets", "img", "services", x["key"] + ".jpg")) else "webp"
+    hero_ext = "webp"
     hero = f'''<section class="gh-hero gh-hero-service gh-inverse gh-on-image">
   <div class="gh-photo" aria-hidden="true">{SLOT}<img class="gh-photo-img" src="/assets/img/services/{x["key"]}.{hero_ext}" alt="" width="1600" height="1200" fetchpriority="high" onerror="this.remove()"><div class="gh-hero-veil"></div></div>
   <div class="gh-hero-inner">
@@ -479,7 +479,7 @@ _AUD_BY_PATH = {a["path"]: a for a in AUDIENCES}
 for a in AUDIENCES:
     who = "".join(f'<li>{ico}<h3>{t}</h3><p>{d}</p></li>' for t, ico, d in a["cards"])
     def _cap_photo(k, t, alt):
-        if k.endswith(".jpg") and os.path.exists(os.path.join(ROOT, "assets", "img", "projects", k)):
+        if k.endswith(".webp") and os.path.exists(os.path.join(ROOT, "assets", "img", "projects", k)):
             return f'<div class="gh-photo gh-capability-photo"><img class="gh-photo-img" src="/assets/img/projects/{k}" alt="{alt}" width="800" height="600" loading="lazy" decoding="async" onerror="this.remove()"></div>'
         return svc_photo(k, t, t, cls="gh-capability-photo")
     caps = "".join(f'<article class="gh-capability">{_cap_photo(c[2], c[0], c[3] if len(c) > 3 else c[0])}<h3 class="gh-h4">{c[0]}</h3><p>{c[1]}</p></article>' for c in a["caps"])

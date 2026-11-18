@@ -12,7 +12,7 @@ Review at 1440 px and 375 px:
 - [ ] Copy: no placeholder text, no credit to third parties, claims are true (licensing, insurance, years)
 - [ ] `npm run check` reports 0 errors
 
-Known warnings (not blocking): 8 JPGs above 400 KB (hero and service images). Convert to WebP before launch if PageSpeed asks.
+Known warnings (not blocking): none (all images are WebP; `npm run check` warns above 400 KB).
 
 ## 2. Push
 ```
