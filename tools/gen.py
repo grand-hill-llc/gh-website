@@ -361,7 +361,7 @@ home_main = f'''<main id="main">
   <div class="gh-prose gh-who">
     <p class="gh-body-lg">Grand Hill is a Florida company focused on painting and finishes for commercial and residential projects. We deliver the work from the first walkthrough to the final handoff, on schedule and inspected, and we answer for every surface.</p>
     <p>Our team brings an architectural and engineering eye to material and color selection.</p>
-    <div class="gh-actions"><a class="gh-btn gh-btn-primary" href="/services/">Our services {ARROW}</a><a class="gh-btn gh-btn-secondary" href="/about/">About Grand Hill</a></div>
+    <div class="gh-actions"><a class="gh-link" href="/services/">Our services {ARROW}</a></div>
   </div>
 </div></div></section>
 
