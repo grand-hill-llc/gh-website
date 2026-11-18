@@ -494,3 +494,14 @@ html { scroll-padding-top: var(--gh-header-h); }
 .gh-contact-section .gh-contact { align-items: stretch; }
 .gh-contact-side .gh-side-photo { aspect-ratio: 16 / 9; }
 @media (max-width: 768px) { .gh-band-sm { padding: var(--space-6, 48px) 0; } .gh-contact-section { padding: var(--space-5, 40px) 0 var(--space-8, 64px); } }
+
+/* About: pass 2 */
+.gh-band { padding: var(--space-10, 80px) 0; }
+.gh-about .gh-cards-2 { gap: var(--space-4); }
+.gh-about .gh-person { display: grid; grid-template-columns: 56px 1fr; column-gap: var(--space-3); align-items: start; padding: var(--space-4) 0 0; }
+.gh-about .gh-person .gh-mono { grid-row: 1 / span 3; margin: 0; }
+.gh-about .gh-person h3 { margin: 0; }
+.gh-about .gh-person .gh-label { margin: 6px 0 var(--space-2); }
+.gh-about .gh-person p:last-child { margin: 0; max-width: 46ch; }
+@media (max-width: 768px) { .gh-band { padding: var(--space-6, 48px) 0; } }
+.gh-area .gh-title-plain { margin-bottom: var(--space-3); }
