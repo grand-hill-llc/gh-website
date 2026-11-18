@@ -605,7 +605,7 @@ about_body = f'''<main id="main" class="gh-compact-head">
     <div><p class="gh-eyebrow">Our story</p><h2 class="gh-h2" id="story-h" style="margin-top:16px">Four disciplines. One team.</h2></div>
     <div class="gh-prose">
       <p class="gh-body-lg">Grand Hill brings architecture, engineering, finance and operations into one team, so every project is planned, priced and delivered with the same care.</p>
-      <p>We met in Orlando and became friends over a shared passion for executing high-quality projects. That friendship is why we hold one another to the result, and why you deal with people who answer for it.</p>
+      <p>We came together in Orlando around one commitment: executing high-quality projects. Each of us owns a part of the work, and together we answer for the result.</p>
     </div>
   </div>
   <ul class="gh-disc" aria-label="What each discipline brings">
