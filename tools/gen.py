@@ -742,7 +742,7 @@ contact_body = f'''<main id="main">
     <div id="form-success" class="gh-form-success" role="status" tabindex="-1" hidden>{CHECK}<div><strong>Request received.</strong><p>Thank you. We will respond within one business day.</p></div></div>
   </div>
   <aside class="gh-contact-side" aria-label="Contact details">
-    <div class="gh-side-photo"><img src="/assets/img/projects/residential-02.webp" alt="Two-story white stucco home with red shutters and a brick paver driveway" width="600" height="800" loading="lazy" decoding="async"></div>
+    <div class="gh-side-photo"><img src="/assets/img/projects/commercial-02.webp" alt="Side of a one-story commercial building with palms and large windows" width="680" height="510" loading="lazy" decoding="async"></div>
     <h2 class="gh-h4">What happens next</h2>
     <ol class="gh-next">
       <li><strong>We review your request.</strong> You hear from us within one business day.</li>

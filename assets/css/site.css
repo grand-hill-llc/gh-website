@@ -527,3 +527,5 @@ html { scroll-padding-top: var(--gh-header-h); }
 
 .gh-service-photo .gh-photo-img { object-fit: cover; }
 .gh-cards-4 .gh-service:nth-child(2) .gh-photo-img { object-position: 50% 40%; }
+
+.gh-contact-side .gh-side-photo img { object-position: 50% 50%; }
