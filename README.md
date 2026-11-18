@@ -25,7 +25,7 @@ Run both before every push. `npm run check:placeholders` lists service photo slo
 
 ## Open items before launch
 1. Public email (currently `info@grandhillcorp.com`). Phone stays hidden on purpose (`PHONE = None`).
-2. Facebook Page URL (`FACEBOOK` in `tools/gen.py`). Instagram and the "Team login" link (`BACKOFFICE`) are already in the footer.
+2. Confirm the Instagram and Facebook pages have content before launch. Both and the "Team login" link (`BACKOFFICE`) are in the footer.
 3. Real hero photos for Commercial and Residential (current heroes are generated), plus project name, city and year for captions.
 4. A real, permitted testimonial (`SHOW_PROOF`).
 5. Attorney review of Privacy and Terms text.
