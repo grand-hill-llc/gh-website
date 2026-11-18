@@ -86,9 +86,13 @@
     fetch('/', { method: 'POST', headers: { 'Content-Type': 'application/x-www-form-urlencoded' }, body: new URLSearchParams(new FormData(form)).toString() })
       .then(function (r) { if (!r.ok) throw new Error('bad status'); })
       .then(function () {
-        form.hidden = true;
-        document.getElementById('form-success').hidden = false;
-        document.getElementById('form-success').focus();
+        /* Go to the thank-you page so analytics can count the lead; keep the in-page message if the redirect is blocked. */
+        window.location.assign('/thank-you/');
+        setTimeout(function () {
+          form.hidden = true;
+          document.getElementById('form-success').hidden = false;
+          document.getElementById('form-success').focus();
+        }, 1500);
       })
       .catch(function () {
         submit.disabled = false;
