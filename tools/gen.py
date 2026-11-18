@@ -654,8 +654,8 @@ about_body = f'''<main id="main" class="gh-about">
 <section class="gh-section" aria-labelledby="team-h"><div class="gh-container">
   <div class="gh-section-head">{title_block('users','Leadership','The people behind Grand Hill.','team-h')}</div>
   <div class="gh-cards-2">
-    <article class="gh-person"><span class="gh-mono" aria-hidden="true">JC</span><h3>Julio Adiel Canelo</h3><p class="gh-label">Commercial Member</p><p>Brings projects and client relationships. Leads safety and supervises work in the field.</p></article>
-    <article class="gh-person"><span class="gh-mono" aria-hidden="true">AG</span><h3>Adrian Gerig</h3><p class="gh-label">Administrative Member</p><p>Leads administration, project management and client communication.</p></article>
+    <article class="gh-person"><span class="gh-mono" aria-hidden="true">JC</span><h3>Julio Adiel Canelo</h3><p class="gh-label">Co-Founder · Commercial Director</p><p>Brings projects and client relationships. Leads safety and supervises work in the field.</p></article>
+    <article class="gh-person"><span class="gh-mono" aria-hidden="true">AG</span><h3>Adrian Gerig</h3><p class="gh-label">Co-Founder · Operations Director</p><p>Leads administration, project management and client communication.</p></article>
   </div>
 </div></section>
 

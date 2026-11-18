@@ -505,3 +505,5 @@ html { scroll-padding-top: var(--gh-header-h); }
 .gh-about .gh-person p:last-child { margin: 0; max-width: 46ch; }
 @media (max-width: 768px) { .gh-band { padding: var(--space-6, 48px) 0; } }
 .gh-area .gh-title-plain { margin-bottom: var(--space-3); }
+
+.gh-about .gh-cards-2 { column-gap: clamp(32px, 6vw, 96px); row-gap: var(--space-5); }
