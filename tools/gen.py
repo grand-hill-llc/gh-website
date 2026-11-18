@@ -9,6 +9,7 @@ PHONE = None                              # TODO: set the real phone number; it 
 SHOW_PROJECTS = False                     # set True once there are real projects: adds Projects to menu, footer, sitemap
 INSTAGRAM = "https://www.instagram.com/grandhillcorp/"
 FACEBOOK = "https://www.facebook.com/grandhillcorp/"
+GOOGLE_TAG = "GTM-PP5QMSCD"                 # Google tag / Analytics ID; set to None to remove tracking from every page
 BACKOFFICE = "https://app.grandhillcorp.com"   # "Team login" link in the footer
 SHOW_PROOF = False                        # set True once there is a real featured project and a real, authorized testimonial on the home page
 OG = "/assets/img/og-image.png"
@@ -252,6 +253,14 @@ def footer():
 </footer>'''
 
 
+def gtag_snippet(path):
+    if not GOOGLE_TAG:
+        return ""
+    s = (f'<script async src="https://www.googletagmanager.com/gtm.js?id={GOOGLE_TAG}"></script>\n'
+         '<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag("js",new Date());'
+         + ('gtag("event","generate_lead");' if path == "/thank-you/" else "") + '</script>\n')
+    return s
+
 def page(path, title, desc, body, current="", transparent=False, noindex=False, extra_head="", scripts=True):
     url = SITE + path
     crumbs = ""
@@ -268,7 +277,7 @@ def page(path, title, desc, body, current="", transparent=False, noindex=False, 
     doc = f'''<!DOCTYPE html>
 <html lang="en" data-theme="light">
 <head>
-<meta charset="utf-8">
+{gtag_snippet(path)}<meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>{html.escape(title)}</title>
 <meta name="description" content="{html.escape(desc, quote=True)}">
