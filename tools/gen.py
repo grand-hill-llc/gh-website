@@ -639,12 +639,12 @@ about_body = f'''<main id="main" class="gh-about">
   <div class="gh-two-col gh-how">
     <figure class="gh-how-photo"><img src="/assets/img/projects/commercial-02.webp" alt="Side of a one-story commercial building with palms and large windows" width="680" height="510" loading="lazy" decoding="async"></figure>
     <div class="gh-prose">{title_block('clipboard','How we work','From walkthrough to handoff.','how-h')}
-    <p class="gh-body-lg">Work is carried out by prequalified specialty crews that carry their own insurance, under Grand Hill's direction and inspection. We answer for the result.</p></div>
+    <p class="gh-body-lg">Every project is planned, directed and inspected by Grand Hill, from the first walkthrough to the final handoff. We answer for the result.</p></div>
   </div>
   <ol class="gh-steps">
     <li><h3>{ico('ruler','gh-ico gh-ico-inline')}Scope</h3><p>We walk the site, confirm surfaces, substrates and finish specifications, and note access constraints.</p></li>
     <li><h3>{ico('doc','gh-ico gh-ico-inline')}Estimate</h3><p>A clear written estimate with scope, exclusions and schedule. No surprises in the numbers.</p></li>
-    <li><h3>{ico('roller','gh-ico gh-ico-inline')}Execute</h3><p>A prequalified crew works to a schedule built around the building and its occupants.</p></li>
+    <li><h3>{ico('roller','gh-ico gh-ico-inline')}Execute</h3><p>The work follows a schedule built around the building and its occupants.</p></li>
     <li><h3>{ico('search','gh-ico gh-ico-inline')}Inspect</h3><p>We inspect against the specification, correct anything that falls short and hand off.</p></li>
   </ol>
 </div></section>
