@@ -411,15 +411,8 @@ html { scroll-padding-top: var(--gh-header-h); }
 .gh-side-social { display: flex; gap: var(--space-3); }
 @media (max-width: 640px) { .gh-form-card { padding: var(--space-3); } }
 
-/* Contact: compact image band, form card overlaps it */
-.gh-contact-head { position: relative; overflow: hidden; padding: var(--space-10, 80px) 0 calc(var(--space-10, 80px) + 40px); background: var(--surface-inverse); }
-.gh-contact-head > .gh-photo { position: absolute; inset: 0; }
-.gh-contact-head > .gh-photo .gh-photo-img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 45%; }
-.gh-contact-head > .gh-container { position: relative; z-index: 1; }
-.gh-contact-head .gh-h1 { margin-top: var(--space-2); color: var(--ink-inverse); font-size: clamp(36px, 4.4vw, 56px); }
-.gh-contact-head .gh-body-lg { margin: var(--space-2) 0 0; max-width: 680px; color: rgba(255, 255, 255, .88); }
-.gh-contact-section { padding-top: 0; }
-.gh-contact-section .gh-contact { margin-top: -64px; position: relative; z-index: 2; }
-@media (max-width: 768px) { .gh-contact-head { padding: var(--space-8) 0 calc(var(--space-8) + 32px); } .gh-contact-section .gh-contact { margin-top: -48px; } }
-.gh-contact-head::before { content: ""; position: absolute; inset: 0; background: var(--veil); z-index: 1; }
-.gh-contact-head > .gh-container { z-index: 2; }
+/* Contact: same compact head as the Services page */
+.gh-compact-head .gh-page-head { padding: var(--space-4) 0 var(--space-4); }
+.gh-compact-head .gh-page-head .gh-container { padding-bottom: var(--space-2); }
+.gh-compact-head .gh-page-head .gh-body-lg { margin-top: var(--space-2); }
+.gh-contact-section { padding-top: var(--space-6); }
