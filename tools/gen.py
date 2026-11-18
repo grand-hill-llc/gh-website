@@ -692,8 +692,8 @@ about_body = f'''<main id="main" class="gh-about">
 <section class="gh-section" aria-labelledby="team-h"><div class="gh-container">
   <div class="gh-section-head">{title_block('users','Leadership','The people behind Grand Hill.','team-h')}</div>
   <div class="gh-cards-2">
-    <article class="gh-person"><span class="gh-mono" aria-hidden="true">JC</span><h3>Julio Adiel Canelo</h3><p class="gh-label">Co-Founder · Commercial Director</p><p>Brings projects and client relationships. Leads safety and supervises work in the field.</p></article>
-    <article class="gh-person"><span class="gh-mono" aria-hidden="true">AG</span><h3>Adrian Gerig</h3><p class="gh-label">Co-Founder · Operations Director</p><p>Leads administration, project management and client communication.</p></article>
+    <article class="gh-person"><span class="gh-mono" aria-hidden="true">JC</span><h3>Julio Adiel Canelo</h3><p class="gh-label">Co-Founder · Operations Director</p><p>Brings projects and client relationships. Leads safety and supervises work in the field.</p></article>
+    <article class="gh-person"><span class="gh-mono" aria-hidden="true">AG</span><h3>Adrian Gerig</h3><p class="gh-label">Co-Founder · Commercial Director</p><p>Leads administration, project management and client communication.</p></article>
     <article class="gh-person"><span class="gh-mono" aria-hidden="true">SD</span><h3>Servia Dietsch</h3><p class="gh-label">Director of Project Delivery</p><p>Architectural background and hands-on experience running large construction projects. Oversees plans, specifications and quality.</p></article>
     <article class="gh-person"><span class="gh-mono" aria-hidden="true">ST</span><h3>Susana Tomasicchio</h3><p class="gh-label">Director of Finance</p><p>Leads finance, budgeting and cost control across every project.</p></article>
   </div>
