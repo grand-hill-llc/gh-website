@@ -640,7 +640,8 @@ about_body = f'''<main id="main" class="gh-about">
     <figure class="gh-how-photo"><img src="/assets/img/projects/residential-04.webp" alt="Open living room with vaulted ceiling, skylights and freshly painted walls" width="800" height="600" loading="lazy" decoding="async"></figure>
     <div class="gh-prose">{title_block('clipboard','How we work','From walkthrough to handoff.','how-h')}
     <p class="gh-body-lg">Every project is planned, directed and inspected by Grand Hill, from the first walkthrough to the final handoff. We answer for the result.</p>
-    <p>You have one point of contact throughout. Scope, finishes and schedule are confirmed in writing before work begins.</p></div>
+    <p>You have one point of contact throughout. Scope, finishes and schedule are confirmed in writing before work begins.</p>
+    <p><a class="gh-link" href="/contact/">Request a quote {ARROW}</a></p></div>
   </div>
   <ol class="gh-steps">
     <li><h3>{ico('ruler','gh-ico gh-ico-inline')}Scope</h3><p>We walk the site, confirm surfaces, substrates and finish specifications, and note access constraints.</p></li>
