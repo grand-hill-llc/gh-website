@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 560" preserveAspectRatio="xMidYMid slice">
+<defs>
+<pattern id="g" width="40" height="40" patternUnits="userSpaceOnUse"><path d="M40 0H0V40" fill="none" stroke="#fff" stroke-opacity=".045" stroke-width="1"/></pattern>
+<radialGradient id="glow" cx="75%" cy="45%" r="60%"><stop offset="0" stop-color="#3a414c" stop-opacity=".55"/><stop offset="1" stop-color="#1c2026" stop-opacity="0"/></radialGradient>
+</defs>
+<rect width="1600" height="560" fill="#1c2026"/>
+<rect width="1600" height="560" fill="url(#glow)"/>
+<rect width="1600" height="560" fill="url(#g)"/>
+<g fill="none" stroke="#fff" stroke-opacity=".07" stroke-width="1.5"><circle cx="170" cy="470" r="210"/><circle cx="170" cy="470" r="140"/><circle cx="170" cy="470" r="70"/><path d="M170 470L330 330"/></g>
+<g fill="none" stroke="#fff" stroke-opacity=".24" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round">
+<path d="M560 480H1600"/>
+<path d="M990 480V240H1510V480"/><path d="M970 240H1530"/><path d="M990 262H1510"/>
+<rect x="1010" y="262" width="52" height="70"/><rect x="1086" y="262" width="52" height="70"/><rect x="1162" y="262" width="52" height="70"/><rect x="1238" y="262" width="52" height="70"/><rect x="1314" y="262" width="52" height="70"/><rect x="1390" y="262" width="52" height="70"/><rect x="1010" y="370" width="52" height="70"/><rect x="1086" y="370" width="52" height="70"/><rect x="1162" y="370" width="52" height="70"/><rect x="1238" y="370" width="52" height="70"/><rect x="1314" y="370" width="52" height="70"/><rect x="1390" y="370" width="52" height="70"/>
+<path d="M1230 480V420a28 28 0 0 1 56 0V480" />
+<path d="M700 480V340H980V480"/><path d="M690 340H990"/>
+<rect x="722" y="360" width="40" height="60"/><rect x="784" y="360" width="40" height="60"/><rect x="846" y="360" width="40" height="60"/><rect x="908" y="360" width="40" height="60"/>
+<path d="M640 480V400H700"/>
+</g>
+<g fill="none" stroke="#fff" stroke-opacity=".38" stroke-width="1.4"><path d="M990 196H1510"/><path d="M990 188V204M1510 188V204"/><path d="M1540 240V480"/><path d="M1532 240H1548M1532 480H1548"/></g>
+<g fill="#c40d3c"><path d="M1250 196l8-8 8 8-8 8z"/><rect x="1536" y="352" width="8" height="8" transform="rotate(45 1540 356)"/></g>
+<path d="M560 480H760" stroke="#c40d3c" stroke-width="3"/>
+</svg>

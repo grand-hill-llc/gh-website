@@ -15,6 +15,25 @@ OG = "/assets/img/og-image.png"
 
 ARROW = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h16M14 6l6 6-6 6"/></svg>'
 ARROW_UR = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17L17 7M8 7h9v9"/></svg>'
+_ICONS = {
+    "compass": '<circle cx="12" cy="12" r="9"/><path d="M15.5 8.5l-2 5-5 2 2-5z"/>',
+    "clipboard": '<rect x="6" y="4" width="12" height="17" rx="1"/><path d="M9 4h6v3H9zM9 14l2 2 4-4"/>',
+    "users": '<circle cx="9" cy="8" r="3"/><path d="M3 20c0-3.3 2.7-6 6-6s6 2.7 6 6"/><circle cx="17" cy="9" r="2.5"/><path d="M17 14c2.5 0 4.5 2 4.5 4.5"/>',
+    "pin": '<path d="M12 21s7-6.2 7-11a7 7 0 10-14 0c0 4.8 7 11 7 11z"/><circle cx="12" cy="10" r="2.5"/>',
+    "building": '<path d="M4 20V9l8-5 8 5v11z"/><path d="M9 20v-6h6v6"/>',
+    "gear": '<circle cx="12" cy="12" r="3"/><path d="M12 3v3M12 18v3M3 12h3M18 12h3M5.6 5.6l2.1 2.1M16.3 16.3l2.1 2.1M18.4 5.6l-2.1 2.1M7.7 16.3l-2.1 2.1"/>',
+    "chart": '<path d="M4 20h16M7 20v-7M12 20V6M17 20v-10"/>',
+    "flow": '<circle cx="6" cy="6" r="2.5"/><circle cx="18" cy="18" r="2.5"/><path d="M8.5 6H14a3 3 0 013 3v6.5"/>',
+    "ruler": '<path d="M4 16L16 4l4 4L8 20z"/><path d="M7 13l2 2M10 10l2 2M13 7l2 2"/>',
+    "doc": '<path d="M7 3h7l4 4v14H7z"/><path d="M14 3v4h4M9.5 12h5M9.5 16h5"/>',
+    "roller": '<rect x="4" y="3" width="14" height="6" rx="1"/><path d="M18 6h2v5H11v3"/><rect x="9" y="14" width="4" height="7" rx="1"/>',
+    "search": '<circle cx="11" cy="11" r="6"/><path d="M20 20l-4.5-4.5"/>',
+}
+def ico(name, cls="gh-ico"):
+    return f'<span class="{cls}" aria-hidden="true"><svg viewBox="0 0 24 24">{_ICONS[name]}</svg></span>'
+def title_block(icon, eyebrow, h2, hid, extra_cls=""):
+    return f'<div class="gh-title-ico{extra_cls}">{ico(icon)}<div><p class="gh-eyebrow">{eyebrow}</p><h2 class="gh-h2" id="{hid}">{h2}</h2></div></div>'
+
 CHECK = '<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M8 12.5l3 3 5-6"/></svg>'
 
 SLOT = ('<div class="gh-photo-slot" aria-hidden="true"><svg viewBox="0 0 400 300" preserveAspectRatio="xMidYMid slice">'
@@ -598,49 +617,49 @@ if SHOW_PROJECTS:
     page("/projects/sample-project/", "Project name | Grand Hill", "Project detail template.", project_detail, current="/projects/", noindex=True)
 
 # ---------------------------------------------------------------- ABOUT
-about_body = f'''<main id="main" class="gh-compact-head">
-{page_head("About", "A finishing company built on one standard.", "Direct, accountable and careful with every surface.")}
+about_body = f'''<main id="main" class="gh-about">
+<section class="gh-band gh-inverse gh-on-image" style="--band-img:url(/assets/img/about-bg.svg)"><div class="gh-container"><p class="gh-eyebrow">About</p><h1 class="gh-h1">A finishing company built on one standard.</h1><p class="gh-body-lg">Direct, accountable and careful with every surface.</p></div></section>
 <section class="gh-section gh-story" aria-labelledby="story-h"><div class="gh-container">
   <div class="gh-two-col">
-    <div><p class="gh-eyebrow">Our story</p><h2 class="gh-h2" id="story-h" style="margin-top:16px">Four disciplines. One team.</h2></div>
+    <div>{title_block('compass','Our story','Four disciplines. One team.','story-h')}</div>
     <div class="gh-prose">
       <p class="gh-body-lg">Grand Hill brings architecture, engineering, finance and operations into one team, so every project is planned, priced and delivered with the same care.</p>
       <p>We came together in Orlando around one commitment: executing high-quality projects. Each of us owns a part of the work, and together we answer for the result.</p>
     </div>
   </div>
   <ul class="gh-disc" aria-label="What each discipline brings">
-    <li><h3>Architecture</h3><p>Experience leading large-scale projects, from design intent to completion.</p></li>
-    <li><h3>Engineering</h3><p>An eye for how a building is built and how finishes perform on it.</p></li>
-    <li><h3>Finance</h3><p>Clear estimates and honest numbers, with no surprises.</p></li>
-    <li><h3>Operations</h3><p>Systems and communication that keep you informed from walkthrough to handoff.</p></li>
+    <li>{ico('building','gh-ico gh-ico-line')}<h3>Architecture</h3><p>Experience leading large-scale projects, from design intent to completion.</p></li>
+    <li>{ico('gear','gh-ico gh-ico-line')}<h3>Engineering</h3><p>An eye for how a building is built and how finishes perform on it.</p></li>
+    <li>{ico('chart','gh-ico gh-ico-line')}<h3>Finance</h3><p>Clear estimates and honest numbers, with no surprises.</p></li>
+    <li>{ico('flow','gh-ico gh-ico-line')}<h3>Operations</h3><p>Systems and communication that keep you informed from walkthrough to handoff.</p></li>
   </ul>
 </div></section>
 
 <section class="gh-section gh-section-alt" aria-labelledby="how-h"><div class="gh-container">
   <div class="gh-two-col gh-how">
     <figure class="gh-how-photo"><img src="/assets/img/projects/commercial-02.webp" alt="Side of a one-story commercial building with palms and large windows" width="680" height="510" loading="lazy" decoding="async"></figure>
-    <div class="gh-prose"><p class="gh-eyebrow">How we work</p><h2 class="gh-h2" id="how-h" style="margin-top:16px">From walkthrough to handoff.</h2>
+    <div class="gh-prose">{title_block('clipboard','How we work','From walkthrough to handoff.','how-h')}
     <p class="gh-body-lg">Work is carried out by prequalified specialty crews that carry their own insurance, under Grand Hill's direction and inspection. We answer for the result.</p></div>
   </div>
   <ol class="gh-steps">
-    <li><h3>Scope</h3><p>We walk the site, confirm surfaces, substrates and finish specifications, and note access constraints.</p></li>
-    <li><h3>Estimate</h3><p>A clear written estimate with scope, exclusions and schedule. No surprises in the numbers.</p></li>
-    <li><h3>Execute</h3><p>A prequalified crew works to a schedule built around the building and its occupants.</p></li>
-    <li><h3>Inspect</h3><p>We inspect against the specification, correct anything that falls short and hand off.</p></li>
+    <li><h3>{ico('ruler','gh-ico gh-ico-inline')}Scope</h3><p>We walk the site, confirm surfaces, substrates and finish specifications, and note access constraints.</p></li>
+    <li><h3>{ico('doc','gh-ico gh-ico-inline')}Estimate</h3><p>A clear written estimate with scope, exclusions and schedule. No surprises in the numbers.</p></li>
+    <li><h3>{ico('roller','gh-ico gh-ico-inline')}Execute</h3><p>A prequalified crew works to a schedule built around the building and its occupants.</p></li>
+    <li><h3>{ico('search','gh-ico gh-ico-inline')}Inspect</h3><p>We inspect against the specification, correct anything that falls short and hand off.</p></li>
   </ol>
 </div></section>
 
 <section class="gh-section" aria-labelledby="team-h"><div class="gh-container">
-  <div class="gh-section-head"><p class="gh-eyebrow">Leadership</p><h2 class="gh-h2" id="team-h">The people behind Grand Hill.</h2></div>
+  <div class="gh-section-head">{title_block('users','Leadership','The people behind Grand Hill.','team-h')}</div>
   <div class="gh-cards-2">
-    <article class="gh-person"><h3>Julio Adiel Canelo</h3><p class="gh-label">Commercial Member</p><p>Brings projects and client relationships. Leads safety and supervises work in the field.</p></article>
-    <article class="gh-person"><h3>Adrian Gerig</h3><p class="gh-label">Administrative Member</p><p>Leads administration, project management and client communication.</p></article>
+    <article class="gh-person"><span class="gh-mono" aria-hidden="true">JC</span><h3>Julio Adiel Canelo</h3><p class="gh-label">Commercial Member</p><p>Brings projects and client relationships. Leads safety and supervises work in the field.</p></article>
+    <article class="gh-person"><span class="gh-mono" aria-hidden="true">AG</span><h3>Adrian Gerig</h3><p class="gh-label">Administrative Member</p><p>Leads administration, project management and client communication.</p></article>
   </div>
 </div></section>
 
 <section class="gh-section gh-section-alt" aria-labelledby="area-h"><div class="gh-container"><div class="gh-two-col gh-area">
   <div class="gh-prose">
-    <p class="gh-eyebrow">Service area</p><h2 class="gh-h2" id="area-h" style="margin-top:16px">All of Florida.</h2>
+    {title_block('pin','Service area','All of Florida.','area-h')}
     <p class="gh-body-lg">We are based in Central Florida and take on commercial and residential projects across the state.</p>
     <ul class="gh-regions" aria-label="Regions we serve"><li class="is-base">Central Florida <span>our base</span></li><li>North Florida</li><li>Panhandle</li><li>Tampa Bay</li><li>Southwest Florida</li><li>South Florida</li></ul>
     <p>Not sure whether your project is in range? <a href="/contact/" style="color:var(--ink);text-underline-offset:4px;text-decoration-color:var(--accent);text-decoration-thickness:2px">Ask us.</a></p>

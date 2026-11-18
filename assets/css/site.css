@@ -450,10 +450,37 @@ html { scroll-padding-top: var(--gh-header-h); }
 .gh-how .gh-prose h2 + p { margin-top: var(--space-3); }
 
 /* About: story and disciplines */
-.gh-story { padding-top: var(--space-6); }
+
 .gh-disc { list-style: none; margin: var(--space-8) 0 0; padding: 0; display: grid; grid-template-columns: repeat(4, 1fr); gap: var(--space-4); }
 .gh-disc li { border-top: var(--stroke-rule) solid var(--ink); padding-top: var(--space-3); }
 .gh-disc h3 { margin: 0 0 var(--space-1); font-family: var(--font-display); font-size: 24px; font-weight: 400; letter-spacing: -0.02em; }
 .gh-disc p { margin: 0; color: var(--ink-muted); font-size: 15px; line-height: 1.55; }
 @media (max-width: 900px) { .gh-disc { grid-template-columns: 1fr 1fr; margin-top: var(--space-6); } }
 @media (max-width: 560px) { .gh-disc { grid-template-columns: 1fr; } }
+
+/* Dark band hero with generated background */
+.gh-band { position: relative; overflow: hidden; padding: var(--space-12, 96px) 0 var(--space-12, 96px); background: var(--surface-inverse) var(--band-img) center / cover no-repeat; }
+.gh-band::before { content: ""; position: absolute; inset: 0; background: linear-gradient(90deg, rgba(28, 32, 38, .92) 0%, rgba(28, 32, 38, .55) 55%, rgba(28, 32, 38, .1) 100%); }
+.gh-band > .gh-container { position: relative; }
+.gh-band .gh-h1 { margin-top: var(--space-2); max-width: 760px; color: var(--ink-inverse); font-size: clamp(36px, 4.6vw, 60px); }
+.gh-band .gh-body-lg { margin: var(--space-3) 0 0; max-width: 560px; color: rgba(255, 255, 255, .88); }
+@media (max-width: 768px) { .gh-band { padding: var(--space-8) 0; } .gh-band::before { background: rgba(28, 32, 38, .78); } }
+
+/* Titles with icons */
+.gh-title-ico { display: flex; gap: var(--space-3); align-items: flex-start; }
+.gh-title-ico .gh-h2 { margin-top: var(--space-1); }
+.gh-ico { display: inline-grid; place-items: center; flex: none; width: 48px; height: 48px; background: var(--accent); color: var(--on-accent); }
+.gh-ico svg { width: 24px; height: 24px; fill: none; stroke: currentColor; stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; }
+.gh-ico-line { background: none; color: var(--accent-text); width: 32px; height: 32px; margin-bottom: var(--space-2); justify-content: start; place-items: start; }
+.gh-ico-line svg { width: 30px; height: 30px; stroke-width: 1.5; }
+.gh-ico-inline { display: inline-grid; width: 28px; height: 28px; margin-right: 10px; vertical-align: -6px; background: none; color: var(--accent-text); }
+.gh-ico-inline svg { width: 26px; height: 26px; stroke-width: 1.5; }
+.gh-how .gh-prose .gh-title-ico { margin-bottom: var(--space-3); }
+.gh-how .gh-prose .gh-title-ico + p { margin-top: 0; }
+
+/* About: section rhythm and separation */
+.gh-about .gh-section { padding: var(--space-12, 96px) 0; }
+.gh-about .gh-section-alt { border-top: var(--stroke-hairline) solid var(--line); border-bottom: var(--stroke-hairline) solid var(--line); }
+.gh-about .gh-person { padding-top: var(--space-4); }
+.gh-mono { display: inline-grid; place-items: center; width: 56px; height: 56px; margin-bottom: var(--space-3); background: var(--surface-inverse); color: var(--ink-inverse); font-family: var(--font-display); font-size: 20px; letter-spacing: .04em; border-bottom: 3px solid var(--accent); }
+@media (max-width: 768px) { .gh-about .gh-section { padding: var(--space-8) 0; } }
