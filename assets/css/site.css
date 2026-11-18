@@ -484,3 +484,6 @@ html { scroll-padding-top: var(--gh-header-h); }
 .gh-about .gh-person { padding-top: var(--space-4); }
 .gh-mono { display: inline-grid; place-items: center; width: 56px; height: 56px; margin-bottom: var(--space-3); background: var(--surface-inverse); color: var(--ink-inverse); font-family: var(--font-display); font-size: 20px; letter-spacing: .04em; border-bottom: 3px solid var(--accent); }
 @media (max-width: 768px) { .gh-about .gh-section { padding: var(--space-8) 0; } }
+
+.gh-title-plain .gh-h2 { margin-top: var(--space-2); }
+.gh-how .gh-prose .gh-title-plain { margin-bottom: var(--space-3); }

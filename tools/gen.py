@@ -32,7 +32,7 @@ _ICONS = {
 def ico(name, cls="gh-ico"):
     return f'<span class="{cls}" aria-hidden="true"><svg viewBox="0 0 24 24">{_ICONS[name]}</svg></span>'
 def title_block(icon, eyebrow, h2, hid, extra_cls=""):
-    return f'<div class="gh-title-ico{extra_cls}">{ico(icon)}<div><p class="gh-eyebrow">{eyebrow}</p><h2 class="gh-h2" id="{hid}">{h2}</h2></div></div>'
+    return f'<div class="gh-title-plain{extra_cls}"><p class="gh-eyebrow">{eyebrow}</p><h2 class="gh-h2" id="{hid}">{h2}</h2></div>'
 
 CHECK = '<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M8 12.5l3 3 5-6"/></svg>'
 
